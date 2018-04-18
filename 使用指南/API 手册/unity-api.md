@@ -32,7 +32,7 @@
 ## uninit
 
 ```
-  public int uninit()
+  public int uninit();
 ```
 
 #### 说明
