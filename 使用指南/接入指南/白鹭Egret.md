@@ -380,7 +380,7 @@ appKey&param1=value1&param2=value2&param3=value3&token
 
 - `token`通过用户注册请求获取
 
-##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。
+##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值
 
 
 
