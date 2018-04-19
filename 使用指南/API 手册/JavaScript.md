@@ -158,7 +158,7 @@ response.loginResponse(loginRsp)
 
 | 属性     | 类型     | 描述                | 示例值    |
 | ------ | ------ | ----------------- | ------ |
-| status | number | 状态返回，200表示成功，其他失败 | 200    |
+| status | number | 状态返回<br>200 成功<br>402 应用校验失败，确认是否在未上线时用了release环境，并检查gameId、appkey 和 secret<br>403 检测到该账号已在其他设备登录<br>404 无效用户 | 200  |
 | roomId | number | 房间号               | 210039 |
 
 #### 说明
