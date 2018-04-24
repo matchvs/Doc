@@ -10,20 +10,20 @@
 /**
  * 创建房间
  * @param {Object} request 
- * @param {number} request.gameid 游戏ID
- * @param {string} request.roomid 房间ID
- * @param {number} request.userid 用户ID
- * @param {Object} request.createextinfo 房间创建扩展信息
- * @param {Number} request.createextinfo.userid 创建者ID
- * @param {Uint8Array} request.createextinfo.userprofile 创建者profile
- * @param {string} request.createextinfo.roomid 房间ID
- * @param {number} request.createextinfo.state 房间状态：1开放、2关闭
- * @param {number} request.createextinfo.maxplayer 最大人数
- * @param {number} request.createextinfo.mode 游戏模式
- * @param {number} request.createextinfo.canwatch 是否可观战
- * @param {Uint8Array} request.createextinfo.roomproperty 房间属性
- * @param {number} request.createextinfo.createflag 房间创建途径：1系统创建房间、2玩家创建房间
- * @param {string} request.createextinfo.createtime 创建时间
+ * @param {number} request.gameID 游戏ID
+ * @param {string} request.roomID 房间ID
+ * @param {number} request.userID 用户ID
+ * @param {Object} request.createExtInfo 房间创建扩展信息
+ * @param {Number} request.createExtInfo.userID 创建者ID
+ * @param {Uint8Array} request.createExtInfo.userProfile 创建者profile
+ * @param {string} request.createExtInfo.roomID 房间ID
+ * @param {number} request.createExtInfo.state 房间状态：1开放、2关闭
+ * @param {number} request.createExtInfo.maxPlayer 最大人数
+ * @param {number} request.createExtInfo.mode 游戏模式
+ * @param {number} request.createExtInfo.canWatch 是否可观战
+ * @param {Uint8Array} request.createExtInfo.roomProperty 房间属性
+ * @param {number} request.createExtInfo.createFlag 房间创建途径：1系统创建房间、2玩家创建房间
+ * @param {string} request.createExtInfo.createTime 创建时间
  * @memberof App
  */
 onCreateRoom(request)
@@ -37,8 +37,8 @@ onCreateRoom(request)
 /**
 * 删除房间
 * @param {Object} request
-* @param {number} request.gameid 游戏ID 
-* @param {string} request.roomid 房间ID
+* @param {number} request.gameID 游戏ID 
+* @param {string} request.roomID 房间ID
 * @memberof App
 */
 onDeleteRoom(request)
@@ -52,14 +52,14 @@ onDeleteRoom(request)
 /**
  * 玩家加入房间
  * @param {Object} request 
- * @param {number} request.gameid 游戏ID
- * @param {string} request.roomid 房间ID
- * @param {number} request.userid 用户ID
- * @param {Object} request.joinextinfo 房间加入扩展信息
- * @param {number} request.joinextinfo.userid 加入房间的玩家ID
- * @param {Uint8Array} request.joinextinfo.userprofile 加入房间的玩家profile
- * @param {string} request.joinextinfo.roomid 要加入的房间ID
- * @param {number} request.joinextinfo.jointype 加入类型：1指定roomID、2属性匹配、3随机匹配、4重新加入、5创建房间并随后自动加入房间
+ * @param {number} request.gameID 游戏ID
+ * @param {string} request.roomID 房间ID
+ * @param {number} request.userID 用户ID
+ * @param {Object} request.joinExtInfo 房间加入扩展信息
+ * @param {number} request.joinExtInfo.userID 加入房间的玩家ID
+ * @param {Uint8Array} request.joinExtInfo.userProfile 加入房间的玩家profile
+ * @param {string} request.joinExtInfo.roomID 要加入的房间ID
+ * @param {number} request.joinExtInfo.joinType 加入类型：1指定roomID、2属性匹配、3随机匹配、4重新加入、5创建房间并随后自动加入房间
  * @memberof App
  */
 onJoinRoom(request)
@@ -73,9 +73,9 @@ onJoinRoom(request)
 /**
 * 房间停止加人
 * @param {Object} request 
-* @param {number} request.gameid 游戏ID 
-* @param {string} request.roomid 房间ID
-* @param {number} request.userid 用户ID
+* @param {number} request.gameID 游戏ID 
+* @param {string} request.roomID 房间ID
+* @param {number} request.userID 用户ID
 * @memberof App
 */
 onJoinOver(request)
@@ -85,8 +85,8 @@ Matchvs提供了在gameServer里主动发起JoinOver的接口。调用该接口�
 /**
 * 推送joinOver
 * @param {Object} msg joinOver消息结构
-* @param {number} msg.gameid 游戏ID 
-* @param {string} msg.roomid 房间ID
+* @param {number} msg.gameID 游戏ID 
+* @param {string} msg.roomID 房间ID
 * @memberof Push
 */
 joinOver(msg)
@@ -99,11 +99,11 @@ joinOver(msg)
 /**
 * 自定义消息
 * @param {Object} request 
-* @param {number} request.userid 用户ID
-* @param {number} request.gameid 游戏ID 
-* @param {string} request.roomid 房间ID
-* @param {Array.<number>} request.dstuidsList 目标玩家列表
-* @param {Uint8Array} request.cpproto 自定义消息内容
+* @param {number} request.userID 用户ID
+* @param {number} request.gameID 游戏ID 
+* @param {string} request.roomID 房间ID
+* @param {number[]} request.destsList 目标玩家列表
+* @param {Uint8Array} request.cpProto 自定义消息内容
 * @memberof App
 */
 onReceiveEvent(request)
@@ -117,11 +117,11 @@ onReceiveEvent(request)
 /**
 * 推送自定义消息
 * @param {Object} msg 自定义消息结构
-* @param {number} msg.gameid 游戏ID
-* @param {string} msg.roomid 房间ID 
-* @param {number} msg.pushType 推送类型，配合destUids使用
+* @param {number} msg.gameID 游戏ID
+* @param {string} msg.roomID 房间ID 
+* @param {number} msg.pushType 推送类型，配合destsList使用
 *      1：推送给列表中的指定用户，2：推送给除列表中指定用户外的其他用户，3：推送给房间内的所有用户
-* @param {Array.<number>} msg.destUids userID列表
+* @param {number[]} msg.destsList userID列表
 * @param {string|Uint8Array} msg.content 消息内容
 * @memberof Push
 */
@@ -136,15 +136,15 @@ pushEvent(msg)
 /**
 * 玩家离开房间
 * @param {Object} request 
-* @param {number} request.gameid 游戏ID 
-* @param {string} request.roomid 房间ID
-* @param {number} request.userid 用户ID
+* @param {number} request.gameID 游戏ID 
+* @param {string} request.roomID 房间ID
+* @param {number} request.userID 用户ID
 * @memberof App
 */
 onLeaveRoom(request)
 ```
 
-## 剔除房间成员
+## 踢除房间成员
 
 当客户端调用踢人时，gameServer会触发`onKickPlayer()`，开发者可以将"收到客户端踢人时的相关逻辑"写到该方法里。
 
@@ -152,9 +152,9 @@ onLeaveRoom(request)
 /**
 * 踢人
 * @param {Object} request 
-* @param {number} request.gameid 游戏ID
-* @param {string} request.roomid 房间ID
-* @param {number} request.userid 用户ID
+* @param {number} request.gameID 游戏ID
+* @param {string} request.roomID 房间ID
+* @param {number} request.userID 用户ID
 * @memberof App
 */
 onKickPlayer(request)
@@ -166,8 +166,8 @@ Matchvs提供了在gameServer里主动踢除房间成员的接口。当发现有
 /**
 * 推送kickPlayer
 * @param {Object} msg kickPlayer消息结构
-* @param {string} msg.roomid 房间ID
-* @param {number} msg.destid 被踢者
+* @param {string} msg.roomID 房间ID
+* @param {number} msg.destID 被踢者
 * @memberof Push
 */
 kickPlayer(msg)
@@ -181,9 +181,9 @@ kickPlayer(msg)
 /**
 * 同步玩家状态
 * @param {Object} request 
-* @param {number} request.gameid 游戏ID 
-* @param {string} request.roomid 房间ID
-* @param {number} request.userid 用户ID
+* @param {number} request.gameID 游戏ID 
+* @param {string} request.roomID 房间ID
+* @param {number} request.userID 用户ID
 * @param {number} request.state 1.网络异常、正在重连 2.重连成功 3.重连失败，退出房间
 * @memberof App
 */
@@ -192,27 +192,39 @@ onUserState(request)
 
 ## 房间详情
 
+Matchvs提供了在gameServer里查询房间详情的接口，查询结果在`onRoomDetail`中返回。
+
+```javascript
+/**
+* 查询房间详情
+* @param {Object} msg getRoomDetail消息结构
+* @param {string} msg.roomID 房间ID
+* @param {number} msg.gameID 游戏ID 
+* @memberof Push
+*/
+getRoomDetail(msg)
+```
+
 ```javascript
 /**
  * 房间详情信息
  * @param {Object} request
- * @param {number} request.gameid 游戏ID
- * @param {string} request.roomid 房间ID
- * @param {number} request.userid 用户ID
- * @param {Object} request.roomdetail 房间详情
- * @param {string} request.roomdetail.roomid 房间ID 
- * @param {number} request.roomdetail.state 房间状态：1开放、2关闭
- * @param {number} request.roomdetail.maxplayer 房间最大人数
- * @param {number} request.roomdetail.mode 模式
- * @param {number} request.roomdetail.canwatch 是否可观战
- * @param {Uint8Array} request.roomdetail.roomproperty 房间属性
- * @param {number} request.roomdetail.owner 房主
- * @param {number} request.roomdetail.createflag 房间创建途径：1系统创建房间、2玩家创建房间
- * @param {Object[]} request.roomdetail.playerinfosList 房间用户列表
- * @param {number} request.roomdetail.playerinfosList[].userid 用户ID
- * @param {Uint8Array} request.roomdetail.playerinfosList[].userprofile 用户profile
+ * @param {number} request.gameID 游戏ID
+ * @param {string} request.roomID 房间ID
+ * @param {number} request.userID 用户ID
+ * @param {Object} request.roomDetail 房间详情
+ * @param {string} request.roomDetail.roomID 房间ID 
+ * @param {number} request.roomDetail.state 房间状态：1开放、2关闭
+ * @param {number} request.roomDetail.maxPlayer 房间最大人数
+ * @param {number} request.roomDetail.mode 模式
+ * @param {number} request.roomDetail.canWatch 是否可观战
+ * @param {Uint8Array} request.roomDetail.roomProperty 房间属性
+ * @param {number} request.roomDetail.owner 房主
+ * @param {number} request.roomDetail.createFlag 房间创建途径：1系统创建房间、2玩家创建房间
+ * @param {Object[]} request.roomDetail.playersList 房间用户列表
+ * @param {number} request.roomDetail.playersList[].userID 用户ID
+ * @param {Uint8Array} request.roomDetail.playersList[].userProfile 用户profile
  * @memberof App
  */
 onRoomDetail(request)
 ```
-
