@@ -65,4 +65,4 @@ engine.login(3513,"ETOHLWXYJZMMNQUDQDPBAHMYKBQSLLCW",201016,1,"*****************
 
 申请通过后，在客户端的初始化接口将 platform 置为 release。  
 
-至此，游戏就可以运行在正式环境下啦！
+至此，游戏就可以运行在正式环境下啦！ 
