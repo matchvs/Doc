@@ -105,4 +105,6 @@ Git作为版本控制工具，方便多人协作
 查看Tag：`git tag`  
 删除Tag：`git tag -d version`    
 
+change
+
 ![image](http://imgs.matchvs.com/static/gitTag1.png)   
