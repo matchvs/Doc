@@ -115,9 +115,12 @@ Matchvs提供了获取房间列表的功能，该列表为用户主动创建（�
 你可以定义获取房间的类型和序列，比如获取 “未满且未关闭的所有房间，按照当前人数降序排列”。
 你也可以通过房间属性过滤获取房间列表。比如只想获取地图为A的所有房间列表，可以将包含地图A的完整房间属性作为过滤条件来获取列表。
 
-参数说明:
 
-| 参数        | 含义                |
+```javascript
+mvs.engine.getRoomListEx(RoomFilterEx);
+```
+参数说明:
+| 参数        | 含义             |
 | ----------- | ----------------- |
 | maxPlayer   | 最大人数    |
 | mode | 模式 |
@@ -126,9 +129,15 @@ Matchvs提供了获取房间列表的功能，该列表为用户主动创建（�
 | pageNo | 房间列表页数 |
 |pageSize |房间列表每页展示的数目|
 
+
+查看房间列表扩展接口的回调：
 ```javascript
-mvs.engine.getRoomListEx(RoomFilterEx);
+getRoomListExResponse: function(roomListExInfo) {
+    console.log("获取到的房间数目：", roomListExInfo.total);
+    console.log("获取到的房间信息：", roomListExInfo.roomAttr);
+}
 ```
+
 ## 获取房间详情
 
 Matchvs 提供了获取房间详情的接口，你可以在加入房间之后随时获取房间当前的各种状态：房间成员列表、成员简介、房间状态等。
@@ -137,16 +146,28 @@ Matchvs 提供了获取房间详情的接口，你可以在加入房间之后随
 
 房间状态指的是该房间有没有被`JoinOver` ，如果房间内调用过`JoinOver()` ，则房间状态为关闭；否则房间为开放状态（即使此时房间已满）。
 
-参数说明:
-
-| 参数        | 含义                |
-| ----------- | ----------------- |
-| GLB.roomId   | 房间ID  |
 
 
 ```javascript
 var result = mvs.engine.getRoomDetail(GLB.roomId);
 ```
+
+参数说明:
+
+| 参数        | 含义                |
+| ----------- | ----------------- |
+| GLB.roomId  | 房间ID  |
+
+
+获取房间详情接口的回调：
+```javascript
+getRoomDetailResponse : function (roomDetailRsp) {
+    console.log("获取到的房间属性：", roomDetailRsp.roomProperty);
+    console.log("获取到的房间内玩家信息：", roomDetailRsp.userInfos);
+}
+```
+
+
 
 ## 修改房间属性
 
@@ -160,13 +181,21 @@ var result = mvs.engine.getRoomDetail(GLB.roomId);
 
 参数说明:
 
+
+
+```javascript
+ mvs.engine.setRoomProperty(GLB.roomId,"黑夜模式");
+```
+
 | 参数        | 含义                |
 | ----------- | ----------------- |
 | GLB.roomId  | 房间ID  |
 |roomProperty | 新修改的房间属性|
 
 ```javascript
- mvs.engine.setRoomProperty(GLB.roomId,"黑夜模式");
+setRoomPropertyResponse: function (rsp) {
+    console.log("获取到的新修改的房间属性：", rsp.roomProperty);
+}
 ```
 
 ## 加入指定房间
