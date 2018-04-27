@@ -290,5 +290,118 @@ cc.Class({
 })
 ```
 
+## 获取房间列表扩展接口
 
+Matchvs提供了获取房间列表的功能，该列表为用户主动创建（通过调用createRoom() 创建）的房间列表。
+房间列表里会提供房间的部分信息：房间最大人数、房间当前已有人数、房间状态（开放或关闭）等信息。
+房间状态指的是该房间有没有被JoinOver ，如果房间内调用过JoinOver() ，则房间状态为关闭；否则房间为开放状态（即使此时房间已满）。
+你可以定义获取房间的类型和序列，比如获取 “未满且未关闭的所有房间，按照当前人数降序排列”。
+你也可以通过房间属性过滤获取房间列表。比如只想获取地图为A的所有房间列表，可以将包含地图A的完整房间属性作为过滤条件来获取列表。
+
+```javascript
+// 文件路径：assets\scripts\roomList.js
+getRooomList () {
+    mvs.engine.getRoomListEx(RoomFilterEx);
+},
+
+getRoomListExResponse: function(roomListExInfo) {
+    refreshNum ++;
+    this.refreshNumText.string = '获取列表次数'+ refreshNum;
+    for (var i = 0; i < 3; i++) {
+        this.roomIDs[i].string = "";
+        this.stateS[i].string = "";
+        this.stateS[i].string = "";
+        this.gamePlayerS[i].string = "";
+        this.maps[i].string = "";
+        this.buttonS[i].active = false;
+    }
+    for(var i = 0; i < roomListExInfo.total; i++) {
+        this.roomIDs[i].string = roomListExInfo.roomAttrs[i].roomID;
+        this.buttonS[i].active = true;
+        var state = roomListExInfo.roomAttrs[i].state;
+        if (state == 1) {
+            this.stateS[i].string = "开放";
+        } else {
+            this.stateS[i].string = "关闭";
+        }
+        this.maps[i].string = roomListExInfo.roomAttrs[i].roomProperty;
+        this.gamePlayerS[i].string = roomListExInfo.roomAttrs[i].gamePlayer+"/"+roomListExInfo.roomAttrs[i].maxPlayer;
+    }
+},
+```
+
+## 获取房间属性
+
+Matchvs 提供了获取房间详情的接口，你可以在加入房间之后随时获取房间当前的各种状态：房间成员列表、成员简介、房间状态等。
+每次调用接口获取的是该房间的全部信息，该接口在客户端和gameServer均可以被调用。
+房间状态指的是该房间有没有被JoinOver ，如果房间内调用过JoinOver() ，则房间状态为关闭；否则房间为开放状态（即使此时房间已满）。
+
+```javascript
+// 文件路径：assets\scripts\GameRoom.js
+var result = mvs.engine.getRoomDetail(GLB.roomId);
+
+getRoomDetailResponse : function (roomDetailRsp) {
+    if (roomDetailRsp.status === 200) {
+        this.labelLog("获取房间详情成功");
+        mvs.response.joinRoomNotify = this.joinRoomNotify.bind(this);
+        mvs.response.leaveRoomNotify = this.leaveRoomNotify.bind(this);
+        this.mapString.string = roomDetailRsp.roomProperty;
+        if (roomDetailRsp.roomProperty === '白天模式') {
+            this.seleButton.getChildByName("Label").getComponent(cc.Label).string = '切换为黑夜模式';
+        } else {
+            this.seleButton.getChildByName("Label").getComponent(cc.Label).string = '切换为白天模式';
+        }
+        GLB.mapType = roomDetailRsp.roomProperty;
+        for (var i = 0; i < roomDetailRsp.userInfos.length; i++) {
+            if (roomDetailRsp.userInfos[i].userId !== GLB.userInfo.id) {
+                this.userIds.push(roomDetailRsp.userInfos[i].userId);
+            }
+            GLB.playerSet.add(Number(roomDetailRsp.userInfos[i].userId));
+        }
+        for (var i = 0; i < this.userIds.length; i++) {
+            this.labelUserIDs[i].string = this.userIds[i];
+        }
+    } else {
+        this.labelLog("获取房间详情失败");
+    }
+},
+
+```
+
+## 修改房间属性
+
+游戏中创建了房间，房间属性创建错误，如果需要退出房间重新创建，流程就会很繁琐，修改房间属性就解决了这个问题。
+
+修改房间属性代码如下:
+
+```javascript
+// 文件路径：assets\scripts\createRoom.js
+this.seleButton.on(cc.Node.EventType.TOUCH_END, function(event){
+    mvs.response.setRoomPropertyResponse = self.setRoomPropertyResponse.bind(self);
+    var mapType = self.mapString.string;
+    if (mapType === '白天模式') {
+        mvs.engine.setRoomProperty(GLB.roomId,"黑夜模式");
+    } else {
+        mvs.engine.setRoomProperty(GLB.roomId,"白天模式");
+    }
+});
+
+setRoomPropertyResponse: function (rsp) {
+    var status = rsp.status;
+    if (status !== 200) {
+        return this.labelLog('修改房间属性失败,异步回调错误码: ' + status);
+    } else {
+        if (rsp.roomProperty === '白天模式') {
+            this.mapString.string = rsp.roomProperty;
+            GLB.mapType = rsp.roomProperty;
+            this.seleButton.getChildByName("Label").getComponent(cc.Label).string = '切换黑夜模式';
+
+        } else {
+            this.mapString.string = rsp.roomProperty;
+            GLB.mapType = rsp.roomProperty;
+            this.seleButton.getChildByName("Label").getComponent(cc.Label).string = '切换为白天模式';
+        }
+    }
+},
+```
 
