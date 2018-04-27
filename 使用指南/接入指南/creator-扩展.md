@@ -192,11 +192,17 @@ getRoomDetailResponse : function (roomDetailRsp) {
 | GLB.roomId  | 房间ID  |
 |roomProperty | 新修改的房间属性|
 
+修改房间属性的回调：
 ```javascript
 setRoomPropertyResponse: function (rsp) {
     console.log("获取到的新修改的房间属性：", rsp.roomProperty);
 }
 ```
+修改房间属性的通知：
+```javascript
+setRoomPropertyNotify: function (rsp) {
+    console.log("获取到的新修改的房间属性：", rsp.roomProperty);
+}
 
 ## 加入指定房间
 
