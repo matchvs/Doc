@@ -119,7 +119,9 @@ Matchvs提供了获取房间列表的功能，该列表为用户主动创建（�
 ```javascript
 mvs.engine.getRoomListEx(RoomFilterEx);
 ```
+
 参数说明:
+
 | 参数        | 含义             |
 | ----------- | ----------------- |
 | maxPlayer   | 最大人数    |
@@ -203,7 +205,7 @@ setRoomPropertyResponse: function (rsp) {
 setRoomPropertyNotify: function (rsp) {
     console.log("获取到的新修改的房间属性：", rsp.roomProperty);
 }
-
+```
 ## 加入指定房间
 
 Matchvs提供了加入指定房间的功能，在获取到房间ID后即可以通过此接口加入该房间。

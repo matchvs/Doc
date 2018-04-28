@@ -330,7 +330,7 @@ getRoomListExResponse: function(roomListExInfo) {
 },
 ```
 
-## 获取房间属性
+## 获取房间详情
 
 Matchvs 提供了获取房间详情的接口，你可以在加入房间之后随时获取房间当前的各种状态：房间成员列表、成员简介、房间状态等。
 每次调用接口获取的是该房间的全部信息，该接口在客户端和gameServer均可以被调用。
