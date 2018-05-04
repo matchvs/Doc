@@ -404,7 +404,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 #### 说明
 
-- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为0。只有在调用engine.createRoom主动创建房间时ownerId才不为0。
+- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为服务器随机指定的房主ID。在调用engine.createRoom主动创建房间时ownerId为创建房间者（即房主）的ID。以上两种情况下，如果房主离开房间，服务器均会指定下一个房主，并通过`leaveRoomNotify`通知房间其他成员。
 - roomUserInfoList用户信息列表是本玩家加入房间前的玩家信息列表，不包含本玩家。
 - roomUserInfoList中的玩家的userProfile的值来自于其他客户端调用joinRandomRoom时传递的userProfile的值。
 
@@ -916,6 +916,7 @@ engine.sendEvent(data:string):any
 
 - 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
+- 可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
 
 ## sendEventEx
 

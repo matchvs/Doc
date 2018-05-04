@@ -513,6 +513,8 @@ int sendEvent(int priority, int type, const MsString &msg, int targetType, int t
 
 优先级是相对的，SDK收到多个消息，会优先将优先级低的消息传给上层应用。如果所有消息优先级一样，则SDK会根据接收顺序依次将消息传给上层应用。
 
+可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
+
 ### 错误码
 
 | 错误码  | 含义                            |
@@ -606,7 +608,7 @@ int32_t sendFrameEvent(const MsString &cpProto);
 ### 参数
 
 | 参数        | 类型           | 描述     | 示例值|
-| ----------- | -------------- | -------- | ----- | 
+| ----------- | -------------- | -------- | ----- |
 | cpProto 	  | const MsString | 发送帧同步的消息 | ""    |
 
 
@@ -619,7 +621,7 @@ virtual void frameUpdate(const MsFrameData &data) override;
 ### 返回值
 
 | 参数        | 类型           | 描述     | 示例值|
-| ----------- | -------------- | -------- | ----- | 
+| ----------- | -------------- | -------- | ----- |
 | frameIndex 	  | int32_t    | 帧索引   | 2   |
 | frameItems 	  | std::list<MsFrameItem> | 同步帧内的数据包数组 | ""    |
 | frameWaitCount  | int32_t |同步帧内的数据包数组数量 | ""    |
@@ -631,7 +633,7 @@ virtual void frameUpdate(const MsFrameData &data) override;
 
 | 参数          | 类型             | 描述   | 示例值  |
 | ----------- | -------------- | ---- | ---- |
-| userID      | int            | 用户ID | 321  |  
+| userID      | int            | 用户ID | 321  |
 | userProfile | const MsString | 用户简介 | ""   |
 
 ### 说明

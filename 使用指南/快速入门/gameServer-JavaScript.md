@@ -138,3 +138,11 @@ $ matchvs run start <GS_key>
 在正式环境下启动gameServer后，即可进入gameServer详情页查看资源监控和日志等信息。
 
 您可以在日志页面查看最近200行日志，或者选择下载最近n行日志。
+
+## 异常说明
+
+Q.出现如下打印是什么原因，会影响正常使用吗？
+
+![](http://imgs.matchvs.com/static/gsqa.png)
+
+A.没有关闭debug模式的情况下，再次调用debug接口会有这个打印，实际不影响使用。

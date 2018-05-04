@@ -110,3 +110,9 @@ engine.login(3513, "ETOHLWXYJZMMNQUDQDPBAHMYKBQSLLCW", 201016, 1, "*************
 2. 申请通过后，在客户端的初始化接口将 platform 置为 release。  
    至此，游戏就可以运行在正式环境下啦！
 
+
+## 异常说明
+
+Q. 直接下载的这个工程，按步骤运行，出现模拟器报错，但浏览器正常 ?
+
+A. native平台暂不能在模拟器下运行，需要用vs或其他工具打开工程完成编译。另外，目前只对android studio做插件，eclipse还不支持。
