@@ -40,7 +40,15 @@ Demo运行之前需要去 [Matchvs 官网](http://www.matchvs.com/) 配置游戏
 > ```
 > { 
 >     "name": "matchvs",
->       "path": "../matchvs"
+>     "path": "../matchvs"
+> }
+> ```
+> 注意：如果是要发布成微信小游戏应该吧 path 下面的 ../matchvs  改为 ../matchvs_wx, 如下：
+>
+> ```
+> { 
+>     "name": "matchvs",
+>     "path": "../matchvs_wx"
 > }
 > ```
 
