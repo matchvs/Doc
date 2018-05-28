@@ -25,15 +25,15 @@ Matchvs 提供了两个环境，alpha 调试环境和 release 正式环境。
 游戏开发调试阶段请使用 alpha 环境，即 platform 传参"alpha"。如下：
 
 ```javascript
-engine.init(response, "MatchVS", "alpha", 201016);
+engine.init(response, "Matchvs", "alpha", 201016);
 ```
 
 参数说明:
 
-| 参数       | 含义                              |
-| -------- | ------------------------------- |
-| response | 回调对象                            |
-| channel  | 渠道，填“MatchVS”即可                 |
+| 参数     | 含义                                          |
+| -------- | --------------------------------------------- |
+| response | 回调对象                                      |
+| channel  | 渠道，填“Matchvs”即可                         |
 | platform | 平台，调试环境填“alpha” ，正式环境填“release” |
 | gameId   | 游戏ID，来自官网控制台游戏信息                |
 
@@ -401,22 +401,8 @@ response.errorResponse = function(error) {
 ```
 **注意** Matchvs相关的异常信息可通过该接口获取
 
-| 错误消息                              | 含义         |
-| --------------------------------- | ---------- |
-| fail                              | 失败         |
-| network error or exception        | 网络异常       |
-| server closed                     | 服务器关闭      |
-| unkown message from server        | 消息无法识别     |
-| room request failed               | 房间请求失败     |
-| sdk not inited                    | sdk未初始化    |
-| not connected to server           | 无法与服务器建立连接 |
-| bad request parameters            | 请求参数错误     |
-| user not exists                   | 用户不存在      |
-| user already registed             | 用户已经注册     |
-| connect to server failed          | 连接服务器失败    |
-| matchvs not support the protocol  | 协议错误       |
-| network recv timeout              | 接收超时       |
-| network send timeout              | 发送超时       |
-| cannot find available gate server | gateway不存在 |
-| reconnect failed                  | 重连失败       |
-| heart beat timeout                | 心跳超时       |
+| 错误码 | 含义                                                         |
+| ------ | ------------------------------------------------------------ |
+| 1001    | 网络错误                     |
+| 500     | 服务器内部错误                 |
+| 其他     | 参考API文档里对应接口回调的错误码说明   |

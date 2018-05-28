@@ -826,8 +826,7 @@ appKey&param1=value1&param2=value2&param3=value3&token
 | status | 含义        |
 | ------ | --------- |
 | 200    | 成功        |
-| 500    | 网络错误      |
-| 501    | gateway错误 |
-| 502    | 房间管理错误    |
+| 500    | 服务器内部错误      |
 
- 
+
+
