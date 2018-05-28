@@ -1,6 +1,3 @@
----
-style: candy
----
 ## 新建游戏
 
 1. 使用Matchvs游戏云需要AppKey、AppSecret，与Cocos的AppID、AppSecret并不相同，需进入Matchvs官网创建游戏获取。[进入官网](http://www.matchvs.com/manage/gameContentList/)
