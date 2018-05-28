@@ -388,7 +388,6 @@ http://vsopen.matchvs.com/wc5/hashGet.do?gameID=102003&userID=21023&key=1&sign=b
     }
 
 
-
 **sign值获取方法**
 
 ##### 1. 按照如下格式拼接出字符串:
@@ -410,26 +409,14 @@ appKey&param1=value1&param2=value2&param3=value3&token
 ## 错误码
 
 ```
-int errorResponse(string error)
+response.errorResponse = function(error) {
+	console.log("错误信息：", error);
+}
 ```
-**注意：**Matchvs SDK相关的异常信息可通过该接口获取
+**注意** Matchvs相关的异常信息可通过该接口获取
 
-| 错误消息                              | 含义         |
-| --------------------------------- | ---------- |
-| fail                              | 失败         |
-| network error or exception        | 网络异常       |
-| server closed                     | 服务器关闭      |
-| unkown message from server        | 消息无法识别     |
-| room request failed               | 房间请求失败     |
-| sdk not inited                    | sdk未初始化    |
-| not connected to server           | 无法与服务器建立连接 |
-| bad request parameters            | 请求参数错误     |
-| user not exists                   | 用户不存在      |
-| user already registed             | 用户已经注册     |
-| connect to server failed          | 连接服务器失败    |
-| matchvs not support the protocol  | 协议错误       |
-| network recv timeout              | 接收超时       |
-| network send timeout              | 发送超时       |
-| cannot find available gate server | gateway不存在 |
-| reconnect failed                  | 重连失败       |
-| heart beat timeout                | 心跳超时       |
+| 错误码 | 含义                                                         |
+| ------ | ------------------------------------------------------------ |
+| 1001    | 网络错误                     |
+| 500     | 服务器内部错误                 |
+| 其他     | 参考API文档里对应接口回调的错误码说明   |
