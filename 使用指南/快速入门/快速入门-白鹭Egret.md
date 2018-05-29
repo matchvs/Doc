@@ -1,15 +1,121 @@
+# Egret中使用Matchvs SDK指引
+
+本文主要讲述如何在Egret中使用MatchvsSDK.
+
+## CHANGELOG
+
+时间：2018.05.29
+
+版本：v1.6.202
+
+```
+- 调整微信小游戏适配机制的说明,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
+- 修改本文档的结构. 着重推荐离线安装SDK的方式
+```
+
 ## Egret 开发环境搭建
+
+### 开发工具下载
 
 1. [下载Egret Engine](http://tool.egret-labs.org/EgretLauncher/EgretLauncher-1.0.49.exe)
 2. [下载Egret Wing](http://tool.egret-labs.org/EgretWing/electron/EgretWing-v3.2.6.exe)
 
-## 新建游戏
+### 后台新建游戏
 
 1. 使用Matchvs游戏云需要AppKey、AppSecret，与Cocos的AppID、AppSecret并不相同，需进入Matchvs官网创建游戏获取。[进入官网](http://www.matchvs.com/manage/gameContentList/)
 2. 登陆官网，点击右上角控制台进入，若没有Matchvs官网账号。[立即注册](http://www.matchvs.com/vsRegister)
 3. 进入控制台，点击新建游戏，填写《游戏名称》即可，新建成功如下：![](http://imgs.matchvs.com/static/2_2.png)
 
-## Matchvs 插件安装
+
+
+
+
+## 离线安装SDK(推荐 * )
+
+适合wing3.6.2 以上
+
+#### 1)  下载TypeScript版本的SDK
+
+下载TypeScript版本的SDK,[下载链接](http://www.matchvs.com/serviceDownload),[下载链接](http://www.matchvs.com/serviceDownload)
+
+#### 2) 解压缩SDK
+
+得到matchvs目录到Egret工程目录的同级目录下, 加压后检查目录下是否存在如下3个文件
+
+1. matchvs.d.ts
+2. matchvs.js
+3. matchvs.min.js
+
+#### 3) 引用SDK
+
+  配置Egert工程,引用SDK.编辑工程目录下的 `egretProperties.json` 文件,增加如下代码以引用SDK
+
+```
+
+    {
+      "name": "matchvs",
+      "path": "../matchvs"
+    }
+```
+
+完成示例如下:
+
+```javascript
+{
+  "engineVersion": "5.1.5",
+  "compilerVersion": "5.1.5",
+  "template": {},
+  "target": {
+    "current": "web"
+  },
+  "eui": {
+    "exmlRoot": [
+      "resource/eui_skins"
+    ],
+    "themes": [
+      "resource/default.thm.json"
+    ],
+    "exmlPublishPolicy": "commonjs"
+  },
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "eui"
+    },
+    {
+      "name": "assetsmanager"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "promise"
+    },
+    {
+      "name": "socket"
+    },
+    {
+      "name": "matchvs",
+      "path": "../matchvs"
+    }
+  ]
+}
+
+```
+#### 4) 使用
+
+clean并build,生成Egret项目库依赖,就可以在Egret中使用Matchvs SDK 了,具体使用方式可参考[Eget Demo](http://www.matchvs.com/serviceCourse) 
+
+
+
+## 在线安装SDK
+
+在线安装Matchvs Egret 插件 (适合wing3.6.2 以下)
 
 - 前往[下载中心](http://www.matchvs.com/serviceDownload)下载白鹭插件  
 
@@ -20,7 +126,7 @@
 ​        拖动 matchvs-1.0.0.wext 到 wing 中，wing 的消息通知栏会提示安装成功，重启wing生效。
 ![install](http://imgs.matchvs.com/static/egret/install.png)
 
-## Matchvs插件启动
+### Matchvs插件启动
 
 插件有3种启动方式:
 
@@ -45,38 +151,3 @@
 **wing右侧栏启动插件**
 
 右侧栏 -> 点击Matchvs图标 
-
-## 插件开发相关
-
-**调试插件**
-
-1. 用wing打开项目源码,在项目跟目录下 运行 `node install` 命令初始化nodeJS的依赖库
-2. 按`ctrl+shift + B`编译
-3. 编译完成后 按 `F5` 调试
-
-**打包插件**
-
-F1->package
-
-WebView中能够使用的API与插件进程中不同。  
-
- - 不支持使用 `wing.d.ts` 中定义的所有API。
- - 支持所有 `node.d.ts` 中定义的所有API。
- - 支持 `electron.d.ts` 中渲染进程中定义的部分API。
- - 支持 `dom.d.ts` 中定义的所有浏览器中的API。
- - 内置 `wing` 命名空间，如： `wing.webview.ipc` 提供 `ipc` 通讯相关的接口。
-
-## wing3.6.2 以上使用MatchvsSDK的方法
-
-需手动配置Egret的工程配置:  
-
-1)  解压matchvs-1.0.0.wext文件（将matchvs-1.0.0.wext重命名为matchvs-1.0.0.zip，然后解压）得到`MatchvsJSSDK.zip`SDK文件。  
-文件路径：`matchvs-1.0.0\extension\web\res\MatchvsJSSDK.zip`  
-
-2) 解压缩`MatchvsJSSDK.zip`并配置Egret项目文件添加一行配置以引用SDK
-(**注意：** 如要发布微信小游戏项目则引用matchvs_wx下的SDK文件)  
-
-3) build Egret项目生成库依赖
-
-具体方法详见下图
-![usepluginfor3.6.2+](http://imgs.matchvs.com/static/egret/usepluginfor3.6.2+.png)
