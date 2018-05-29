@@ -1429,7 +1429,7 @@ response.reconnectResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>
 
 ## joinOpen
 
-房间重新打开,运行他人匹配加入, 注意 `在房间的情况才可以调用,否则函数直接返回错误码`
+设置房间重新打开,允许他人匹配加入当前房间, 注意 `在房间的情况才可以调用,否则函数直接返回错误码`
 
 ```javascript
 	/**
@@ -1445,7 +1445,7 @@ cpProto: 附带信息,会通过joinOpenNotify广播给其他人
 
 #### 返回值
 
-参考错误码
+0为正确,其他请参考错误码
 
 ## joinOpenNotify&joinOpenResponse
 
@@ -1480,6 +1480,7 @@ joinOpenResponse(data:MsReopenRoomResponse);
 ```
 
 MsReopenRoomResponse:
+
 | 属性    | 类型   | 描述                             | 示例值 |
 | ------- | ------ | -------------------------------- | ------ |
 | status  | number | 接口调用的服务器返回码,200为正确 | 200    |
