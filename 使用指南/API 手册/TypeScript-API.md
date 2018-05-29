@@ -4,7 +4,7 @@
 
 时间：2018.05.29
 
-JSSDK版本：v1.6.202
+TSSDK版本：v1.6.202
 
 ```
 1. 新增joinOpen 房间重新打开功能
@@ -19,7 +19,7 @@ JSSDK版本：v1.6.202
 
 时间：2018.05.02
 
-JSSDK版本：v1.6.1+
+TSSDK版本：v1.6.1+
 
 ```
 1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
@@ -28,7 +28,7 @@ JSSDK版本：v1.6.1+
 
 
 时间：2018.04.17
-JSSDK版本：JSSDK_v1.6.x
+TSSDK版本：JSSDK_v1.6.x
 
 ```
 1、新增断线重连接口 reconnect 和回调接口 reconnectResponse
@@ -36,7 +36,7 @@ JSSDK版本：JSSDK_v1.6.x
 
 时间：2018.04.13
 
-JSSDK版本：JSSDK_v1.5.X
+TSSDK版本：JSSDK_v1.5.X
 
 内容：
 
@@ -46,7 +46,7 @@ JSSDK版本：JSSDK_v1.5.X
 
 时间：2018.03.30
 
-JSSDK版本：JSSDK_v1.4.x
+TSSDK版本：JSSDK_v1.4.x
 
 内容：
 
