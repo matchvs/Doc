@@ -1532,3 +1532,11 @@ Egret 代码示例
             checkbox.selected = ((d.status == 200)?false:checkbox.selected);
         }
 ```
+
+
+### SDK日志打开和关闭
+
+SDK中有一些日志输出，开发者可以调用响应的接口关闭，或者打开日志输出。可以在init 之前调用关闭日志。也可任意位置调用。什么时候调用，就什么时候生效。
+
+- 关闭日志输出：MatchvsLog.closeLog();
+- 打开日志输出：MatchvsLog.openLog();

@@ -12,10 +12,7 @@ JSSDK版本：v1.6.202
     5. 修复uninit后不能后登录的问题
     6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
     7. 代码优化,减少代码体积
-
-
-
-
+    8. 新增日志打开和关闭接口
 
 
 
@@ -1452,6 +1449,9 @@ initReopenRoom: function (self) {
     }
 ```
 
-### 其他说明
+### SDK日志打开和关闭
 
->>注意：如果要关闭SDK中的日志就调用 MatchvsLog.closeLog()。如果打开SDK中的日志就调用MatchvsLog.openLog();
+SDK中有一些日志输出，开发者可以调用响应的接口关闭，或者打开日志输出。可以在init 之前调用关闭日志。也可任意位置调用。什么时候调用，就什么时候生效。
+
+- 关闭日志输出：MatchvsLog.closeLog();
+- 打开日志输出：MatchvsLog.openLog();
