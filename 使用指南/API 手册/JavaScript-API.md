@@ -111,8 +111,6 @@ engine.registerUser()
 | -1     | 失败     |
 | -2     | 未初始化 |
 
-
-
 ## registerUserResponse
 ```javascript
 response.registerUserResponse(userInfo)
@@ -267,7 +265,7 @@ response.logoutResponse(status)
 - 玩家userProfile的值可以自定义，接下来会通过回调函数（如joinRoomResponse）传给其他客户端。
 
 
-## joinRoomWithProperties
+## joinRoomWithProperties（自定义属性匹配）
 
 ```javascript
 engine.joinRoomWithProperties(matchInfo, userProfile)
@@ -291,18 +289,22 @@ engine.joinRoomWithProperties(matchInfo, userProfile)
 
 #### 返回值
 
-| 错误码 | 含义                               |
-| ------ | ---------------------------------- |
-| 0      | 成功加入房间                       |
-| -1     | 正在加入房间                       |
-| -4     | 未登录，请先调用login              |
-| -20    | maxPlayer超出范围 ，maxPlayer须≤20 |
+| 错误码 | 含义                 |
+| ------ | -------------------- |
+| 0      | 成功                 |
+| -1     | 失败                 |
+| -2     | 未初始化             |
+| -3     | 正在初始化           |
+| -4     | 未登录               |
+| -7     | 正在创建或者进入房间 |
+| -8     | 已经在房间中         |
+| -21    | userProfile 过长     |
 
 #### 说明
 
 - tags为匹配标签，开发者通过设置不同的标签进行自定义属性匹配，相同MsMatchInfo的玩家将会被匹配到一起。
 
-## joinRoom
+## joinRoom（加入指定房间）
 
 ```
 engine.joinRoom(roomId, userProfile)
@@ -844,14 +846,14 @@ response.setRoomPropertyNotify(notify);
 ## <span id="sendEvent">sendEvent</span>
 
 ```javascript
-engine.sendEvent(msg)
+engine.sendEvent(data)
 ```
 
 #### 参数
 
-| 参数   | 类型     | 描述   | 示例值     |
-| ---- | ------ | ---- | ------- |
-| msg  | string | 消息内容 | "hello" |
+| 参数 | 类型   | 描述     | 示例值  |
+| ---- | ------ | -------- | ------- |
+| data | string | 消息内容 | "hello" |
 
 #### 返回值
 - 返回值为一个对象，该对象包含以下属性：
@@ -883,17 +885,17 @@ engine.sendEvent(msg)
 ## sendEventEx
 
 ```javascript
-engine.sendEventEx(type, cpProto, targetType, [targetUserId])
+engine.sendEventEx(msgType, data, desttype, [userids])
 ```
 
 #### 参数
 
-| 参数           | 类型     | 描述                                       | 示例值         |
-| ------------ | ------ | ---------------------------------------- | ----------- |
-| type         | number | 消息类型。0表示转发给房间成员；1表示转发给game server；2表示转发给房间成员及game server | 0           |
-| cpProto      | string | 消息内容                                     | "hello"     |
-| targetType   | number | 目标类型。0表示发送目标为目标列表成员；1表示发送目标为除目标列表成员以外的房间成员 | 0           |
-| targetUserId | array  | 目标列表                                     | [1001,1002] |
+| 参数     | 类型   | 描述                                                         | 示例值      |
+| -------- | ------ | ------------------------------------------------------------ | ----------- |
+| msgType  | number | 消息类型。0表示转发给房间成员；1表示转发给game server；2表示转发给房间成员及game server | 0           |
+| data     | string | 消息内容                                                     | "hello"     |
+| desttype | number | 目标类型。0表示发送目标为目标列表成员；1表示发送目标为除目标列表成员以外的房间成员 | 0           |
+| userids  | array  | 目标列表                                                     | [1001,1002] |
 
 #### 返回值
 
@@ -1001,14 +1003,14 @@ response.gameServerNotify(eventInfo);
 ## kickPlayer
 
 ```javascript
-engine.kickPlayer(userId, cpProto)
+engine.kickPlayer(userID, cpProto)
 ```
 
 #### 参数
 
-| 参数      | 类型     | 描述    | 示例值    |
-| ------- | ------ | ----- | ------ |
-| userId  | number | 用户id  | 655444 |
+| 参数    | 类型   | 描述       | 示例值 |
+| ------- | ------ | ---------- | ------ |
+| userID  | number | 用户id     | 655444 |
 | cpProto | string | 自定义数据 | “kick” |
 
 #### 返回值
@@ -1289,7 +1291,7 @@ response.frameUdpate(data)
 
 #### 说明
 
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
+- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法。
 
 
 

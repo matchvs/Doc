@@ -500,8 +500,7 @@ response.joinOverResponse(rsp:MsJoinOverRsp);
 - 客户端调用engine.joinOver发送关闭房间的指令之后，SDK异步调用reponse.joinOverResponse方法告诉客户端joinOver指令的处理结果。
 
 
-
-### joinOverNotify
+## joinOverNotify
 
 ```typescript
 response.joinOverNotify(notifyInfo:MsJoinOverNotifyInfo);
@@ -984,6 +983,11 @@ engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array<n
 | -23    | msgType 非法         |
 | -24    | desttype 非法        |
 
+#### 说明
+
+- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
+- 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
+
 ## sendEventResponse
 
 ```typescript
@@ -1068,8 +1072,8 @@ engine.kickPlayer(userID:number, cpProto:string);
 
 | 参数    | 类型   | 描述         | 示例值 |
 | ------- | ------ | ------------ | ------ |
-| userID  | number | 被踢除玩家ID |        |
-| cpProto | string | 附加消息     |        |
+| userID  | number | 被踢除玩家ID | 655444 |
+| cpProto | string | 附加消息     | “kick” |
 
 #### 返回值
 
@@ -1275,7 +1279,7 @@ engine.setFrameSync(frameRate:number):number
 
 #### 说明
 
-- setFrameSync 设置帧率，参数值设置 0表示关闭，参数值大于0表示打开，不调用为关闭。
+- 开发者可以通过该接口设置帧同步的帧率。同步帧率有效范围在1≤n≤20，n=0代表取消帧同步。当设置的同步帧率不在合法范围内，将会收到 -20 的错误码。
 
 
 
@@ -1366,7 +1370,7 @@ response.frameUpdate(data:MsFrameData);
 
 #### 说明
 
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
+- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法。
 
 
 ## reconnect
