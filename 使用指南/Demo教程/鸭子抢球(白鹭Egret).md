@@ -4,12 +4,25 @@
 
 ## 目录
 
+v3.2.7.0 去除之前的 matchvs_wx 目录。现在目录如下：
+
 ````
 ┌─── matchvs 支持 Egret SDK库文件
-├─── matchvs_wx 支持微信小游戏的SDK库文件
 ├─── MatchvsDemo_Egret Demo 工程
 └─── README.md
 ````
+
+
+
+> 注意：v3.2.7.0 合并了 matchvs 与 matchvs_wx 的内容为 matchvs。
+> 版本 v3.2.7.0 之前目录为
+> ┌─── matchvs 支持 Egret SDK库文件
+> ├─── matchvs_wx 支持微信小游戏的SDK库文件
+> ├─── MatchvsDemo_Egret Demo 工程
+> └─── README.md
+> 
+
+
 
 ## Demo下载和体验
 
@@ -29,7 +42,7 @@ Demo运行之前需要去 [Matchvs 官网](http://www.matchvs.com/) 配置游戏
 
 ![img](http://imgs.matchvs.com/static/2_2.png)
 
-获取到相关游戏信息之后，Demo 代码里在 `LoginView.ts` 文件下配置游戏信息，如下图：
+修改 Demo 里  GameData.ts 的游戏配置信息为你自己的游戏信息，并确保 CHANNEL 为 Matchvs 或者 MatchVS , 如果出现MatchVS-Test 的配置或者其他配置请修正。ENVIRONMENT 是在Demo登录界面环境选择的配置 确保配置信息为 `{ "dev": "alpha", "pro": "release" }` ，其中alpha 一般用于测试环境，release 用于生产环境。修改参数可参考下图：
 
 ![img](http://imgs.matchvs.com/static/egret/MatchvsDemo_Egret_3.png)
 
@@ -43,7 +56,7 @@ Demo运行之前需要去 [Matchvs 官网](http://www.matchvs.com/) 配置游戏
 >     "path": "../matchvs"
 > }
 > ```
-> 注意：如果是要发布成微信小游戏应该吧 path 下面的 ../matchvs  改为 ../matchvs_wx, 如下：
+> 注意：在 v3.7.2.0 及后发布微信小游戏不需要配置 matchvs_wx 。 v3.7.2.0 之前的版本 如果是要发布成微信小游戏应该吧 path 下面的 ../matchvs  改为 ../matchvs_wx, 如下：
 >
 > ```
 > { 
