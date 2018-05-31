@@ -246,7 +246,7 @@ response.loginResponse(login:MsLoginRsp);
 
 | 属性   | 类型   | 描述                            | 示例值 |
 | ------ | ------ | ------------------------------- | ------ |
-| status | number | 状态返回，200表示成功，其他失败 | 200    |
+| status | number | 状态返回 <br>200 成功<br>402 应用校验失败，确认是否在未上线时用了release环境，并检查gameId、appkey 和 secret<br>403 检测到该账号已在其他设备登录<br>404 无效用户 <br>500 服务器内部错误 | 200 |
 | roomID | string | 房间号（预留断线重连）          | 210039 |
 
 #### 说明
@@ -290,7 +290,7 @@ response.logoutResponse(status:number);
 
 | 参数   | 类型   | 描述                            | 示例值 |
 | ------ | ------ | ------------------------------- | ------ |
-| status | number | 状态返回，200表示成功，其他失败 | 200    |
+| status | number | 状态返回，200表示成功 <br>500 服务器内部错误 | 200    |
 
 ## joinRandomRoom
 
@@ -411,7 +411,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 | 参数             | 类型                  | 描述                            | 示例值 |
 | ---------------- | --------------------- | ------------------------------- | ------ |
-| status           | number                | 状态返回，200表示成功，其他失败 | 200    |
+| status           | number                | 状态返回，200表示成功 <br>400 客户端参数错误 <br>404 指定房间不存在 <br>405 房间已满 <br>406 房间已joinOver <br>500 服务器内部错误       | 200    |
 | roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表              |        |
 | roomInfo         | MsRoomInfo            | 房间信息构成的对象              |        |
 
@@ -432,7 +432,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 #### 说明
 
-- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为0。只有在调用engine.createRoom主动创建房间时ownerId才不为0。
+- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为服务器随机指定的房主ID。在调用engine.createRoom主动创建房间时ownerId为创建房间者（即房主）的ID。以上两种情况下，如果房主离开房间，服务器均会指定下一个房主，并通过`leaveRoomNotify`通知房间其他成员。
 - roomUserInfoList用户信息列表是本玩家加入房间前的玩家信息列表，不包含本玩家。
 - roomUserInfoList中的玩家的userProfile的值来自于其他客户端调用joinRandomRoom时传递的userProfile的值。
 
@@ -492,7 +492,7 @@ response.joinOverResponse(rsp:MsJoinOverRsp);
 
 | 属性    | 类型   | 描述                            | 示例值 |
 | ------- | ------ | ------------------------------- | ------ |
-| status  | number | 状态返回，200表示成功，其他失败 | 200    |
+| status  | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>404 用户或房间不存在 <br>403 该用户不在房间 <br>500 服务器内部错误 | 200    |
 | cpProto | string | 负载信息                        |        |
 
 #### 说明
@@ -559,7 +559,7 @@ response.leaveRoomResponse(rsp:MsLeaveRoomRsp);
 
 | 属性    | 类型   | 描述                            | 示例值 |
 | ------- | ------ | ------------------------------- | ------ |
-| status  | number | 状态返回，200表示成功，其他失败 | 200    |
+| status  | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>404 房间不存在 <br>500 服务器内部错误 | 200    |
 | roomID  | string | 房间号                          | 317288 |
 | userId  | number | 用户ID                          | 317288 |
 | cpProto | string | 负载信息                        |        |
@@ -627,7 +627,7 @@ engine.createRoom(createRoomInfo:MsCreateRoomInfo, userProfile:string): number
 
 #### 说明
 
-- 开发者可以在客户端主动创建房间，创建成功后玩家会被自动加入该房间，创建房间者即为房主，如果房主离开房间则matchvs会自动转移房主并通知房间内所有成员，开发者通过设置CreateRoomInfo创建不同类型的房间
+- 开发者可以在客户端主动创建房间，创建成功后玩家会被自动加入该房间，创建房间者即为房主，如果房主离开房间则Matchvs会自动转移房主并通知房间内所有成员，开发者通过设置CreateRoomInfo创建不同类型的房间
 
 ## createRoomResponse
 
@@ -639,7 +639,7 @@ response.createRoomResponse(rsp:MsCreateRoomRsp);
 
 | 参数   | 类型   | 描述                            | 示例值   |
 | ------ | ------ | ------------------------------- | -------- |
-| status | number | 状态返回，200表示成功，其他失败 | 200      |
+| status | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>500 服务器内部错误| 200      |
 | roomId | string | 房间号                          | "210039" |
 | owner  | number | 房主                            | 210000   |
 
@@ -686,7 +686,7 @@ response.getRoomListResponse(status:number, roomInfos:Array<MsRoomInfoEx>);
 
 | 参数      | 类型                | 描述                            | 示例值 |
 | --------- | ------------------- | ------------------------------- | ------ |
-| status    | number              | 状态返回，200表示成功，其他失败 | 200    |
+| status    | number              |状态返回，200表示成功<br>500 服务器内部错误 | 200    |
 | roomInfos | Array<MsRoomInfoEx> | 房间信息列表                    |        |
 
 #### MsRoomInfoEx 的属性
@@ -753,7 +753,7 @@ response.getRoomListExResponse(rsp:MsGetRoomListExRsp);
 
 | 参数      | 类型                   | 描述          | 示例值 |
 | --------- | ---------------------- | ------------- | ------ |
-| status    | number                 | 状态 200 成功 | 200    |
+| status    | number                 | 状态 200 成功 <br>500 服务器内部错误 | 200    |
 | total     | number                 | 房间总数量    | 2      |
 | roomAttrs | Array<MsRoomAttribute> | 房间信息列表  | []     |
 
@@ -816,7 +816,7 @@ response.getRoomDetailResponse(rsp:MsGetRoomDetailRsp);
 
 | 参数         | 类型                  | 描述                                  | 示例值 |
 | ------------ | --------------------- | ------------------------------------- | ------ |
-| status       | number                | 接口状态 200 成功                     |        |
+| status       | number                | 接口状态 200 成功 <br>404 房间不存在 <br>500 服务器内部错误                   |        |
 | state        | number                | 房间状态 1-开放 2-关闭                |        |
 | maxPlayer    | number                | 最大人数                              |        |
 | mode         | number                | 模式                                  |        |
@@ -878,7 +878,7 @@ response.setRoomPropertyResponse(rsp:MsSetRoomPropertyRspInfo);
 
 | 参数         | 类型   | 描述            | 示例值               |
 | ------------ | ------ | --------------- | -------------------- |
-| status       | number | 状态值，200成功 | 200                  |
+| status       | number | 状态值，200成功<br>400 客户端参数错误 <br>404 房间不存在 <br>500 服务器内部错误| 200                  |
 | roomID       | string | 房间号          | "654354323413134354" |
 | userID       | number | 玩家            | 123                  |
 | roomProperty | string | 修改后的属性值  | “changeRoomProperty” |
@@ -944,6 +944,7 @@ engine.sendEvent(data:string):any
 
 - 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
+- 可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
 
 ## sendEventEx
 
@@ -983,6 +984,12 @@ engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array<n
 | -21    | data 过长            |
 | -23    | msgType 非法         |
 | -24    | desttype 非法        |
+
+#### 说明
+
+- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
+- 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
+
 
 ## sendEventResponse
 
@@ -1099,7 +1106,7 @@ response.kickPlayerResponse(rsp:MsKickPlayerRsp);
 
 | 参数   | 类型   | 描述              | 示例值 |
 | ------ | ------ | ----------------- | ------ |
-| status | number | 接口状态 200 成功 |        |
+| status | number | 接口状态 200 成功 <br>  400 客户端参数错误 <br>404 用户或房间不存在  |        |
 | owner  | nunber | 房主ID            |        |
 | userID | number | 被踢玩家ID        |        |
 
@@ -1532,3 +1539,20 @@ Egret 代码示例
             checkbox.selected = ((d.status == 200)?false:checkbox.selected);
         }
 ```
+
+## 错误码
+
+```
+response.errorResponse = function(error) {
+	console.log("错误信息：", error);
+}
+
+```
+
+**注意** Matchvs相关的异常信息可通过该接口获取
+
+| 错误码 | 含义                         |
+| ------ | ---------------------------- |
+| 1001   | 网络错误                     |
+| 500    | 服务器内部错误               |
+| 其他   | 参考对应接口回调的错误码说明 |
