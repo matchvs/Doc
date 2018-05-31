@@ -62,7 +62,7 @@
 客户端调用JoinRoom进入房间，Matchvs会先通知gameServer有用户要加入房间，然后再向客户端发送JoinRoomResponse，所以当gameServer收到OnJoinRoom通知时，用户可能还没有真正进入房间（没有收到JoinRoomResponse），如果这时gameServer向该用户发送消息将会失败。所以我们增加了一个状态通知接口`OnHotelCheckin`，用于通知gameServer用户已经真正进入了房间，这时向用户发送消息是可靠的。
 
 ```c#
-	public override IMessage OnHotelCheckin(ByteString msg)
+    public override IMessage OnHotelCheckin(ByteString msg)
     {
         PlayerCheckin checkin = new PlayerCheckin();
         ByteUtils.ByteStringToObject(checkin, msg);
@@ -130,7 +130,7 @@ Matchvs提供了在gameServer里主动发起JoinOver的接口。调用该接口�
 通过重新打开房间可以取消joinOver状态。当客户端调用重新打开房间接口时，gameServer会触发`onJoinOpen()`，开发者可以将"收到客户端重新打开房间的逻辑"写到该方法里。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 允许加入房间
     /// </summary>
     /// <param name="msg"></param>
@@ -157,7 +157,7 @@ Matchvs提供了在gameServer里主动发起JoinOver的接口。调用该接口�
 Matchvs提供了在gameServer里主动发起JoinOpen的接口。调用该接口向Matchvs通知允许向房间加人。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 主动推送给MVS，房间可以再加人
     /// </summary>
     public void PushJoinOpen(UInt64 roomId, UInt32 gameId, UInt32 userId = 0, UInt32 version = 2)
@@ -177,11 +177,11 @@ Matchvs提供了在gameServer里主动发起JoinOpen的接口。调用该接口�
 当客户端调用发送数据并指定发给gameServer时，gameServer会触发`OnHotelBroadCast()`，开发者可以将“收到客户端数据时的相关逻辑”写到该方法里。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 处理客户端发送数据
     /// </summary>
     /// <param name="msg"></param>
-	public override IMessage OnHotelConnect(ByteString msg)
+    public override IMessage OnHotelConnect(ByteString msg)
     {
         ……
     }
@@ -243,7 +243,7 @@ Matchvs提供了在gameServer里主动发起JoinOpen的接口。调用该接口�
 当客户端调用踢人时，gameServer会触发`onKickPlayer()`，开发者可以将"收到客户端踢人时的相关逻辑"写到该方法里。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 踢人
     /// </summary>
     /// <param name="msg"></param>
@@ -274,11 +274,10 @@ Matchvs提供了在gameServer里踢除房间成员的接口。当发现有玩家
     /// 主动推送给MVS，踢掉某人
     /// </summary>
     /// <param name="roomId"></param>
-    /// <param name="srcId"></param>
     /// <param name="destId"></param>
     public void PushKickPlayer(UInt64 roomId, UInt32 destId, UInt32 userId = 0, UInt32 version = 2)
     {
-        Logger.Info("PushKickPlayer, roomID:{0}, srcId:{1}, destId:{2}", roomId, srcId, destId);
+        Logger.Info("PushKickPlayer, roomID:{0}, destId:{2}", roomId, destId);
 
         KickPlayer kick = new KickPlayer()
         {
@@ -335,7 +334,7 @@ Matchvs提供了在gameServer里踢除房间成员的接口。当发现有玩家
 Matchvs提供了在gameServer里查询房间详情的接口，查询结果在`onRoomDetail`中返回。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 获取房间详情
     /// </summary>
     /// <param name="roomId"></param>
@@ -351,7 +350,7 @@ Matchvs提供了在gameServer里查询房间详情的接口，查询结果在`on
         baseServer.PushToMvs(userId, version, (UInt32)MvsGsCmdID.MvsGetRoomDetailReq, roomDetail);
     }
 
-	/// <summary>
+    /// <summary>
     /// 房间详情
     /// </summary>
     /// <param name="msg"></param>
@@ -377,7 +376,7 @@ Matchvs提供了在gameServer里查询房间详情的接口，查询结果在`on
 当客户端修改房间属性时，gameServer会触发`onSetRoomProperty()`，开发者可以将"房间属性修改的相关逻辑"写到该方法里。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 设置房间自定义属性
     /// </summary>
     /// <param name="msg"></param>
@@ -405,7 +404,7 @@ Matchvs提供了在gameServer里查询房间详情的接口，查询结果在`on
 另外Matchvs提供了在gameServer里修改房间自定义属性的接口。
 
 ```c#
-	/// <summary>
+    /// <summary>
     /// 设置房间自定义属性
     /// </summary>
     /// <param name="roomId"></param>
