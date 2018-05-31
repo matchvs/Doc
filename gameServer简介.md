@@ -24,6 +24,6 @@ Matchvs 控制台提供了资源监控和日志服务，开发者可以在轻松
 
 
 
-Matchvs 基于原生的 Kubernetes 提供了容器管理服务。每个 gameServer 都对应一个容器，可以进行弹性伸缩。gameServer 支持不中断业务持续更新：在更新代码后，重启服务即可。每个用户的gameServer资源相互隔离，不会互相影响。
+  Matchvs 基于原生的 Kubernetes 提供了容器管理服务。每个 gameServer 都对应一个容器，可以进行弹性伸缩。gameServer 支持不中断业务持续更新：在更新代码后，重启服务即可。每个用户的gameServer资源相互隔离，不会互相影响。
 
 
