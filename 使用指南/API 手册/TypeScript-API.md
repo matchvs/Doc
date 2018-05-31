@@ -120,7 +120,7 @@ engine.init(response: MatchvsResponse, channel: string, platform: string, gameID
 #### 说明
 
 - response中设置一些回调方法，在执行注册、登录、发送事件等操作对应的方法之后，reponse中的回调函数会被SDK异步调用。
-- 在连接至 Matchvs前须对SDK进行初始化操作。此时选择连接测试环境（Alpha）还是正式环境（Release）。
+- 在连接至 Matchvs前须对SDK进行初始化操作。此时选择连接测试环境（alpha）还是正式环境（Release）。
 - 如果游戏属于调试阶段则连接至测试环境，游戏调试完成后即可发布到正式环境运行。
 
 > **注意** 发布之前须到官网控制台申请“发布上线”，申请通过后在调用init方法时传“Release”才会生效，否则将不能使用Release环境。
