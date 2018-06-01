@@ -1,4 +1,4 @@
-## init
+## init 
 
 ```
  public int init(MatchVSResponse[] pMatchVSResponse,string channel,string platform,int gameid);
