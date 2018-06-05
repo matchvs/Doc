@@ -114,7 +114,7 @@ engine.init(response: MatchvsResponse, channel: string, platform: string, gameID
 | -------- | --------------- | ---------------------------------------- | --------- |
 | response | MatchvsResponse | 回调类型MatchvsResponse的对象            | response  |
 | channel  | string          | 渠道，固定值                             | "Matchvs" |
-| platform | string          | 平台，选择测试(alpha)or正式环境(release) | "Alpha"   |
+| platform | string          | 平台，选择测试(alpha)or正式环境(release) | "alpha"   |
 | gameID   | number          | 游戏ID，在引擎官网创建游戏给出的ID       | 2001003   |
 
 #### 说明
@@ -132,7 +132,7 @@ engine.init(response: MatchvsResponse, channel: string, platform: string, gameID
 | 0      | 成功                                                     |
 | -1     | 失败                                                     |
 | -25    | channel 非法，请检查是否正确填写为 “Matchvs”             |
-| -26    | platform 非法，请检查是否正确填写为 “Alpha” 或 “Release” |
+| -26    | platform 非法，请检查是否正确填写为 “alpha” 或 “release” |
 
 ## initResponse
 
