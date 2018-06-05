@@ -40,7 +40,7 @@ engine.init(response, channel, platform, gameID)
 | -------- | ------ | ------------------------ | --------- |
 | response | object | 回调对象                 | {}        |
 | channel  | string | 渠道，固定值             | "Matchvs" |
-| platform | string | 平台，选择测试or正式环境 | "Alpha"   |
+| platform | string | 平台，选择测试or正式环境 | "alpha"   |
 | gameID   | number | 游戏ID                   | 2001003   |
 
 #### 说明
@@ -58,7 +58,7 @@ engine.init(response, channel, platform, gameID)
 | 0      | 成功                                                      |
 | -1     | 失败                                                      |
 | -25    | channel 非法，请检查是否正确填写为 “Matchvs”              |
-| -26    | platform 非法，请检查是否正确填写为 “Alpha”  或 “Release” |
+| -26    | platform 非法，请检查是否正确填写为 “alpha”  或 “release” |
 
 
 ## initResponse
