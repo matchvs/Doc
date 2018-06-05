@@ -936,7 +936,7 @@ response.sendEventResponse(sendEventRsp)
 
 | 属性       | 类型     | 描述                | 示例值    |
 | -------- | ------ | ----------------- | ------ |
-| status   | number | 状态返回，200表示成功，其他失败 | 200    |
+| status   | number | 状态返回，200表示成功<br>521 gameServer不存在，请检查是否已开启本地调试或在正式环境发布运行gameServer  | 200    |
 | sequence | number | 事件序号，作为事件的唯一标识    | 231212 |
 
 #### 说明
