@@ -1,0 +1,6 @@
+ mv -f 快速入门-Laya.md 快速入门-Laya[layaStart].md 
+ mv -f 快速入门-cocos-2dx.md 快速入门-cocos-2dx[2dxStart].md 
+ mv -f 快速入门-creator.md 快速入门-creator[creatorStart].md 
+ mv -f 快速入门-gameServer-C#.md mv -f 快速入门-gameServer-JavaScript[jsGsStart].md 
+ mv -f 快速入门-unity.md 快速入门-unity[unityStart].md 
+ mv -f 快速入门-白鹭Egret.md 快速入门-白鹭Egret[egretStart].md 
