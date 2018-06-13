@@ -75,11 +75,6 @@ MatcvhsSDK库 `matchvs`文件夹包括以下三个文件：
 - matchvs.d.ts：MatchvsSDK TypScript 定义文件。
 - matchvs.min.js：MatchvsSDK JavaScript 源码压缩文件。
 
-SDK微信版本 matchvs_wx 文件夹下面包括以下三个文件：
-
-- matchvs_wx.js： MatchvsSDK  JavaScript 源代码代码文件。
-- matchvs_wx.d.ts：MatchvsSDK TypScript 定义文件。
-- matchvs_wx.min.js：MatchvsSDK JavaScript 源码压缩文件。
 
 ## 加入库到工程
 
