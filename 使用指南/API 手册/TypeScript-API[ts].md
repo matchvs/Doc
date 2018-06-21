@@ -1278,6 +1278,7 @@ engine.setFrameSync(frameRate:number):number
 #### 说明
 
 - setFrameSync 设置帧率，参数值设置 0表示关闭，参数值大于0表示打开，不调用为关闭。
+- 帧率须能被1000整除
 
 
 
@@ -1289,9 +1290,9 @@ response.setFrameSyncResponse(rsp:MsSetChannelFrameSyncRsp);
 
 #### 参数 MsSetChannelFrameSyncRsp的属性
 
-| 参数    | 类型   | 描述 | 示例值 |
-| ------- | ------ | ---- | ------ |
-| mStatus | number | 状态 | 200    |
+| 参数    | 类型   | 描述                                                       | 示例值 |
+| ------- | ------ | ---------------------------------------------------------- | ------ |
+| mStatus | number | 状态：<br>200 成功<br>519 重复设置<br>500 帧率需被1000整除 | 200    |
 
 #### 说明
 
