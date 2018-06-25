@@ -1369,7 +1369,7 @@ response.frameUpdate(data:MsFrameData);
 
 #### 说明
 
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
+- frameUpdate是engine.frameUpdate 方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUpdate 方法
 
 
 ## reconnect
