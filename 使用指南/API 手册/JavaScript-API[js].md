@@ -1268,7 +1268,7 @@ response.sendFrameEventResponse(rsp)
 ## frameUpdate
 
 ```
-response.frameUdpate(data)
+response.frameUpdate(data)
 ```
 
 #### 参数 data 的属性
@@ -1289,7 +1289,7 @@ response.frameUdpate(data)
 
 #### 说明
 
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
+- frameUpdate是engine.frameUpdate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUpdate方法
 
 
 
