@@ -141,8 +141,7 @@ response.joinRoomResponse = function(status, roomUserInfoList, roomInfo) {
 其他玩家加入房间的回调：
 
 ```javascript
-reponse.joinRoomNotify = function(userId, roomUserInfo) {
-	console.log("玩家：", userId);
+reponse.joinRoomNotify = function(roomUserInfo) {
 	console.log("房间新加的用户的信息：", roomUserInfo);
 }
 ```
