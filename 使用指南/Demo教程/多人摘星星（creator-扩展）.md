@@ -2,7 +2,7 @@
 
 Demo扩展在Demo的基础上增加了自定义属性匹配、查看房间列表、加入指定房间和创建房间的功能
 
-体验链接：<http://cocos.matchvs.com/cocos-matchvs-demo/web-desktop-extend/>
+体验链接：<http://cocos.matchvs.com/cocos-matchvs-demo/web-desktop-extendex/>
 
 **注意**：满三人才可以开始游戏，下载Demo扩展源码后，需使用Cocos Creator打开工程（建议使用1.7.0及以上版本）。
 

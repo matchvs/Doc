@@ -2,6 +2,16 @@
 
 ## CHANGELOG
 
+时间：2018.06.11
+
+版本：v1.6.300
+
+```
+1. 新增适配独立部署初始化接口 premiseInit
+```
+
+
+
 时间：2018.05.29
 
 TSSDK版本：v1.6.202
@@ -114,16 +124,16 @@ engine.init(response: MatchvsResponse, channel: string, platform: string, gameID
 | -------- | --------------- | ---------------------------------------- | --------- |
 | response | MatchvsResponse | 回调类型MatchvsResponse的对象            | response  |
 | channel  | string          | 渠道，固定值                             | "Matchvs" |
-| platform | string          | 平台，选择测试(alpha)or正式环境(release) | "Alpha"   |
+| platform | string          | 平台，选择测试(alpha)or正式环境(release) | "alpha"   |
 | gameID   | number          | 游戏ID，在引擎官网创建游戏给出的ID       | 2001003   |
 
 #### 说明
 
 - response中设置一些回调方法，在执行注册、登录、发送事件等操作对应的方法之后，reponse中的回调函数会被SDK异步调用。
-- 在连接至 Matchvs前须对SDK进行初始化操作。此时选择连接测试环境（alpha）还是正式环境（Release）。
-- 如果游戏属于调试阶段则连接至测试环境，游戏调试完成后即可发布到正式环境运行。
+- 在连接至 Matchvs前须对SDK进行初始化操作。此时选择连接测试环境（alpha）还是正式环境（release）。
+- 如果游戏属于调试阶段则连接至测试环境，游戏调试完成后即可发布到正式环境运行。  
 
-> **注意** 发布之前须到官网控制台申请“发布上线”，申请通过后在调用init方法时传“Release”才会生效，否则将不能使用Release环境。
+> **注意** 发布之前须到官网控制台申请“发布上线”，申请通过后在调用init方法时传“release”才会生效，否则将不能使用release环境。
 
 #### 错误码：
 
@@ -132,7 +142,34 @@ engine.init(response: MatchvsResponse, channel: string, platform: string, gameID
 | 0      | 成功                                                     |
 | -1     | 失败                                                     |
 | -25    | channel 非法，请检查是否正确填写为 “Matchvs”             |
-| -26    | platform 非法，请检查是否正确填写为 “Alpha” 或 “Release” |
+| -26    | platform 非法，请检查是否正确填写为 “alpha” 或 “release” |
+
+## premiseInit
+
+```javascript
+engine.premiseInit(response, endPoint, gameID)
+```
+
+#### 参数
+
+| 参数     | 类型            | 描述                                  | 示例值              |
+| -------- | --------------- | ------------------------------------- | ------------------- |
+| response | MatchvsResponse | 引擎回调类型                          | response            |
+| endPoint | string          | 服务器地址，独立部署的gateway服务地址 | www.testgateway.com |
+| gameID   | number          | 游戏ID，开发者使用工具自定义的游戏ID  | 1001                |
+
+#### 错误码
+
+| 错误码 | 含义 |
+| ------ | ---- |
+| 0      | 成功 |
+| -1     | 错误 |
+
+#### 说明
+
+- premiseInit 接口是在开发者有独立部署matchvs服务时使用的初始化sdk接口。与init接口功能类型，但是接口参数 endPoint和gameID 是开发者自定义的。 endPoint 是部署 matchvs服务的服务地址，sdk是使用wss协议通信的，所以要支持wss的服务地址。gameID 是开发者使用 matchvs_tool 配置工具自己配置的 gameID。
+
+**注意** ：开发者使用 premiseInit 接口初始化SDK 后，registerUser 接口是无效的。SDK 需要的所有 user 信息都是 由开发自己定义的。同时在使用 login 接口的时候，game信息要使用开发者自己的信息， channel 和 platform 也是无效的。
 
 ## initResponse
 
@@ -150,7 +187,7 @@ response.initResponse(status:number);
 
 - response 是 engine.init 方法中传入的对象，init初始化完成之后，会异步回调initResponse方法
 
-### uninit
+## uninit
 
 ```
 engine.uninit()
@@ -167,7 +204,7 @@ SDK反初始化工作
 | 0      | 成功 |
 | -1     | 失败 |
 
-### registerUser
+## registerUser
 
 ```
 engine.registerUser()
@@ -181,7 +218,7 @@ engine.registerUser()
 | -1     | 失败     |
 | -2     | 未初始化 |
 
-### registerUserResponse
+## registerUserResponse
 
 ```
 registerUserResponse(userInfo:MsRegistRsp);
@@ -246,7 +283,7 @@ response.loginResponse(login:MsLoginRsp);
 
 | 属性   | 类型   | 描述                            | 示例值 |
 | ------ | ------ | ------------------------------- | ------ |
-| status | number | 状态返回，200表示成功，其他失败 | 200    |
+| status | number | 状态返回 <br>200 成功<br>402 应用校验失败，确认是否在未上线时用了release环境，并检查gameId、appkey 和 secret<br>403 检测到该账号已在其他设备登录<br>404 无效用户 <br>500 服务器内部错误 | 200 |
 | roomID | string | 房间号（预留断线重连）          | 210039 |
 
 #### 说明
@@ -290,7 +327,7 @@ response.logoutResponse(status:number);
 
 | 参数   | 类型   | 描述                            | 示例值 |
 | ------ | ------ | ------------------------------- | ------ |
-| status | number | 状态返回，200表示成功，其他失败 | 200    |
+| status | number | 状态返回，200表示成功 <br>500 服务器内部错误 | 200    |
 
 ## joinRandomRoom
 
@@ -411,7 +448,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 | 参数             | 类型                  | 描述                            | 示例值 |
 | ---------------- | --------------------- | ------------------------------- | ------ |
-| status           | number                | 状态返回，200表示成功，其他失败 | 200    |
+| status           | number                | 状态返回，200表示成功 <br>400 客户端参数错误 <br>404 指定房间不存在 <br>405 房间已满 <br>406 房间已joinOver <br>500 服务器内部错误       | 200    |
 | roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表              |        |
 | roomInfo         | MsRoomInfo            | 房间信息构成的对象              |        |
 
@@ -432,7 +469,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 #### 说明
 
-- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为0。只有在调用engine.createRoom主动创建房间时ownerId才不为0。
+- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为服务器随机指定的房主ID。在调用engine.createRoom主动创建房间时ownerId为创建房间者（即房主）的ID。以上两种情况下，如果房主离开房间，服务器均会指定下一个房主，并通过`leaveRoomNotify`通知房间其他成员。
 - roomUserInfoList用户信息列表是本玩家加入房间前的玩家信息列表，不包含本玩家。
 - roomUserInfoList中的玩家的userProfile的值来自于其他客户端调用joinRandomRoom时传递的userProfile的值。
 
@@ -492,7 +529,7 @@ response.joinOverResponse(rsp:MsJoinOverRsp);
 
 | 属性    | 类型   | 描述                            | 示例值 |
 | ------- | ------ | ------------------------------- | ------ |
-| status  | number | 状态返回，200表示成功，其他失败 | 200    |
+| status  | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>404 用户或房间不存在 <br>403 该用户不在房间 <br>500 服务器内部错误 | 200    |
 | cpProto | string | 负载信息                        |        |
 
 #### 说明
@@ -500,7 +537,8 @@ response.joinOverResponse(rsp:MsJoinOverRsp);
 - 客户端调用engine.joinOver发送关闭房间的指令之后，SDK异步调用reponse.joinOverResponse方法告诉客户端joinOver指令的处理结果。
 
 
-## joinOverNotify
+
+### joinOverNotify
 
 ```typescript
 response.joinOverNotify(notifyInfo:MsJoinOverNotifyInfo);
@@ -558,7 +596,7 @@ response.leaveRoomResponse(rsp:MsLeaveRoomRsp);
 
 | 属性    | 类型   | 描述                            | 示例值 |
 | ------- | ------ | ------------------------------- | ------ |
-| status  | number | 状态返回，200表示成功，其他失败 | 200    |
+| status  | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>404 房间不存在 <br>500 服务器内部错误 | 200    |
 | roomID  | string | 房间号                          | 317288 |
 | userId  | number | 用户ID                          | 317288 |
 | cpProto | string | 负载信息                        |        |
@@ -626,7 +664,7 @@ engine.createRoom(createRoomInfo:MsCreateRoomInfo, userProfile:string): number
 
 #### 说明
 
-- 开发者可以在客户端主动创建房间，创建成功后玩家会被自动加入该房间，创建房间者即为房主，如果房主离开房间则matchvs会自动转移房主并通知房间内所有成员，开发者通过设置CreateRoomInfo创建不同类型的房间
+- 开发者可以在客户端主动创建房间，创建成功后玩家会被自动加入该房间，创建房间者即为房主，如果房主离开房间则Matchvs会自动转移房主并通知房间内所有成员，开发者通过设置CreateRoomInfo创建不同类型的房间
 
 ## createRoomResponse
 
@@ -638,7 +676,7 @@ response.createRoomResponse(rsp:MsCreateRoomRsp);
 
 | 参数   | 类型   | 描述                            | 示例值   |
 | ------ | ------ | ------------------------------- | -------- |
-| status | number | 状态返回，200表示成功，其他失败 | 200      |
+| status | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>500 服务器内部错误| 200      |
 | roomId | string | 房间号                          | "210039" |
 | owner  | number | 房主                            | 210000   |
 
@@ -685,7 +723,7 @@ response.getRoomListResponse(status:number, roomInfos:Array<MsRoomInfoEx>);
 
 | 参数      | 类型                | 描述                            | 示例值 |
 | --------- | ------------------- | ------------------------------- | ------ |
-| status    | number              | 状态返回，200表示成功，其他失败 | 200    |
+| status    | number              |状态返回，200表示成功<br>500 服务器内部错误 | 200    |
 | roomInfos | Array<MsRoomInfoEx> | 房间信息列表                    |        |
 
 #### MsRoomInfoEx 的属性
@@ -752,7 +790,7 @@ response.getRoomListExResponse(rsp:MsGetRoomListExRsp);
 
 | 参数      | 类型                   | 描述          | 示例值 |
 | --------- | ---------------------- | ------------- | ------ |
-| status    | number                 | 状态 200 成功 | 200    |
+| status    | number                 | 状态 200 成功 <br>500 服务器内部错误 | 200    |
 | total     | number                 | 房间总数量    | 2      |
 | roomAttrs | Array<MsRoomAttribute> | 房间信息列表  | []     |
 
@@ -815,7 +853,7 @@ response.getRoomDetailResponse(rsp:MsGetRoomDetailRsp);
 
 | 参数         | 类型                  | 描述                                  | 示例值 |
 | ------------ | --------------------- | ------------------------------------- | ------ |
-| status       | number                | 接口状态 200 成功                     |        |
+| status       | number                | 接口状态 200 成功 <br>404 房间不存在 <br>500 服务器内部错误                   |        |
 | state        | number                | 房间状态 1-开放 2-关闭                |        |
 | maxPlayer    | number                | 最大人数                              |        |
 | mode         | number                | 模式                                  |        |
@@ -877,7 +915,7 @@ response.setRoomPropertyResponse(rsp:MsSetRoomPropertyRspInfo);
 
 | 参数         | 类型   | 描述            | 示例值               |
 | ------------ | ------ | --------------- | -------------------- |
-| status       | number | 状态值，200成功 | 200                  |
+| status       | number | 状态值，200成功<br>400 客户端参数错误 <br>404 房间不存在 <br>500 服务器内部错误| 200                  |
 | roomID       | string | 房间号          | "654354323413134354" |
 | userID       | number | 玩家            | 123                  |
 | roomProperty | string | 修改后的属性值  | “changeRoomProperty” |
@@ -943,6 +981,7 @@ engine.sendEvent(data:string):any
 
 - 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
+- 可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
 
 ## sendEventEx
 
@@ -988,6 +1027,7 @@ engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array<n
 - 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
 
+
 ## sendEventResponse
 
 ```typescript
@@ -998,7 +1038,7 @@ response.sendEventResponse(rsp:MsSendEventRsp);
 
 | 属性     | 类型   | 描述                            | 示例值 |
 | -------- | ------ | ------------------------------- | ------ |
-| status   | number | 状态返回，200表示成功，其他失败 | 200    |
+| status   | number | 状态返回，200表示成功<br>521 gameServer不存在，请检查是否已开启本地调试或在正式环境发布运行gameServer| 200    |
 | sequence | number | 事件序号，作为事件的唯一标识    | 231212 |
 
 #### 说明
@@ -1072,8 +1112,8 @@ engine.kickPlayer(userID:number, cpProto:string);
 
 | 参数    | 类型   | 描述         | 示例值 |
 | ------- | ------ | ------------ | ------ |
-| userID  | number | 被踢除玩家ID | 655444 |
-| cpProto | string | 附加消息     | “kick” |
+| userID  | number | 被踢除玩家ID |        |
+| cpProto | string | 附加消息     |        |
 
 #### 返回值
 
@@ -1103,7 +1143,7 @@ response.kickPlayerResponse(rsp:MsKickPlayerRsp);
 
 | 参数   | 类型   | 描述              | 示例值 |
 | ------ | ------ | ----------------- | ------ |
-| status | number | 接口状态 200 成功 |        |
+| status | number | 接口状态 200 成功 <br>  400 客户端参数错误 <br>404 用户或房间不存在  |        |
 | owner  | nunber | 房主ID            |        |
 | userID | number | 被踢玩家ID        |        |
 
@@ -1279,7 +1319,7 @@ engine.setFrameSync(frameRate:number):number
 
 #### 说明
 
-- 开发者可以通过该接口设置帧同步的帧率。同步帧率有效范围在1≤n≤20，n=0代表取消帧同步。当设置的同步帧率不在合法范围内，将会收到 -20 的错误码。
+- setFrameSync 设置帧率，参数值设置 0表示关闭，参数值大于0表示打开，不调用为关闭。
 
 
 
@@ -1370,7 +1410,7 @@ response.frameUpdate(data:MsFrameData);
 
 #### 说明
 
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法。
+- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
 
 
 ## reconnect
@@ -1537,10 +1577,19 @@ Egret 代码示例
         }
 ```
 
+## 错误码
 
-### SDK日志打开和关闭
+```
+response.errorResponse = function(error) {
+	console.log("错误信息：", error);
+}
 
-SDK中有一些日志输出，开发者可以调用响应的接口关闭，或者打开日志输出。可以在init 之前调用关闭日志。也可任意位置调用。什么时候调用，就什么时候生效。
+```
 
-- 关闭日志输出：MatchvsLog.closeLog();
-- 打开日志输出：MatchvsLog.openLog();
+**注意** Matchvs相关的异常信息可通过该接口获取
+
+| 错误码 | 含义                         |
+| ------ | ---------------------------- |
+| 1001   | 网络错误                     |
+| 500    | 服务器内部错误               |
+| 其他   | 参考对应接口回调的错误码说明 |
