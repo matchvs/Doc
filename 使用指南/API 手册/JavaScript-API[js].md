@@ -25,8 +25,6 @@ JSSDK版本：v1.6.202
 
 
 
-
-
 ## getInstance
 
 ```javascript
@@ -912,7 +910,7 @@ engine.sendEvent(msg)
 
 #### 说明
 
-- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
+- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里除自己外其他所有成员。
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
 - 可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
 
@@ -1240,6 +1238,7 @@ engine.setFrameSync(frameRate)
 #### 说明
 
 - 开发者可以通过该接口设置帧同步的帧率。同步帧率有效范围在1≤n≤20，n=0代表取消帧同步。当设置的同步帧率不在合法范围内，将会收到 -20 的错误码。
+- 帧率须能被1000整除
 
 ## setFrameSyncResponse
 
@@ -1249,9 +1248,9 @@ response.setFrameSyncResponse(rsp)
 
 #### 参数 rsp 的属性
 
-| 参数    | 类型   | 描述 | 示例值 |
-| ------- | ------ | ---- | ------ |
-| mStatus | number | 状态 | 200    |
+| 参数    | 类型   | 描述           | 示例值 |
+| ------- | ------ | -------------- | ------ |
+| mStatus | number | 状态：<br>200 成功<br>519 重复设置<br>500 帧率需被1000整除 | 200    |
 
 #### 说明
 
@@ -1305,7 +1304,7 @@ response.sendFrameEventResponse(rsp)
 ## frameUpdate
 
 ```
-response.frameUdpate(data)
+response.frameUpdate(data)
 ```
 
 #### 参数 data 的属性
@@ -1326,8 +1325,7 @@ response.frameUdpate(data)
 
 #### 说明
 
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
-
+- frameUpdate是engine.frameUpdate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUpdate方法
 
 
 

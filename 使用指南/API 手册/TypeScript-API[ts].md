@@ -85,11 +85,6 @@ MatcvhsSDK库 `matchvs`文件夹包括以下三个文件：
 - matchvs.d.ts：MatchvsSDK TypScript 定义文件。
 - matchvs.min.js：MatchvsSDK JavaScript 源码压缩文件。
 
-SDK微信版本 matchvs_wx 文件夹下面包括以下三个文件：
-
-- matchvs_wx.js： MatchvsSDK  JavaScript 源代码代码文件。
-- matchvs_wx.d.ts：MatchvsSDK TypScript 定义文件。
-- matchvs_wx.min.js：MatchvsSDK JavaScript 源码压缩文件。
 
 ## 加入库到工程
 
@@ -979,7 +974,7 @@ engine.sendEvent(data:string):any
 
 #### 说明
 
-- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
+- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里除自己外其他所有成员。
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
 - 可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
 
@@ -1320,6 +1315,10 @@ engine.setFrameSync(frameRate:number):number
 #### 说明
 
 - setFrameSync 设置帧率，参数值设置 0表示关闭，参数值大于0表示打开，不调用为关闭。
+<<<<<<< HEAD:使用指南/API 手册/TypeScript-API.md
+=======
+- 帧率须能被1000整除
+>>>>>>> dev:使用指南/API 手册/TypeScript-API[ts].md
 
 
 
@@ -1331,9 +1330,9 @@ response.setFrameSyncResponse(rsp:MsSetChannelFrameSyncRsp);
 
 #### 参数 MsSetChannelFrameSyncRsp的属性
 
-| 参数    | 类型   | 描述 | 示例值 |
-| ------- | ------ | ---- | ------ |
-| mStatus | number | 状态 | 200    |
+| 参数    | 类型   | 描述                                                       | 示例值 |
+| ------- | ------ | ---------------------------------------------------------- | ------ |
+| mStatus | number | 状态：<br>200 成功<br>519 重复设置<br>500 帧率需被1000整除 | 200    |
 
 #### 说明
 
@@ -1410,7 +1409,11 @@ response.frameUpdate(data:MsFrameData);
 
 #### 说明
 
+<<<<<<< HEAD:使用指南/API 手册/TypeScript-API.md
 - frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
+=======
+- frameUpdate是engine.frameUpdate 方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUpdate 方法
+>>>>>>> dev:使用指南/API 手册/TypeScript-API[ts].md
 
 
 ## reconnect
