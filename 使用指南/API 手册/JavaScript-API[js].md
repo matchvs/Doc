@@ -187,7 +187,7 @@ response.loginResponse(loginRsp)
 - 登录Matchvs服务端，与Matchvs建立连接。
 - 服务端会校验游戏信息是否合法，保证连接的安全性。
 - 如果一个账号在两台设备上登录，则后登录的设备会连接失败。
-- 如果用户加入房间之后掉线，再重新登录进来，则roomId为之前加入的房间的房间号。
+- 如果用户加入房间之后掉线，再重新登录进来，则roomID为之前加入的房间的房间号。
 
 
 
@@ -303,7 +303,7 @@ engine.joinRoomWithProperties(matchInfo, userProfile)
 ## joinRoom
 
 ```
-engine.joinRoom(roomId, userProfile)
+engine.joinRoom(roomID, userProfile)
 ```
 
 #### 参数
@@ -328,7 +328,7 @@ engine.joinRoom(roomId, userProfile)
 
 #### 说明
 
-- 客户端可以通过调用该接口加入指定房间，roomId为加入指定房间的房间号
+- 客户端可以通过调用该接口加入指定房间，roomID为加入指定房间的房间号
 - 指定房间号必须是由 createRoom接口创建的房间。
 
 
@@ -574,7 +574,7 @@ response.createRoomResponse(CreateRoomRsp)
 | 参数     | 类型     | 描述                | 示例值    |
 | ------ | ------ | ----------------- | ------ |
 | status | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>500 服务器内部错误 | 200    |
-| roomId | number | 房间号               | 210039 |
+| roomID | number | 房间号               | 210039 |
 | owner  | number | 房主                | 210000 |
 
 #### 说明
