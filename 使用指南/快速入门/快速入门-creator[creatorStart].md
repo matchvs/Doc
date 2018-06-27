@@ -44,6 +44,12 @@
 
 ![](http://imgs.matchvs.com/static/cocos_plugin4.png)
 
+## 引用Matchvs
+
+参考demo中的引用方式，引用Matchvs插件
+
+![](http://imgs.matchvs.com/static/cocos_plugin5.png)
+
 
 
 ## 开始编码

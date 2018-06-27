@@ -91,6 +91,35 @@ Matchvs提供了在gameServer里主动发起JoinOver的接口。调用该接口�
 */
 joinOver(msg)
 ```
+## 允许加入
+
+通过重新打开房间可以取消joinOver状态。当客户端调用重新打开房间接口时，gameServer会触发`onJoinOpen()`，开发者可以将"收到客户端重新打开房间的逻辑"写到该方法里。
+
+```javascript
+/**
+* 房间允许加人
+* @param {Object} request 
+* @param {number} request.gameID 游戏ID
+* @param {string} request.roomID 房间ID
+* @param {number} request.userID 用户ID
+* @memberof App
+*/
+onJoinOpen(request)
+```
+
+Matchvs提供了在gameServer里主动发起JoinOpen的接口。调用该接口向Matchvs通知允许向房间加人。
+
+```javascript
+/**
+* 推送joinOpen
+* @param {Object} msg joinOpen消息结构
+* @param {number} msg.gameID 游戏ID 
+* @param {string} msg.roomID 房间ID
+* @memberof Push
+*/
+joinOpen(msg)
+```
+
 ## 接收数据
 
 当客户端调用发送数据并指定发给gameServer时，gameServer会触发`onReceiveEvent()`，开发者可以将“收到客户端数据时的相关逻辑”写到该方法里。
@@ -228,3 +257,35 @@ getRoomDetail(msg)
  */
 onRoomDetail(request)
 ```
+
+## 修改房间属性
+
+当客户端修改房间属性时，gameServer会触发`onSetRoomProperty()`，开发者可以将"房间属性修改的相关逻辑"写到该方法里。
+
+```javascript
+/**
+* 修改房间自定义属性
+* @param {Object} request 
+* @param {number} request.gameID 游戏ID
+* @param {string} request.roomID 房间ID
+* @param {number} request.userID 用户ID
+* @param {number} request.roomProperty 房间自定义属性
+* @memberof App
+*/
+onSetRoomProperty(request)
+```
+
+另外Matchvs提供了在gameServer里修改房间自定义属性的接口。
+
+```javascript
+/**
+ * 推送房间自定义属性修改消息
+ * @param {Object} msg 消息结构
+ * @param {number} msg.gameID 游戏ID
+ * @param {string} msg.roomID 房间ID
+ * @param {string|Uint8Array} msg.roomProperty 房间属性
+ * @memberof Push
+ */
+setRoomProperty(msg)
+```
+

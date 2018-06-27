@@ -42,16 +42,6 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 
 
 
-## 添加SSH Key
-
-`matchvs keys  C:\Users\Administrator\.ssh\id_rsa.pub `
-
-上述`C:\Users\Administrator\.ssh\id_rsa.pub`为SSH Key的文件路径，SSH Key 的生成方法参考[SSH Key手册](/service?page=SSH Key手册)。
-
-添加成功后如下图：
-
-![image](http://imgs.matchvs.com/static/gs_addkey.png)
-
 ## 查看gameServer列表
 `matchvs list`  
 查看帐号下的gameServer列表  
