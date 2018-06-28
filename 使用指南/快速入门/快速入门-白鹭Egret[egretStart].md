@@ -1,17 +1,3 @@
-# Egret中使用Matchvs SDK指引
-
-本文主要讲述如何在Egret中使用MatchvsSDK.
-
-## CHANGELOG
-
-时间：2018.05.29
-
-版本：v1.6.202
-
-```
-- 调整微信小游戏适配机制的说明,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
-- 修改本文档的结构. 着重推荐离线安装SDK的方式
-```
 
 ## Egret 开发环境搭建
 
@@ -151,3 +137,14 @@ clean并build,生成Egret项目库依赖,就可以在Egret中使用Matchvs SDK �
 **wing右侧栏启动插件**
 
 右侧栏 -> 点击Matchvs图标 
+
+## CHANGELOG
+
+时间：2018.05.29
+
+版本：v1.6.202
+
+```
+- 调整微信小游戏适配机制的说明,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
+- 修改本文档的结构. 着重推荐离线安装SDK的方式
+```
