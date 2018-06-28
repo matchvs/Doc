@@ -1,68 +1,3 @@
-# MatchvsSDK-Egret-API
-
-## CHANGELOG
-
-时间：2018.05.29
-
-TSSDK版本：v1.6.202
-
-```
-1. 新增joinOpen 房间重新打开功能
-2. 修复微信小游戏真机断线问题
-3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
-4. 修复Egret打包H5平台 `找不到 wx define` 的问题
-5. 修复uninit后不能后登录的问题
-6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
-7. 代码优化,减少代码体积
-```
-
-
-时间：2018.05.02
-
-TSSDK版本：v1.6.1+
-
-```
-1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
-```
-
-
-
-时间：2018.04.17
-TSSDK版本：JSSDK_v1.6.x
-
-```
-1、新增断线重连接口 reconnect 和回调接口 reconnectResponse
-```
-
-时间：2018.04.13
-
-TSSDK版本：JSSDK_v1.5.X
-
-内容：
-
-```
-1、新增 功能接口 setRoomProperty 和回调 setRoomPropertyResponse、setRoomPropertyNotify 。
-```
-
-时间：2018.03.30
-
-TSSDK版本：JSSDK_v1.4.x
-
-内容：
-
-```
-1、新增 getRoomListEx 和 getRoomListExResponse接口
-2、新增 getRoomDetail 和 getRoomDetailResponse接口
-3、新增 joinOverNotify 接口
-4、优化 kickPlayerResponse 接口，添加参数 被踢者userID
-5、添加 netWorkStateNotify 异步回调接口说明
-6、添加 gameServerNotify 接收gameServer 推送消息接口
-7、优化 .d.ts 文件 中 sendEventGroupNotify 返回参数与 js文件不一致问题。
-8、新增接口调用错误码返回
-```
-
-
-
 ## 说明
 
 此API文档是适配Egret开发者使用TypeScript的。所有可用的接口都是定义在 `matchvs.d.ts` 这个文件。
@@ -1552,3 +1487,66 @@ response.errorResponse = function(error) {
 | 1001   | 网络错误                     |
 | 500    | 服务器内部错误               |
 | 其他   | 参考对应接口回调的错误码说明 |
+
+## CHANGELOG
+
+时间：2018.05.29
+
+TSSDK版本：v1.6.202
+
+```
+1. 新增joinOpen 房间重新打开功能
+2. 修复微信小游戏真机断线问题
+3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
+4. 修复Egret打包H5平台 `找不到 wx define` 的问题
+5. 修复uninit后不能后登录的问题
+6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
+7. 代码优化,减少代码体积
+```
+
+
+时间：2018.05.02
+
+TSSDK版本：v1.6.1+
+
+```
+1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
+```
+
+
+
+时间：2018.04.17
+TSSDK版本：JSSDK_v1.6.x
+
+```
+1、新增断线重连接口 reconnect 和回调接口 reconnectResponse
+```
+
+时间：2018.04.13
+
+TSSDK版本：JSSDK_v1.5.X
+
+内容：
+
+```
+1、新增 功能接口 setRoomProperty 和回调 setRoomPropertyResponse、setRoomPropertyNotify 。
+```
+
+时间：2018.03.30
+
+TSSDK版本：JSSDK_v1.4.x
+
+内容：
+
+```
+1、新增 getRoomListEx 和 getRoomListExResponse接口
+2、新增 getRoomDetail 和 getRoomDetailResponse接口
+3、新增 joinOverNotify 接口
+4、优化 kickPlayerResponse 接口，添加参数 被踢者userID
+5、添加 netWorkStateNotify 异步回调接口说明
+6、添加 gameServerNotify 接收gameServer 推送消息接口
+7、优化 .d.ts 文件 中 sendEventGroupNotify 返回参数与 js文件不一致问题。
+8、新增接口调用错误码返回
+```
+
+
