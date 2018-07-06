@@ -10,7 +10,7 @@
 
 ![](http://imgs.matchvs.com/static/gs_creategs.png)
 
-点击创建gameServer，填写基本信息，创建成功后获取gameServer的相关信息。
+点击创建gameServer，填写基本信息，创建成功后获取gameServer的相关信息。  
 
 ![](http://imgs.matchvs.com/static/gs_createsuc1.png)
 
