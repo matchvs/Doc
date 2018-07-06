@@ -143,7 +143,7 @@ private static bindOpenIDWithUserID(wxUserInfo:any){
 
 **配置好回调地址后，调用 `thirdBind.do`  就会回调这个地址检测 openID 信息是否有效。**
 
-如果没有配置 安全校验是不校验的。
+**如果没有配置 安全校验是不校验的。**
 
 ### 安全校验接口要求如下：
 
