@@ -14,16 +14,16 @@ Matchvs 在 gameServer 框架里提供了与客户端 SDK 一致的流程。客�
 
 Matchvs 提供了云端一键部署功能：开发者只需在完成调试后将代码上传至指定仓库，然后在控制台点击启动服务即可。从代码上传至服务启动全流程不超过5分钟，极大地节省了开发时间和运维成本。
 
-![](http://imgs.matchvs.com/static/gs_intro1.png)
+![](http://imgs.matchvs.com/static/gs_intr.png)
 
 
 
 Matchvs 控制台提供了资源监控和日志服务，开发者可以在轻松部署后，实时掌握服务运行状况。
 
-![](http://imgs.matchvs.com/static/gs_data.png)
+![](http://imgs.matchvs.com/static/gs_intr1.png)
 
 
 
   Matchvs 基于原生的 Kubernetes 提供了容器管理服务。每个 gameServer 都对应一个容器，可以进行弹性伸缩。gameServer 支持不中断业务持续更新：在更新代码后，重启服务即可。每个用户的gameServer资源相互隔离，不会互相影响。
 
-
+更多 gameServer 的用法请[参考这里](http://www.matchvs.com/service?page=jsGsStart)。

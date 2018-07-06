@@ -104,19 +104,23 @@ gameServer是服务端框架，客户端SDK的使用请参考对应接入指南�
 
 ![](http://imgs.matchvs.com/static/gs_buildsuc.png)
 
-**注意：** 上传后服务器会自动下载服务器会自动下载依赖，故在上传时可将`node_modules`添加至`.gitignore`。
+
+
+**注意： 上传后服务器会自动下载服务器会自动下载依赖，故在上传时可将`node_modules`添加至`.gitignore`。**
+
+
 
 ## 正式环境启动服务
 
-代码上传并编译成功后即可启动服务，Matchvs提供了两种服务启动方式：[命令行工具](http://www.matchvs.com/service?page=gameServerCommand)和控制台。控制台启动方式如下：
+代码上传并编译成功后即可启动服务，Matchvs提供了两种服务启动方式：[命令行工具](http://www.matchvs.com/service?page=gscliGuide)和控制台。控制台启动方式如下：
 
 进入“我的游戏”页面，将游戏发布上线 ：
 
 ![](http://imgs.matchvs.com/static/gs_publish.png)
 
-进入“gameServer”页面，启动 gameServer：
+进入“gameServer”页面，发布 gameServer，发布成功后，启动 gameServer：
 
-![](http://imgs.matchvs.com/static/gs_webstart.png)
+![](http://imgs.matchvs.com/static/gs_intr.png)
 
 也可以通过命令行工具发布、启停：
 
@@ -126,10 +130,11 @@ $ matchvs run stop <GS_key>
 $ matchvs run start <GS_key>
 ```
 
-- **publish**，发布gameServer到Matchvs私有docker镜像仓库。Matchvs服务端收到publish命令后会执行以下操作：
-  - 读取gameServer配置，拉取git仓库到编译目录；
-  - 进入gameServer目录执行`make image`。
-- **stop/start**，控制gameServer启停。需要注意的是，stop命令将完全中断gameServer服务，由此可能对正式环境中的在线用户产生影响。如需不间断服务更新，请使用restart命令。
+
+1. `publish`，发布gameServer到Matchvs私有docker镜像仓库。Matchvs服务端收到publish命令后会执行以下操作：
+	读取gameServer配置，拉取git仓库到编译目录；
+	进入gameServer目录执行`make image`。
+2. `stop/start`，控制gameServer启停。需要注意的是，stop命令将完全中断gameServer服务，由此可能对正式环境中的在线用户产生影响。如需不间断服务更新，请使用 `restart` 命令。
 
 **Makefile**和**Dockerfile**，这两个文件定义了gameServer项目的编译发布规则，开发者不能修改。
 
