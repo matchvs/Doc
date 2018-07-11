@@ -20,6 +20,8 @@
 
 ## 构建项目
 
+**注意：如果游戏是发布到 web 版，则可以直接跳过 “构建项目”  和 “导入 Matchvs” 步骤。**
+
 点击“扩展”里的“Matchvs”，打开插件面板：
 
 ![](http://imgs.matchvs.com/static/cocos_plugin1.png)
@@ -51,6 +53,16 @@
 ![](http://imgs.matchvs.com/static/cocos_plugin5.png)
 
 
+
+## creator 里使用 ts
+
+1. 创建 TypeScript 项目 ，创建方法参考[cocos官网]( http://docs.cocos.com/creator/manual/zh/scripting/typescript.html?h=type) ;
+2. [下载](http://www.matchvs.com/serviceDownload) Matchvs TypeScript SDK ;
+3. 将下载的 Matchvs.d.ts 文件放到 `project/packages/plugin-matchvs/matchvs/matchvsjssdk `目录下
+
+![](http://imgs.matchvs.com/static/creatorts.png)
+
+**注意：在 creator 使用 TypeScript 暂不支持发布到 Native 平台。**
 
 ## 开始编码
 
