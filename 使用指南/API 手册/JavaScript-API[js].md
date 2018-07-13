@@ -1,30 +1,3 @@
-# JavaScriptSDK API
-## CHANGELOG
-
-时间：2018.06.11
-
-版本：v1.6.300
-
-```
-1. 新增适配独立部署初始化接口 premiseInit
-```
-
-
-
-时间：2018.05.29
-
-JSSDK版本：v1.6.202
-
-    1. 新增joinOpen 房间重新打开功能
-    2. 修复微信小游戏真机断线问题
-    3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
-    4. 修复Egret打包H5平台 `找不到 wx define` 的问题
-    5. 修复uninit后不能后登录的问题
-    6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
-    7. 代码优化,减少代码体积
-
-
-
 ## getInstance
 
 ```javascript
@@ -68,32 +41,6 @@ engine.init(response, channel, platform, gameID)
 | -25    | channel 非法，请检查是否正确填写为 “Matchvs”              |
 | -26    | platform 非法，请检查是否正确填写为 “alpha”  或 “release” |
 
-## premiseInit
-
-```javascript
-engine.premiseInit(response, endPoint, gameID)
-```
-
-#### 参数
-
-| 参数     | 类型            | 描述                                  | 示例值              |
-| -------- | --------------- | ------------------------------------- | ------------------- |
-| response | MatchvsResponse | 引擎回调类型                          | response            |
-| endPoint | string          | 服务器地址，独立部署的gateway服务地址 | www.testgateway.com |
-| gameID   | number          | 游戏ID，开发者使用工具自定义的游戏ID  | 1001                |
-
-#### 错误码
-
-| 错误码 | 含义 |
-| ------ | ---- |
-| 0      | 成功 |
-| -1     | 错误 |
-
-#### 说明
-
-- premiseInit 接口是在开发者有独立部署matchvs服务时使用的初始化sdk接口。与init接口功能类型，但是接口参数 endPoint和gameID 是开发者自定义的。 endPoint 是部署 matchvs服务的服务地址，sdk是使用wss协议通信的，所以要支持wss的服务地址。gameID 是开发者使用 matchvs_tool 配置工具自己配置的 gameID。
-
-**注意** ：开发者使用 premiseInit 接口初始化SDK 后，registerUser 接口是无效的。SDK 需要的所有 user 信息都是 由开发自己定义的。同时在使用 login 接口的时候，game信息要使用开发者自己的信息， channel 和 platform 也是无效的。
 
 ## initResponse
 
@@ -223,7 +170,7 @@ response.loginResponse(loginRsp)
 - 登录Matchvs服务端，与Matchvs建立连接。
 - 服务端会校验游戏信息是否合法，保证连接的安全性。
 - 如果一个账号在两台设备上登录，则后登录的设备会连接失败。
-- 如果用户加入房间之后掉线，再重新登录进来，则roomId为之前加入的房间的房间号。
+- 如果用户加入房间之后掉线，再重新登录进来，则roomID为之前加入的房间的房间号。
 
 
 
@@ -339,7 +286,7 @@ engine.joinRoomWithProperties(matchInfo, userProfile)
 ## joinRoom
 
 ```
-engine.joinRoom(roomId, userProfile)
+engine.joinRoom(roomID, userProfile)
 ```
 
 #### 参数
@@ -364,7 +311,7 @@ engine.joinRoom(roomId, userProfile)
 
 #### 说明
 
-- 客户端可以通过调用该接口加入指定房间，roomId为加入指定房间的房间号
+- 客户端可以通过调用该接口加入指定房间，roomID为加入指定房间的房间号
 - 指定房间号必须是由 createRoom接口创建的房间。
 
 
@@ -610,7 +557,7 @@ response.createRoomResponse(CreateRoomRsp)
 | 参数     | 类型     | 描述                | 示例值    |
 | ------ | ------ | ----------------- | ------ |
 | status | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>500 服务器内部错误 | 200    |
-| roomId | number | 房间号               | 210039 |
+| roomID | number | 房间号               | 210039 |
 | owner  | number | 房主                | 210000 |
 
 #### 说明
@@ -1329,6 +1276,7 @@ response.frameUpdate(data)
 
 
 
+
 ## reconnect
 
 ```typescript
@@ -1504,3 +1452,20 @@ response.errorResponse = function(error) {
 | 1001    | 网络错误                     |
 | 500     | 服务器内部错误                 |
 | 其他     | 参考对应接口回调的错误码说明   |
+
+
+## CHANGELOG
+
+时间：2018.05.29
+
+JSSDK版本：v1.6.202
+
+    1. 新增joinOpen 房间重新打开功能
+    2. 修复微信小游戏真机断线问题
+    3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
+    4. 修复Egret打包H5平台 `找不到 wx define` 的问题
+    5. 修复uninit后不能后登录的问题
+    6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
+    7. 代码优化,减少代码体积
+
+

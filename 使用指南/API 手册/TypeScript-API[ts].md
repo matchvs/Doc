@@ -1,78 +1,3 @@
-# MatchvsSDK-Egret-API
-
-## CHANGELOG
-
-时间：2018.06.11
-
-版本：v1.6.300
-
-```
-1. 新增适配独立部署初始化接口 premiseInit
-```
-
-
-
-时间：2018.05.29
-
-TSSDK版本：v1.6.202
-
-```
-1. 新增joinOpen 房间重新打开功能
-2. 修复微信小游戏真机断线问题
-3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
-4. 修复Egret打包H5平台 `找不到 wx define` 的问题
-5. 修复uninit后不能后登录的问题
-6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
-7. 代码优化,减少代码体积
-```
-
-
-时间：2018.05.02
-
-TSSDK版本：v1.6.1+
-
-```
-1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
-```
-
-
-
-时间：2018.04.17
-TSSDK版本：JSSDK_v1.6.x
-
-```
-1、新增断线重连接口 reconnect 和回调接口 reconnectResponse
-```
-
-时间：2018.04.13
-
-TSSDK版本：JSSDK_v1.5.X
-
-内容：
-
-```
-1、新增 功能接口 setRoomProperty 和回调 setRoomPropertyResponse、setRoomPropertyNotify 。
-```
-
-时间：2018.03.30
-
-TSSDK版本：JSSDK_v1.4.x
-
-内容：
-
-```
-1、新增 getRoomListEx 和 getRoomListExResponse接口
-2、新增 getRoomDetail 和 getRoomDetailResponse接口
-3、新增 joinOverNotify 接口
-4、优化 kickPlayerResponse 接口，添加参数 被踢者userID
-5、添加 netWorkStateNotify 异步回调接口说明
-6、添加 gameServerNotify 接收gameServer 推送消息接口
-7、优化 .d.ts 文件 中 sendEventGroupNotify 返回参数与 js文件不一致问题。
-8、新增接口调用错误码返回
-```
-
-
-
 ## 说明
 
 此API文档是适配Egret开发者使用TypeScript的。所有可用的接口都是定义在 `matchvs.d.ts` 这个文件。
@@ -138,33 +63,6 @@ engine.init(response: MatchvsResponse, channel: string, platform: string, gameID
 | -1     | 失败                                                     |
 | -25    | channel 非法，请检查是否正确填写为 “Matchvs”             |
 | -26    | platform 非法，请检查是否正确填写为 “alpha” 或 “release” |
-
-## premiseInit
-
-```javascript
-engine.premiseInit(response, endPoint, gameID)
-```
-
-#### 参数
-
-| 参数     | 类型            | 描述                                  | 示例值              |
-| -------- | --------------- | ------------------------------------- | ------------------- |
-| response | MatchvsResponse | 引擎回调类型                          | response            |
-| endPoint | string          | 服务器地址，独立部署的gateway服务地址 | www.testgateway.com |
-| gameID   | number          | 游戏ID，开发者使用工具自定义的游戏ID  | 1001                |
-
-#### 错误码
-
-| 错误码 | 含义 |
-| ------ | ---- |
-| 0      | 成功 |
-| -1     | 错误 |
-
-#### 说明
-
-- premiseInit 接口是在开发者有独立部署matchvs服务时使用的初始化sdk接口。与init接口功能类型，但是接口参数 endPoint和gameID 是开发者自定义的。 endPoint 是部署 matchvs服务的服务地址，sdk是使用wss协议通信的，所以要支持wss的服务地址。gameID 是开发者使用 matchvs_tool 配置工具自己配置的 gameID。
-
-**注意** ：开发者使用 premiseInit 接口初始化SDK 后，registerUser 接口是无效的。SDK 需要的所有 user 信息都是 由开发自己定义的。同时在使用 login 接口的时候，game信息要使用开发者自己的信息， channel 和 platform 也是无效的。
 
 ## initResponse
 
@@ -1315,10 +1213,7 @@ engine.setFrameSync(frameRate:number):number
 #### 说明
 
 - setFrameSync 设置帧率，参数值设置 0表示关闭，参数值大于0表示打开，不调用为关闭。
-<<<<<<< HEAD:使用指南/API 手册/TypeScript-API.md
-=======
 - 帧率须能被1000整除
->>>>>>> dev:使用指南/API 手册/TypeScript-API[ts].md
 
 
 
@@ -1409,11 +1304,7 @@ response.frameUpdate(data:MsFrameData);
 
 #### 说明
 
-<<<<<<< HEAD:使用指南/API 手册/TypeScript-API.md
-- frameUdpate是engine.frameUdpate方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUdpate方法
-=======
 - frameUpdate是engine.frameUpdate 方法中传入的对象，收到帧同步推送之后，会异步回调engine.frameUpdate 方法
->>>>>>> dev:使用指南/API 手册/TypeScript-API[ts].md
 
 
 ## reconnect
@@ -1596,3 +1487,66 @@ response.errorResponse = function(error) {
 | 1001   | 网络错误                     |
 | 500    | 服务器内部错误               |
 | 其他   | 参考对应接口回调的错误码说明 |
+
+## CHANGELOG
+
+时间：2018.05.29
+
+TSSDK版本：v1.6.202
+
+```
+1. 新增joinOpen 房间重新打开功能
+2. 修复微信小游戏真机断线问题
+3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
+4. 修复Egret打包H5平台 `找不到 wx define` 的问题
+5. 修复uninit后不能后登录的问题
+6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
+7. 代码优化,减少代码体积
+```
+
+
+时间：2018.05.02
+
+TSSDK版本：v1.6.1+
+
+```
+1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
+```
+
+
+
+时间：2018.04.17
+TSSDK版本：JSSDK_v1.6.x
+
+```
+1、新增断线重连接口 reconnect 和回调接口 reconnectResponse
+```
+
+时间：2018.04.13
+
+TSSDK版本：JSSDK_v1.5.X
+
+内容：
+
+```
+1、新增 功能接口 setRoomProperty 和回调 setRoomPropertyResponse、setRoomPropertyNotify 。
+```
+
+时间：2018.03.30
+
+TSSDK版本：JSSDK_v1.4.x
+
+内容：
+
+```
+1、新增 getRoomListEx 和 getRoomListExResponse接口
+2、新增 getRoomDetail 和 getRoomDetailResponse接口
+3、新增 joinOverNotify 接口
+4、优化 kickPlayerResponse 接口，添加参数 被踢者userID
+5、添加 netWorkStateNotify 异步回调接口说明
+6、添加 gameServerNotify 接收gameServer 推送消息接口
+7、优化 .d.ts 文件 中 sendEventGroupNotify 返回参数与 js文件不一致问题。
+8、新增接口调用错误码返回
+```
+
+
