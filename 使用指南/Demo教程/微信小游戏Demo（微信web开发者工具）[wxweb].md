@@ -1,6 +1,6 @@
 ## 新建游戏
 
-新建一个微信小游戏项目.
+新建一个微信小游戏项目.  
 ![snipaste20180716_162334](http://imgs.matchvs.com/static/wechat/snipaste20180716_162334.png)
 
 注意:创建项目的时候,如果没有appID, 可点击下图中的'小游戏'按钮体验.
