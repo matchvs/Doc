@@ -25,6 +25,8 @@ engine.joinRoomWithProperties(MsMatchInfo, userProfile);
 | MsMatchInfo | maxPlayer:最大玩家数;<br />mode:模式;<br />canWatch:是否可以观战 |
 | userProfile | 玩家简介，可以填写昵称、段位等信息                        |
 
+`mode`代表同一个游戏里的不同模式，如”3V3模式“，”5V5模式“，携带不同`mode`的玩家将不会被匹配到一起。
+
 加入房间的回调：
 
 ```javascript

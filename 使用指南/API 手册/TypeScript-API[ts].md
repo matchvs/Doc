@@ -645,9 +645,9 @@ engine.getRoomListEx(filter:MsRoomFilterEx);
 
 | 参数         | 类型   | 描述                                              | 示例值         |
 | ------------ | ------ | ------------------------------------------------- | -------------- |
-| maxPlayer    | number | 房间最大人数                                      | 3              |
-| mode         | number | 模式                                              | 0              |
-| canWatch     | number | 是否可以观战 1-可以 2-不可以                      | 1              |
+| maxPlayer    | number | 房间最大人数 (0-全部)                             | 3              |
+| mode         | number | 模式（0-全部）*创建房间时，mode最好不要填0        | 2              |
+| canWatch     | number | 是否可以观战（0-全部 1-可以 2-不可以）            | 1              |
 | roomProperty | string | 房间属性                                          | “roomProperty” |
 | full         | number | 0-全部 1-满 2-未满                                | 0              |
 | state        | number | 0-全部 1-开放 2-关闭                              | 0              |
@@ -878,7 +878,7 @@ engine.sendEvent(data:string):any
 | 属性     | 类型   | 描述                                                         | 示例值 |
 | -------- | ------ | ------------------------------------------------------------ | ------ |
 | result   | number | 错误码，0表示成功，其他表示失败                              | 0      |
-| sequence | number | 事件序号，作为事件的唯一标识，消息发送者发送消息后收到的sendEventResponse 也会收到 sequence 标识，同个这个标识来确定 这个sendEventResponse 是由哪次sendEvent 发送的。主要用于在游戏中做信息同步的时候，网络传输都有延迟会出现sendEvent与sendEventResponse 收到顺序不同。 | 231212 |
+| sequence | number | 事件序号，作为事件的唯一标识。客户端发送消息后收到的sendEventResponse 也会收到 sequence 标识，通过此标识来确定这个sendEventResponse 是由哪次sendEvent 发送的。主要用于在游戏中做信息同步的时候，网络传输都有延迟会出现sendEvent与sendEventResponse 收到顺序不同。 | 231212 |
 
 #### result 说明
 
