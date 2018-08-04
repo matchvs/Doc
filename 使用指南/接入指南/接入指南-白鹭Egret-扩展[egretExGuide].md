@@ -307,10 +307,10 @@ engine.setFrameSync(frameRate)
 设置帧同步的应答：
 
 ```
-response.setFrameSyncResponse = function (status) {
-	this.labelLog('setFrameSyncResponse, status=' + status);
-	if (status !== 200) {
-		this.labelLog('设置同步帧率失败，status=' + status);
+response.setFrameSyncResponse = function (rsp) {
+	this.labelLog('setFrameSyncResponse, rsp.mStatus=' + rsp.mStatus);
+	if (rsp.mStatus !== 200) {
+		this.labelLog('设置同步帧率失败，rsp.mStatus=' + rsp.mStatus);
 	} else {
 		this.labelLog('设置同步帧率成功, 帧率为:' + GLB.FRAME_RATE);
 	}
