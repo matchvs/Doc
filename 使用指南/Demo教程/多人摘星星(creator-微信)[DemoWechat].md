@@ -7,7 +7,7 @@
 
 ## 打开项目
 
-1 解压`<Weixin-MatchvsCocosDemoJs.rar>`文件为目录
+1 解压MatchvsCocosCreatorDemo
 2 使用CocosCreatorv1.8.1以上的版本打开步骤1中的目录,如下图所示:
 ![wxdev-open](http://imgs.matchvs.com/static/wx/wxdev-open.png)
 
@@ -35,18 +35,7 @@
 由于Demo必须要3个玩家同时在线,所以我们使用`cocoscreator`运行web平台的两个示例,与微信小游戏平台进行配对,对战.
 ![wxdev-running](http://imgs.matchvs.com/static/wx/wxdev-running.png)
 
-注意事项
-	1:在CococCreate中修改代码如果发现在微信小游戏中不生效. 则需要彻底杀死CocosCreator和微信开发工具进程(任务管理器). 同时删除 ./project/build/的所有文件.重新编译发布
-	2:在微信小游戏中使用Matchvs-JS SDK 需要注意引用的js库带有.weixin后缀.
-如下图所示:
-```
-//如果是微信小游戏平台则加载matchvs.all.weixin库
-	jsMatchvs = require("matchvs.all.weixin")
 
-//其他平台(browser)则加载matchvs.all库
-	jsMatchvs = require("matchvs.all")
-```
-![wxdev-tip-library](http://imgs.matchvs.com/static/wx/wxdev-tip-library.png)
 
 3:调用SDK的注册接口会缓存返回的注册信息，如果用户没有清除缓存数据，用户调用注册接口会拿到同一个用户信息。只有清除缓存数据才能注册新的用户信息。开发工具清除缓存数据如下图：
 
