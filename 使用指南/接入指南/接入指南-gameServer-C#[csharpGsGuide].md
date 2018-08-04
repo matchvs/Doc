@@ -192,6 +192,7 @@ Matchvs提供了在gameServer里主动发起JoinOpen的接口。调用该接口�
 ## 发送数据
 
 调用`push()`接口，可以在gameServer里给各个客户端异步发送数据。支持发给指定客户端。
+消息长度不大于1024字节。
 
 ```c#
     /// <summary>
