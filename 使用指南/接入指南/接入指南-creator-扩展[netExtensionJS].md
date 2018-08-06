@@ -25,6 +25,8 @@ engine.joinRoomWithProperties(MsMatchInfo, userProfile);
 | MsMatchInfo | maxPlayer:最大玩家数;<br />mode:模式;<br />canWatch:是否可以观战 |
 | userProfile | 玩家简介，可以填写昵称、段位等信息                        |
 
+`mode`代表同一个游戏里的不同模式，如”3V3模式“，”5V5模式“，携带不同`mode`的玩家将不会被匹配到一起。
+
 加入房间的回调：
 
 ```javascript
@@ -376,10 +378,10 @@ engine.setFrameSync(frameRate)
 设置帧同步的应答：
 
 ```
-response.setFrameSyncResponse = function (status) {
-	this.labelLog('setFrameSyncResponse, status=' + status);
+response.setFrameSyncResponse = function (rsp) {
+	this.labelLog('setFrameSyncResponse, status=' + rsp.status);
 	if (status !== 200) {
-		this.labelLog('设置同步帧率失败，status=' + status);
+		this.labelLog('设置同步帧率失败，status=' + rsp.status);
 	} else {
 		this.labelLog('设置同步帧率成功, 帧率为:' + GLB.FRAME_RATE);
 	}

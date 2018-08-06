@@ -7,17 +7,19 @@
 调用Matchvs.MatchvsEngine.getInstance方法获取Matchvs引擎对象：
 
 ```javascript
-var engine = Matchvs.MatchvsEngine.getInstance();
+var jsMatchvs = require("matchvs.all");
+var engine = jsMatchvs.MatchvsEngine();
 ```
 
 另外创建一个回调对象，在进行注册、登录、发送消息等操作之后，该对象的方法会被异步调用：
 ```javascript
-var response = {/* 按照文档规范定义一些回调方法 */};
+var jsMatchvs = require("matchvs.all");
+var response = jsMatchvs.MatchvsResponse();
 ```
 
 接入下可以调用初始化方法init：
 ```javascript
-engine.init(response, channel, platform, gameId);
+engine.init(response, channel, platform, gameID);
 ```
 
 Matchvs 提供了两个环境，alpha 调试环境和 release 正式环境。
@@ -35,7 +37,7 @@ engine.init(response, "Matchvs", "alpha", 201016);
 | response | 回调对象                                      |
 | channel  | 渠道，填“Matchvs”即可                         |
 | platform | 平台，调试环境填“alpha” ，正式环境填“release” |
-| gameId   | 游戏ID，来自官网控制台游戏信息                |
+| gameID   | 游戏ID，来自官网控制台游戏信息                |
 
 
 **注意** 在整个应用全局，开发者只需要对引擎做一次初始化。
@@ -51,7 +53,7 @@ engine.registerUser();
 ```javascript
 response.registerUserResponse = function(userInfo) {
 	// 用户ID
-	console.log("userId: ", userInfo.id);
+	console.log("userID: ", userInfo.ID);
 	// token
 	console.log("token: ", userInfo.token);
 }
@@ -73,18 +75,18 @@ engine.login(userId, token, gameId, gameVersion, appkey, secret, deviceId, gatew
 
 | 参数          | 含义                          |
 | ----------- | --------------------------- |
-| userId      | 用户ID，调用注册接口后获取              |
+| userID      | 用户ID，调用注册接口后获取              |
 | token       | 用户token，调用注册接口后获取           |
-| gameId      | 游戏ID，来自Matchvs官网控制台游戏信息     |
+| gameID      | 游戏ID，来自Matchvs官网控制台游戏信息     |
 | gameVersion | 游戏版本，自定义，用于隔离匹配空间           |
 | appkey      | 游戏Appkey，来自Matchvs控制台游戏信息   |
 | serect      | secret key，来自Matchvs控制台游戏信息 |
-| deviceId    | 设备ID，用于多端登录检测，请保证是唯一ID      |
-| gatewayId   | 服务器节点ID，默认为0                |
+| deviceID    | 设备ID，用于多端登录检测，请保证是唯一ID      |
+| gatewayID   | 服务器节点ID，默认为0                |
 
-- 其中，appKey，secret，gameId是你创建游戏后从官网获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
-- userId 和 token 是第二步 **注册成功** 的回调信息。  
-- deviceId 用于检测是否存在多个设备同时登录同一个用户的情况，如果一个账号在两台设备上登录，则后登录的设备会连接失败。
+- 其中，appKey，secret，gameID是你创建游戏后从官网获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
+- userID 和 token 是第二步 **注册成功** 的回调信息。  
+- deviceID 用于检测是否存在多个设备同时登录同一个用户的情况，如果一个账号在两台设备上登录，则后登录的设备会连接失败。
 - Matchvs默认将相同游戏版本的用户匹配到一起。如果开发者对游戏进行了版本升级，不希望两个版本的用户匹配到一起，此时可以在登录的时候通过`gameVersion`区分游戏版本。 
 
 登录成功会收到回调 ：
@@ -94,11 +96,11 @@ response.loginResponse = function(loginRsp) {
 	// 返回值
 	var status = loginRsp.status;
 	// 房间号
-	var roomId = loginRsp.roomId;
+	var roomID = loginRsp.roomID;
 }
 ```
 
-SDK支持房间断线重连，掉线重新登录后可以选择加入原来的房间，loginResponse里的`roomId` 即为上次异常退出的房间ID。如果登录时没有异常退出的房间，则`roomid`为0。
+SDK支持房间断线重连，掉线重新登录后可以选择加入原来的房间，loginResponse里的`roomID` 即为上次异常退出的房间ID。如果登录时没有异常退出的房间，则`roomID`为0。
 
 ## 加入房间
 
@@ -141,8 +143,8 @@ response.joinRoomResponse = function(status, roomUserInfoList, roomInfo) {
 其他玩家加入房间的回调：
 
 ```javascript
-reponse.joinRoomNotify = function(userId, roomUserInfo) {
-	console.log("玩家：", userId);
+reponse.joinRoomNotify = function(userID, roomUserInfo) {
+	console.log("玩家：", userID);
 	console.log("房间新加的用户的信息：", roomUserInfo);
 }
 ```

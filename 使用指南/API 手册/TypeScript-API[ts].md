@@ -121,7 +121,7 @@ registerUserResponse(userInfo:MsRegistRsp);
 
 | 属性   | 类型   | 描述                               | 示例值                                                 |
 | ------ | ------ | ---------------------------------- | ------------------------------------------------------ |
-| id     | number | 用户ID                             | 123456                                                 |
+| userID | number | 用户ID                             | 123456                                                 |
 | token  | string | 用户Token                          | "XGBIULHHBBSUDHDMSGTUGLOXTAIPICMT"                     |
 | name   | string | 用户名称                           | "张三"                                                 |
 | avatar | string | 头像                               | "<http://pic.vszone.cn/upload/head/1416997330299.jpg>" |
@@ -130,7 +130,7 @@ registerUserResponse(userInfo:MsRegistRsp);
 #### 说明
 
 - response是engine.init方法中传入的对象，调用engine.registerUser注册成功之后，response对象的registerUserResponse方法如果存在则会被调用，调用时传入一个封装了用户信息的参数userInfo。
-- 注册用户信息，用以获取一个合法的userId，通过此ID可以连接至Matchvs服务器。一个用户只需注册一次。
+- 注册用户信息，用以获取一个合法的userID，通过此ID可以连接至Matchvs服务器。一个用户只需注册一次。
 
 > 需要注意：调用此接口成功注册用户后，SDK会缓存用户信息。即使再次调用`regist()`会返回相同的UserID,如需重新注册新的用户须调用SDK的 `LocalStore_Clear()` 函数以清除缓存的用户信息。
 >
@@ -184,7 +184,7 @@ response.loginResponse(login:MsLoginRsp);
 - 登录Matchvs服务端，与Matchvs建立连接。
 - 服务端会校验游戏信息是否合法，保证连接的安全性。
 - 如果一个账号在两台设备上登录，则后登录的设备会连接失败。
-- 如果用户加入房间之后掉线，再重新登录进来，则roomId为之前加入的房间的房间号。
+- 如果用户加入房间之后掉线，再重新登录进来，则roomID为之前加入的房间的房间号。
 
 ## logout
 
@@ -247,7 +247,7 @@ response.logoutResponse(status:number);
 | -7     | 正在创建或者进入房间                  |
 | -8     | 已经在房间中                          |
 | -20    | 0 <maxPlayer超出范围 ，maxPlayer须≤20 |
-| -21    | userProfile 过长                      |
+| -21    | userProfile 过长，不能超过512个字符   |
 
 #### 说明
 
@@ -279,16 +279,16 @@ joinRoomWithProperties(matchinfo:MsMatchInfo, userProfile:string):number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -8     | 已经在房间中         |
-| -21    | userProfile 过长     |
+| 错误码 | 含义                                |
+| ------ | ----------------------------------- |
+| 0      | 成功                                |
+| -1     | 失败                                |
+| -2     | 未初始化                            |
+| -3     | 正在初始化                          |
+| -4     | 未登录                              |
+| -7     | 正在创建或者进入房间                |
+| -8     | 已经在房间中                        |
+| -21    | userProfile 过长，不能超过512个字符 |
 
 #### 说明
 
@@ -314,20 +314,20 @@ engine.joinRoom(roomID:string,userProfile:string):number
 
 - 同 joinRandomRoom
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -8     | 已经在房间中         |
-| -21    | userProfile 过长     |
+| 错误码 | 含义                                |
+| ------ | ----------------------------------- |
+| 0      | 成功                                |
+| -1     | 失败                                |
+| -2     | 未初始化                            |
+| -3     | 正在初始化                          |
+| -4     | 未登录                              |
+| -7     | 正在创建或者进入房间                |
+| -8     | 已经在房间中                        |
+| -21    | userProfile 过长，不能超过512个字符 |
 
 #### 说明
 
-- 客户端可以通过调用该接口加入指定房间，roomId为加入指定房间的房间号
+- 客户端可以通过调用该接口加入指定房间，roomID为加入指定房间的房间号
 - 指定房间号必须是由 createRoom接口创建的房间。
 
 
@@ -358,11 +358,11 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 | ------------ | ------ | ------------------ | ------ |
 | roomID       | string | 房间号             | 238211 |
 | roomProperty | string | 房间属性           | ""     |
-| ownerId      | number | 房间创建者的用户ID | 0      |
+| owner        | number | 房间创建者的用户ID | 0      |
 
 #### 说明
 
-- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的ownerId为服务器随机指定的房主ID。在调用engine.createRoom主动创建房间时ownerId为创建房间者（即房主）的ID。以上两种情况下，如果房主离开房间，服务器均会指定下一个房主，并通过`leaveRoomNotify`通知房间其他成员。
+- 如果本房间是某个玩家调用joinRandomRoom随机加入房间时创建的，那么roomInfo中的owner为服务器随机指定的房主ID。在调用engine.createRoom主动创建房间时owner为创建房间者（即房主）的ID。以上两种情况下，如果房主离开房间，服务器均会指定下一个房主，并通过`leaveRoomNotify`通知房间其他成员。
 - roomUserInfoList用户信息列表是本玩家加入房间前的玩家信息列表，不包含本玩家。
 - roomUserInfoList中的玩家的userProfile的值来自于其他客户端调用joinRandomRoom时传递的userProfile的值。
 
@@ -397,16 +397,16 @@ engine.joinOver(cpProto:string):number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 不在房间             |
-| -21    | userProfile 过长     |
+| 错误码 | 含义                            |
+| ------ | ------------------------------- |
+| 0      | 成功                            |
+| -1     | 失败                            |
+| -2     | 未初始化                        |
+| -3     | 正在初始化                      |
+| -4     | 未登录                          |
+| -7     | 正在创建或者进入房间            |
+| -6     | 不在房间                        |
+| -21    | cpProto过长，不能超过 1024 字符 |
 
 #### 说明
 
@@ -464,16 +464,16 @@ engine.leaveRoom(cpProto:string):number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 不在房间             |
-| -21    | userProfile 过长     |
+| 错误码 | 含义                           |
+| ------ | ------------------------------ |
+| 0      | 成功                           |
+| -1     | 失败                           |
+| -2     | 未初始化                       |
+| -3     | 正在初始化                     |
+| -4     | 未登录                         |
+| -7     | 正在创建或者进入房间           |
+| -6     | 不在房间                       |
+| -21    | userProfile 过长，不能超过1024 |
 
 #### 说明
 
@@ -544,16 +544,16 @@ engine.createRoom(createRoomInfo:MsCreateRoomInfo, userProfile:string): number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -8     | 已在房间             |
-| -21    | userProfile 过长     |
+| 错误码 | 含义                          |
+| ------ | ----------------------------- |
+| 0      | 成功                          |
+| -1     | 失败                          |
+| -2     | 未初始化                      |
+| -3     | 正在初始化                    |
+| -4     | 未登录                        |
+| -7     | 正在创建或者进入房间          |
+| -8     | 已在房间                      |
+| -21    | userProfile 过长，不能超过512 |
 
 #### 说明
 
@@ -595,16 +595,16 @@ engine.getRoomList(filter:MsRoomFilter):number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -8     | 已在房间             |
-| -21    | filter 过长          |
+| 错误码 | 含义                            |
+| ------ | ------------------------------- |
+| 0      | 成功                            |
+| -1     | 失败                            |
+| -2     | 未初始化                        |
+| -3     | 正在初始化                      |
+| -4     | 未登录                          |
+| -7     | 正在创建或者进入房间            |
+| -8     | 已在房间                        |
+| -21    | filter 过长，总字节不能超过1024 |
 
 ## getRoomListResponse
 
@@ -645,9 +645,9 @@ engine.getRoomListEx(filter:MsRoomFilterEx);
 
 | 参数         | 类型   | 描述                                              | 示例值         |
 | ------------ | ------ | ------------------------------------------------- | -------------- |
-| maxPlayer    | number | 房间最大人数                                      | 3              |
-| mode         | number | 模式                                              | 0              |
-| canWatch     | number | 是否可以观战 1-可以 2-不可以                      | 1              |
+| maxPlayer    | number | 房间最大人数 (0-全部)                             | 3              |
+| mode         | number | 模式（0-全部）*创建房间时，mode最好不要填0        | 2              |
+| canWatch     | number | 是否可以观战（0-全部 1-可以 2-不可以）            | 1              |
 | roomProperty | string | 房间属性                                          | “roomProperty” |
 | full         | number | 0-全部 1-满 2-未满                                | 0              |
 | state        | number | 0-全部 1-开放 2-关闭                              | 0              |
@@ -658,19 +658,42 @@ engine.getRoomListEx(filter:MsRoomFilterEx);
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -21    | filter 过长          |
+| 错误码 | 含义                            |
+| ------ | ------------------------------- |
+| 0      | 成功                            |
+| -1     | 失败                            |
+| -2     | 未初始化                        |
+| -3     | 正在初始化                      |
+| -4     | 未登录                          |
+| -7     | 正在创建或者进入房间            |
+| -21    | filter 过长，总字节不能超过1024 |
 
 #### 说明
 
-- getRoomListEx 是 getRoomList接口的扩展功能接口，获取到的房间列表是经过参数筛选的，这些参数必须和createRoom接口创建的房间参数一致而且 createRoom中的参数 visibility 必须设置为1(可见)。
+- getRoomListEx 是 getRoomList 接口的扩展功能接口，只能获取调用 createRoom 接口创建的房间，获取房间列表参数必须和createRoom接口创建的房间参数一致而且 createRoom中的参数 visibility 必须设置为1(可见)。比如：createRoom 参数结构 如下
+
+```
+var createRoomInfo = new MsCreateRoomInfo("Matchvs",3, 0, 0, 1, "mapA")
+```
+
+那么getRoomList 参数结构应该如下：
+
+```
+var filter = new MsRoomFilterEx(
+	    createRoomInfo.maxPlayer, 		//maxPlayer
+        createRoomInfo.mode,		    //mode
+        createRoomInfo.canWatch,		//canWatch
+        createRoomInfo.roomProperty,    //roomProperty
+        0, 	//full 0-未满
+        1,  //state 0-全部，1-开放 2-关闭
+        0,  //sort 0-不排序 1-创建时间排序 2-玩家数量排序 3-状态排序 都可以
+        0,  //order 0-ASC  1-DESC 都可以
+        0,  //pageNo 从0开始 0为第一页
+        3,  //pageSize 每页数量 大于0
+        );
+```
+
+
 
 
 ## getRoomListExResponse
@@ -782,17 +805,17 @@ engine.setRoomProperty(roomID:string, roomProperty:string):number
 
 #### 返回值
 
-| 错误码 | 含义                  |
-| ------ | --------------------- |
-| 0      | 调用成功              |
-| -1     | 调用失败              |
-| -2     | 未初始化              |
-| -3     | 正在初始化            |
-| -4     | 未登陆                |
-| -7     | 正在加入房间          |
-| -10    | 正在登出              |
-| -11    | 正在离开房间          |
-| -21    | roomProperty 长度过长 |
+| 错误码 | 含义                                    |
+| ------ | --------------------------------------- |
+| 0      | 调用成功                                |
+| -1     | 调用失败                                |
+| -2     | 未初始化                                |
+| -3     | 正在初始化                              |
+| -4     | 未登陆                                  |
+| -7     | 正在加入房间                            |
+| -10    | 正在登出                                |
+| -11    | 正在离开房间                            |
+| -21    | roomProperty 长度过长，不能超过1023字符 |
 
 #### 说明
 
@@ -852,23 +875,23 @@ engine.sendEvent(data:string):any
 
 - 返回值为一个对象，该对象包含以下属性：
 
-| 属性     | 类型   | 描述                            | 示例值 |
-| -------- | ------ | ------------------------------- | ------ |
-| result   | number | 错误码，0表示成功，其他表示失败 | 0      |
-| sequence | number | 事件序号，作为事件的唯一标识    | 231212 |
+| 属性     | 类型   | 描述                                                         | 示例值 |
+| -------- | ------ | ------------------------------------------------------------ | ------ |
+| result   | number | 错误码，0表示成功，其他表示失败                              | 0      |
+| sequence | number | 事件序号，作为事件的唯一标识。客户端发送消息后收到的sendEventResponse 也会收到 sequence 标识，通过此标识来确定这个sendEventResponse 是由哪次sendEvent 发送的。主要用于在游戏中做信息同步的时候，网络传输都有延迟会出现sendEvent与sendEventResponse 收到顺序不同。 | 231212 |
 
 #### result 说明
 
-| 返回码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 未加入房间           |
-| -21    | data 过长            |
+| 返回码 | 含义                                  |
+| ------ | ------------------------------------- |
+| 0      | 成功                                  |
+| -1     | 失败                                  |
+| -2     | 未初始化                              |
+| -3     | 正在初始化                            |
+| -4     | 未登录                                |
+| -7     | 正在创建或者进入房间                  |
+| -6     | 未加入房间                            |
+| -21    | data 过长, data长度不能超过1024个字符 |
 
 #### 说明
 
@@ -902,18 +925,18 @@ engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array<n
 
 #### result 说明
 
-| 返回码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 未加入房间           |
-| -21    | data 过长            |
-| -23    | msgType 非法         |
-| -24    | desttype 非法        |
+| 返回码 | 含义                                   |
+| ------ | -------------------------------------- |
+| 0      | 成功                                   |
+| -1     | 失败                                   |
+| -2     | 未初始化                               |
+| -3     | 正在初始化                             |
+| -4     | 未登录                                 |
+| -7     | 正在创建或者进入房间                   |
+| -6     | 未加入房间                             |
+| -21    | data 过长， data长度不能超过1024个字符 |
+| -23    | msgType 非法                           |
+| -24    | desttype 非法                          |
 
 #### 说明
 
@@ -929,10 +952,10 @@ response.sendEventResponse(rsp:MsSendEventRsp);
 
 #### MsSendEventRsp 的属性
 
-| 属性     | 类型   | 描述                            | 示例值 |
-| -------- | ------ | ------------------------------- | ------ |
-| status   | number | 状态返回，200表示成功<br>521 gameServer不存在，请检查是否已开启本地调试或在正式环境发布运行gameServer| 200    |
-| sequence | number | 事件序号，作为事件的唯一标识    | 231212 |
+| 属性     | 类型   | 描述                                                         | 示例值 |
+| -------- | ------ | ------------------------------------------------------------ | ------ |
+| status   | number | 状态返回，200表示成功<br>521 gameServer不存在，请检查是否已开启本地调试或在正式环境发布运行gameServer | 200    |
+| sequence | number | 事件序号，作为事件的唯一标识，可以参考sendEvent，对这个字段的详细说明 | 231212 |
 
 #### 说明
 
@@ -992,7 +1015,7 @@ response.gameServerNotify(eventInfo:MsGameServerNotifyInfo);
 
 #### 说明
 
-- 开发者有使用 gameServer 的时候，如果有gameServer发送消息到客户端就会收到这个回调，回调的 srcUserId 是固定为0。
+- 开发者有使用 gameServer 的时候，如果有gameServer发送消息到客户端就会收到这个回调，回调的 srcUserID 是固定为0。
 
 
 ## kickPlayer
@@ -1005,21 +1028,21 @@ engine.kickPlayer(userID:number, cpProto:string);
 
 | 参数    | 类型   | 描述         | 示例值 |
 | ------- | ------ | ------------ | ------ |
-| userID  | number | 被踢除玩家ID |        |
-| cpProto | string | 附加消息     |        |
+| userID  | number | 被踢除玩家ID | 655444 |
+| cpProto | string | 附加消息     | “kick” |
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| :----- | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 未加入房间           |
-| -21    | data 过长            |
+| 错误码 | 含义                          |
+| :----- | ----------------------------- |
+| 0      | 成功                          |
+| -1     | 失败                          |
+| -2     | 未初始化                      |
+| -3     | 正在初始化                    |
+| -4     | 未登录                        |
+| -7     | 正在创建或者进入房间          |
+| -6     | 未加入房间                    |
+| -21    | data 过长，不能超过1024个字符 |
 
 #### 说明
 
@@ -1106,10 +1129,10 @@ response.subscribeEventGroupResponse(status:number, groups:Array<string>);
 
 #### 参数
 
-| 参数   | 类型          | 描述                      | 示例值 |
-| ------ | ------------- | ------------------------- | ------ |
-| status | number        | 状态值：成功200，其他失败 | 200    |
-| groups | Array<string> | 订阅的组                  | [""]   |
+| 参数   | 类型          | 描述                      | 示例值      |
+| ------ | ------------- | ------------------------- | ----------- |
+| status | number        | 状态值：成功200，其他失败 | 200         |
+| groups | Array<string> | 订阅的组                  | ["MatchVS"] |
 
 #### 说明
 
@@ -1173,11 +1196,11 @@ response.sendEventGroupNotify(srcUid:number, groups:Array<string>, cpProto:strin
 
 #### 参数
 
-| 参数    | 类型          | 描述         | 示例值      |
-| ------- | ------------- | ------------ | ----------- |
-| srcUid  | number        | 消息来源用户 | 10000       |
-| groups  | Array<string> | 消息来源分组 | ["MatchVS"] |
-| cpProto | string        | 负载消息     |             |
+| 参数      | 类型          | 描述         | 示例值      |
+| --------- | ------------- | ------------ | ----------- |
+| srcUserID | number        | 消息来源用户 | 277773      |
+| groups    | Array<string> | 消息来源分组 | ["MatchVS"] |
+| cpProto   | string        | 负载消息     | "test"      |
 
 #### 说明
 
@@ -1199,16 +1222,16 @@ engine.setFrameSync(frameRate:number):number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 未加入房间           |
-| -20    | frameRate 不能超过20 |
+| 错误码 | 含义                             |
+| ------ | -------------------------------- |
+| 0      | 成功                             |
+| -1     | 失败                             |
+| -2     | 未初始化                         |
+| -3     | 正在初始化                       |
+| -4     | 未登录                           |
+| -7     | 正在创建或者进入房间             |
+| -6     | 未加入房间                       |
+| -20    | frameRate 不能超过 20，不能小于0 |
 
 #### 说明
 
@@ -1249,16 +1272,16 @@ engine.sendFrameEvent(cpProto:string):number
 
 #### 返回值
 
-| 错误码 | 含义                 |
-| ------ | -------------------- |
-| 0      | 成功                 |
-| -1     | 失败                 |
-| -2     | 未初始化             |
-| -3     | 正在初始化           |
-| -4     | 未登录               |
-| -7     | 正在创建或者进入房间 |
-| -6     | 未加入房间           |
-| -21    | cpProto 过长         |
+| 错误码 | 含义                           |
+| ------ | ------------------------------ |
+| 0      | 成功                           |
+| -1     | 失败                           |
+| -2     | 未初始化                       |
+| -3     | 正在初始化                     |
+| -4     | 未登录                         |
+| -7     | 正在创建或者进入房间           |
+| -6     | 未加入房间                     |
+| -21    | cpProto 过长，不能超过1024字符 |
 
 #### 说明
 
@@ -1359,7 +1382,7 @@ response.reconnectResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>
 | ------------ | ------ | ------------------ | ------ |
 | roomID       | string | 房间号             | 238211 |
 | roomProperty | string | 房间属性           | ""     |
-| ownerId      | number | 房间创建者的用户ID | 0      |
+| owner        | number | 房间创建者的用户ID | 0      |
 
 #### 说明
 
@@ -1490,6 +1513,15 @@ response.errorResponse = function(error) {
 
 ## CHANGELOG
 
+时间：2018.07.13
+
+TSSDK版本：v3.7.3.0+
+
+```
+1. 新增 joinRoomResponse 接口参数 state
+2. 所有包含userId参数的数据类型都新增了一个userID字段，原来userId也存在，建议使用userID。
+```
+
 时间：2018.05.29
 
 TSSDK版本：v1.6.202
@@ -1513,7 +1545,19 @@ TSSDK版本：v1.6.1+
 1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
 ```
 
+时间：2018.05.29
 
+TSSDK版本：v1.6.202
+
+```
+1. 新增joinOpen 房间重新打开功能
+2. 修复微信小游戏真机断线问题
+3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
+4. 修复Egret打包H5平台 `找不到 wx define` 的问题
+5. 修复uninit后不能后登录的问题
+6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
+7. 代码优化,减少代码体积
+```
 
 时间：2018.04.17
 TSSDK版本：JSSDK_v1.6.x
