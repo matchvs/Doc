@@ -981,7 +981,7 @@ response.sendEventNotify(eventInfo:MsSendEventNotify);
 
 
 
-## netWorkStateNotify
+## networkStateNotify
 
 ```typescript
 response.networkStateNotify(netnotify:MsNetworkStateNotify);
