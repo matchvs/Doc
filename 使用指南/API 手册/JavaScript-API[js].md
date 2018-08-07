@@ -970,7 +970,7 @@ response.sendEventNotify(eventInfo)
 - 在其他客户端调用engine.sendEvent方法之后，本客户端的response.sendEventNotify会被SDK调用，调用时传入其他玩家的用户ID和发送的消息。
 
 
-## netWorkStateNotify
+## networkStateNotify
 
 ```javascript
 response.networkStateNotify(netnotify);
