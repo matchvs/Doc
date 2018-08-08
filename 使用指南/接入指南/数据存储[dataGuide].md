@@ -40,7 +40,7 @@ http://alphavsopen.matchvs.com/wc5/setUserData.do?gameID=200660&userID=21023&dat
 | gameID   | 游戏ID                       |
 | userID   | 用户ID                       |
 | dataList | 自定义存储json数组，包括字段的key和value |
-| sign     | 见下方sign获取方法2               |
+| sign     | 见下方sign值获取方法-用户               |
 
 返回数据示例如下：
 
@@ -71,7 +71,7 @@ http://alphavsopen.matchvs.com/wc5/getUserData.do?gameID=200660&userID=21023&key
 | gameID  | 游戏ID         |
 | userID  | 用户ID         |
 | keyList | 需要取的数据对应的键列表 |
-| sign    | 见下方sign获取方法2 |
+| sign    | 见下方sign值获取方法-用户 |
 
 返回数据示例如下：
 
@@ -107,7 +107,7 @@ http://alphavsopen.matchvs.com/wc5/delUserData.do?gameID=200660&userID=21023&key
 | gameID  | 游戏ID          |
 | userID  | 用户ID          |
 | keyList | 需要删除的数据对应的键列表 |
-| sign    | 见下方sign获取方法2  |
+| sign    | 见下方sign值获取方法-用户  |
 
 返回数据示例如下：
 
@@ -138,7 +138,7 @@ http://alphavsopen.matchvs.com/wc5/setGameData.do?gameID=200660&userID=21023&dat
 | gameID   | 游戏ID                       |
 | userID   | 用户ID                       |
 | dataList | 自定义存储json数组，包括字段的key和value |
-| sign     | 见下方sign获取方法3               |
+| sign     | 见下方sign值获取方法-全局               |
 
 返回数据示例如下：
 
@@ -167,7 +167,7 @@ http://alphavsopen.matchvs.com/wc5/getGameData.do?gameID=200660&userID=21023&key
 | gameID  | 游戏ID         |
 | userID  | 用户ID         |
 | keyList | 需要取的数据对应的键列表 |
-| sign    | 见下方sign获取方法3 |
+| sign    | 见下方sign值获取方法-全局 |
 
 返回数据示例如下：
 
@@ -203,7 +203,7 @@ http://alphavsopen.matchvs.com/wc5/delGameData.do?gameID=200660&userID=21023&key
 | gameID  | 游戏ID          |
 | userID  | 用户ID          |
 | keyList | 需要删除的数据对应的键列表 |
-| sign    | 见下方sign获取方法3  |
+| sign    | 见下方sign值获取方法-全局  |
 
 返回数据示例如下：
 
@@ -234,7 +234,7 @@ http://alphavsopen.matchvs.com/wc5/hashSet.do?gameID=102003&userID=21023&key=1&v
 | userID | 用户ID         |
 | key    | 自定义存储字段编号    |
 | value  | 自定义存储字段的值    |
-| sign   | 见下方sign获取方法1 |
+| sign   | 见下方sign值获取方法-哈希 |
 
 返回数据示例如下：
 
@@ -263,7 +263,7 @@ http://vsopen.matchvs.com/wc5/hashGet.do?gameID=102003&userID=21023&key=1&sign=b
 | gameID | 游戏ID         |
 | userID | 用户ID         |
 | key    | 自定义存储字段键值    |
-| sign   | 见下方sign获取方法1 |
+| sign   | 见下方sign值获取方法-哈希 |
 
 返回数据示例如下：
 
