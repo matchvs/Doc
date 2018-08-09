@@ -1337,11 +1337,11 @@ response.reconnectResponse(status, roomUserInfoList, roomInfo);
 
 #### 参数
 
-| 参数             | 类型                  | 描述                            | 示例值 |
-| ---------------- | --------------------- | ------------------------------- | ------ |
-| status           | number                | 状态返回，200表示成功，其他失败 | 200    |
-| roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表              |        |
-| roomInfo         | MsRoomInfo            | 房间信息构成的对象              |        |
+| 参数             | 类型                  | 描述                                                         | 示例值 |
+| ---------------- | --------------------- | ------------------------------------------------------------ | ------ |
+| status           | number                | 状态返回，200表示成功， 201-重连房间失败但是处于登录状态，其他失败 | 200    |
+| roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表                                           |        |
+| roomInfo         | MsRoomInfo            | 房间信息构成的对象                                           |        |
 
 #### MsRoomUserInfo 的属性
 
@@ -1469,17 +1469,22 @@ initReopenRoom: function (self) {
 ## 错误码
 
 ```
-response.errorResponse = function(error) {
-	console.log("错误信息：", error);
+response.errorResponse = function(errCode, errMsg) {
+	console.log("错误信息：", errMsg);
 }
 ```
 **注意** Matchvs相关的异常信息可通过该接口获取
 
-| 错误码 | 含义                                                         |
-| ------ | ------------------------------------------------------------ |
-| 1001    | 网络错误                     |
-| 500     | 服务器内部错误                 |
-| 其他     | 参考对应接口回调的错误码说明   |
+| 错误码 | 含义             |
+| ------ | ---------------- |
+| 1001   | 网络错误         |
+| 500    | 服务器内部错误   |
+| 406    | 房间已经关闭     |
+| 405    | 房间人已经满了   |
+| 404    | 找不到您要的信息 |
+| 500    | 游戏服务器错误   |
+| 402    | 用户信息验证错误 |
+|        |                  |
 
 
 ## CHANGELOG
