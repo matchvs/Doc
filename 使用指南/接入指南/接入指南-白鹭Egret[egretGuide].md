@@ -1,38 +1,43 @@
-**游戏交互时序图**
+# MatchvsSDK 接入指南
+
+## 接入前说明
+
+`MatchvsSDK` 使用是以简单的接口调用和接口返回的方式实现相关联网操作。比如随机加入房间只需要调用`joinRandRoom接口`，加入房间结果就以接口 `joinRoomResponse` 返回。在整个使用过程中，开发者只需要关心`MatchvsEngine`(接口请求调用对象)和 `MatchvsResponse`(接口调用返回对象)。接口请求使用 `MatchvsEngine`对象实例，接口返回使用 `MatchvsResponse` 对象实例。后面后介绍这两个对象的使用方法。此文档只是用于引导开发者接入SDK，需要接口口详细的参数说明请看 [API手册](http://www.matchvs.com/service?page=js)  
+
+#### SDK游戏交互时序图
+
+发起请求的是 `MatchvsEngine` 对象实例，返回结果是 `MatchvsResponse` 对象实例。图中接口名称只供参考，以 [API手册](http://www.matchvs.com/service?page=js)  为准。
 
 ![](http://imgs.matchvs.com/static/时序图.jpg)
 
+## 获取实例
+
+在使用 MatchvsSDK 过程中需要确保 `MatchvsEngine`(接口请求调用对象)实例 和 `MatchvsResponse`(接口调用返回对象) 实例全局唯一。
+
+```javascript
+var engine = new MatchvsEngine();
+var response = new MatchvsResponse();
+```
+
+> 可以使用全局变量，也可以使用单例模式开发者自己封装。
+
 ## 初始化
 
-调用Matchvs.MatchvsEngine.getInstance方法获取Matchvs引擎对象：
+获取到对象实例后，需要开发者把 `MatchvsResponse` 实例注册到 `MatchvsEngine` 用于注册、登录、加入房间等接口请求后的异步回调。调用 `init` 接口初始化SDK。
 
-```javascript
-var engine = Matchvs.MatchvsEngine.getInstance();
-```
-
-另外创建一个回调对象，在进行注册、登录、发送消息等操作之后，该对象的方法会被异步调用：
-```javascript
-var response = {/* 按照文档规范定义一些回调方法 */};
-```
-
-接入下可以调用初始化方法init：
-```javascript
-engine.init(response, channel, platform, gameId);
-```
-
-Matchvs 提供了两个环境，alpha 调试环境和 release 正式环境。
-
-游戏开发调试阶段请使用 alpha 环境，即 platform 传参"alpha"。如下：
+示例调用如下：
 
 ```javascript
 engine.init(response, "Matchvs", "alpha", 201016);
 ```
 
+- Matchvs 提供了两个环境，alpha 调试环境和 release 正式环境。游戏开发调试阶段请使用 alpha 环境，即 platform 传参"alpha"。
+
 参数说明:
 
 | 参数     | 含义                                          |
-| -------- | --------------------------------------------- |
-| response | 回调对象                                      |
+| :------- | --------------------------------------------- |
+| response | 回调对象(`MatchvsResponse` 实例)              |
 | channel  | 渠道，填“Matchvs”即可                         |
 | platform | 平台，调试环境填“alpha” ，正式环境填“release” |
 | gameId   | 游戏ID，来自官网控制台游戏信息                |
@@ -42,7 +47,7 @@ engine.init(response, "Matchvs", "alpha", 201016);
 
 ## 注册
 
-Matchvs提供的用户ID被用于在各个服务中校验连接的有效性，调试前开发者需要先获取到一个合法的用户ID。
+Matchvs提供的 `userID` 被用于在各个服务中校验连接的有效性，调试前开发者需要先获取到一个合法的`userID`。
 ```javascript
 engine.registerUser();
 ```
@@ -51,39 +56,39 @@ engine.registerUser();
 ```javascript
 response.registerUserResponse = function(userInfo) {
 	// 用户ID
-	console.log("userId: ", userInfo.id);
+	console.log("userID: ", userInfo.userID);
 	// token
 	console.log("token: ", userInfo.token);
 }
 ```
 
 
-**注意** 用户ID和token有需要的可以缓存起来，在之后的应用启动中不必重复获取。如果你有自己的用户系统，可以将Matchvs 提供的 userID 和用户系统进行映射。
+**注意** `userID`和 `token` 有需要的可以缓存起来，在之后的应用启动中不必重复获取。如果你有自己的用户系统，可以将Matchvs 提供的 userID 和用户系统进行映射。调用 registerUser 接口的返回数据会暂存在浏览器中。所以使用同一个浏览器调用 registerUser 接口会返回相同的 userID信息。
 
 
 ## 登录
 
-成功获取用户ID后即可连接Matchvs服务：
+成功获取 `userID` 后即可连接Matchvs服务：
 
 ```javascript
-engine.login(userId, token, gameId, gameVersion, appkey, secret, deviceId, gatewayId);
+engine.login(userID, token, gameID, gameVersion, appkey, secret, deviceID, gatewayID);
 ```
 
 参数说明:
 
-| 参数          | 含义                          |
-| ----------- | --------------------------- |
-| userId      | 用户ID，调用注册接口后获取              |
-| token       | 用户token，调用注册接口后获取           |
-| gameId      | 游戏ID，来自Matchvs官网控制台游戏信息     |
-| gameVersion | 游戏版本，自定义，用于隔离匹配空间           |
-| appkey      | 游戏Appkey，来自Matchvs控制台游戏信息   |
-| serect      | secret key，来自Matchvs控制台游戏信息 |
-| deviceId    | 设备ID，用于多端登录检测，请保证是唯一ID      |
-| gatewayId   | 服务器节点ID，默认为0                |
+| 参数        | 含义                                     |
+| ----------- | ---------------------------------------- |
+| userID      | 用户ID，调用注册接口后获取               |
+| token       | 用户token，调用注册接口后获取            |
+| gameID      | 游戏ID，来自Matchvs官网控制台游戏信息    |
+| gameVersion | 游戏版本，自定义，用于隔离匹配空间       |
+| appkey      | 游戏Appkey，来自Matchvs控制台游戏信息    |
+| serect      | secret key，来自Matchvs控制台游戏信息    |
+| deviceID    | 设备ID，用于多端登录检测，请保证是唯一ID |
+| gatewayID   | 服务器节点ID，默认为0                    |
 
-- 其中，appKey，secret，gameId是你创建游戏后从官网获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
-- userId 和 token 是第二步 **注册成功** 的回调信息。  
+- 其中，appKey，secret，gameID是你在Matchvs官网创建游戏后获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
+- userID 和 token 是调用 registerUser 接口 **注册成功** 的回调信息。
 - deviceId 用于检测是否存在多个设备同时登录同一个用户的情况，如果一个账号在两台设备上登录，则后登录的设备会连接失败。
 - Matchvs默认将相同游戏版本的用户匹配到一起。如果开发者对游戏进行了版本升级，不希望两个版本的用户匹配到一起，此时可以在登录的时候通过`gameVersion`区分游戏版本。 
 
@@ -94,11 +99,11 @@ response.loginResponse = function(loginRsp) {
 	// 返回值
 	var status = loginRsp.status;
 	// 房间号
-	var roomId = loginRsp.roomId;
+	var roomID = loginRsp.roomID;
 }
 ```
 
-SDK支持房间断线重连，掉线重新登录后可以选择加入原来的房间，loginResponse里的`roomId` 即为上次异常退出的房间ID。如果登录时没有异常退出的房间，则`roomid`为0。
+> SDK支持房间断线重连，掉线重新登录后可以选择加入原来的房间，loginResponse里的`roomID` 即为上次异常退出的房间ID。如果登录时没有异常退出的房间，则`roomID` 为0。[断线重连说明](http://www.matchvs.com/service?page=reconnect)
 
 ## 加入房间
 
@@ -157,15 +162,15 @@ reponse.joinRoomNotify = function(roomUserInfo) {
 停止加入 ：
 
 ```javascript
-engine.joinOver(proto);
+engine.joinOver(cpProto);
 ```
 
 
 参数说明:
 
-| 参数    | 含义   |
-| ----- | ---- |
-| proto | 负载数据 |
+| 参数    | 含义     |
+| ------- | -------- |
+| cpProto | 负载数据 |
 
 停止加入的回调 ：
 
@@ -180,7 +185,7 @@ response.joinOverResponse = function(joinOverRsp) {
 
 **注意**  Matchvs服务器会判断房间是人满状态或者已停止加入状态，根据状态判断房间是否还可加人。为避免房间人满后开始游戏，在游戏过程中有人退出后，Matchvs判断人不满可继续向房间加人，建议在任何不希望中途加入的游戏里，只要满足开始游戏条件则向Matchvs服务端发送停止加入。
 
-`proto` 为开发者自定义的协议内容，如果没有自定义协议可填`''`。proto的内容会伴随消息的广播以Notify的方式发给房间所有成员。其他接口里的`proto`机制均是如此。
+`cpProto` 为开发者自定义的协议内容，如果没有自定义协议可填`''`。`cpProto`的内容会伴随消息的广播以Notify的方式发给房间所有成员。其他接口里的`cpProto`机制均是如此。
 
 ## 游戏数据传输
 
@@ -218,7 +223,7 @@ response.sendEventResponse = function(sendEventRsp) {
 
 ```javascript
 response.sendEventNotify = function(eventInfo) {
-    console.log("推送方用户ID：", eventInfo.srcUserId);
+    console.log("推送方用户ID：", eventInfo.srcUserID);
     console.log("消息内容：", eventInfo.cpProto);
 }
 ```
@@ -248,8 +253,8 @@ engine.leaveRoom(cpProto);
 ```javascript
 response.leaveRoomResponse = function(leaveRoomRsp) {
 	console.log("状态返回：", leaveRoomRsp.status);
-	console.log("房间ID：", leaveRoomRsp.roomId);
-	console.log("用户ID：", leaveRoomRsp.userId);
+	console.log("房间ID：", leaveRoomRsp.roomID);
+	console.log("用户ID：", leaveRoomRsp.userID);
 	console.log("负载信息：", leaveRoomRsp.cpProto);
 }
 ```
@@ -258,8 +263,8 @@ response.leaveRoomResponse = function(leaveRoomRsp) {
 其他成员离开房间回调 ：
 
 ```javascript
-response.leaveRoomNotify = function(roomId, roomUserInfo) {;
-	console.log("房间号：", roomId);
+response.leaveRoomNotify = function(roomID, roomUserInfo) {;
+	console.log("房间号：", roomID);
 	console.log("离开房间的用户的信息：", roomUserInfo);
 }
 ```
@@ -292,111 +297,4 @@ response.logoutResponse = function(status) {
 engine.uninit();
 ```
 
-
-
-## 数据存取
-
-**注意** Matchvs 环境分为测试环境（alpha）和 正式环境（release），所以在使用http接口时，需要通过域名进行区分。使用正式环境需要先在[官网控制台](http://www.matchvs.com/manage/gameContentList)将您的游戏发布上线。
-
-**alpha环境域名：alphavsopen.matchvs.com**
-
-**release环境域名：releasevsopen.matchvs.com**
-
-存储接口 ： **wc5/hashSet.do**
-
-开发者可以通过调用该接口将自定义的数据存储至服务器。
-
-```
-http://alphavsopen.matchvs.com/wc5/hashSet.do?gameID=102003&userID=21023&key=1&value=a&sign=68c592733f19f6c5ae7e8b7ae8e5002f 
-```
-
-**注意：** value的长度上限为255字符，如果长度超过255，Matchvs 在存储时会忽略255后的字符内容。存储上限为每个玩家1000条，如果超过1000条，会返回对应错误。
-
-可以调用hashSet实现增量存储。为避免特殊字符影响，存储前，建议开发者最好将字符串解码成二进制再用UrlEndcode编码后存储。
-
-| 参数名    | 说明          |
-| ------ | ----------- |
-| gameID | 游戏ID        |
-| userID | 用户ID        |
-| key    | 自定义存储字段编号   |
-| value  | 自定义存储字段的值   |
-| sign   | 见下方sign获取方法 |
-
-返回数据示例如下：
-
-```
-    {
-        "code": 0,
-        "data": "success",
-        "status": 0
-    }
-```
-
-
-
-
-
-取接口：**wc5/hashGet.do**
-
-开发者可以通过调用该接口获取存储在服务器的自定义数据。
-
-```
-http://vsopen.matchvs.com/wc5/hashGet.do?gameID=102003&userID=21023&key=1&sign=b0244f7ed1d433975512a8f6c2ba4517 
-```
-
-**注意** 存储前，如果将字符串解码成二进制再用UrlEndcode编码后存储，对应的取出时应用UrlDecode进行解码后显示
-
-| 参数名    | 说明          |
-| ------ | ----------- |
-| gameID | 游戏ID        |
-| userID | 用户ID        |
-| key    | 自定义存储字段键值   |
-| sign   | 见下方sign获取方法 |
-
-返回数据示例如下：
-
-```
-{
-    "code": 0,
-    "data": "this is my data",
-    "status": 0
-}
-```
-
-
-
-**sign值获取方法**
-
-##### 1. 按照如下格式拼接出字符串:
-
-```
-appKey&param1=value1&param2=value2&param3=value3&token
-```
-
-- `appKey`为您在官网配置游戏所得
-
-- `param1、param2、param3`等所有参数，按照数字`0-9`、英文字母`a~z`的顺序排列
-
-  例 ： 有三个参数`gameID`、`userID`、`key`，则按照`appkey&gameID=xxx&key=xxx&userID=xxx&token` 的顺序拼出字符串。
-
-- `token`通过用户注册请求获取
-
-##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值
-
-
-
-## 错误码
-
-```
-response.errorResponse = function(error) {
-	console.log("错误信息：", error);
-}
-```
-**注意** Matchvs相关的异常信息可通过该接口获取
-
-| 错误码 | 含义                                                         |
-| ------ | ------------------------------------------------------------ |
-| 1001    | 网络错误                     |
-| 500     | 服务器内部错误                 |
-| 其他     | 参考API文档里对应接口回调的错误码说明   |
 
