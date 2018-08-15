@@ -1495,7 +1495,7 @@ JSSDK版本：v3.7.3.0+
 
 ```
 1. 新增 joinRoomResponse 接口参数 state
-2. 所有包含userId参数的数据类型都新增了一个userID字段，原来userId也存在，建议使用userID。
+2. 所有包含userID参数的数据类型都新增了一个userID字段，原来userID也存在，建议使用userID。
 ```
 
 时间：2018.05.29
