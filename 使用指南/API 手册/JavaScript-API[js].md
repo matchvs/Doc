@@ -148,8 +148,9 @@ engine.login(userID, token, gameID, gameVersion, appKey, secretKey, deviceID, ga
 | -1     | 失败                         |
 | -2     | 未初始化，请先调用初始化接口 |
 | -3     | 正在初始化                   |
-| -5     | 已经登录，请勿重复登录       |
-| -6     | 正在登出                     |
+| -5     | 正在登录                     |
+| -6     | 已经登录，请勿重复登录       |
+| -11    | 正在登出                     |
 
 
 
