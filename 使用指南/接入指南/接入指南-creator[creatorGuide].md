@@ -8,13 +8,13 @@
 
 ```javascript
 var jsMatchvs = require("matchvs.all");
-var engine = jsMatchvs.MatchvsEngine();
+var engine = new jsMatchvs.MatchvsEngine();
 ```
 
 另外创建一个回调对象，在进行注册、登录、发送消息等操作之后，该对象的方法会被异步调用：
 ```javascript
 var jsMatchvs = require("matchvs.all");
-var response = jsMatchvs.MatchvsResponse();
+var response = new jsMatchvs.MatchvsResponse();
 ```
 
 接入下可以调用初始化方法init：
@@ -68,7 +68,7 @@ response.registerUserResponse = function(userInfo) {
 成功获取用户ID后即可连接Matchvs服务：
 
 ```javascript
-engine.login(userId, token, gameId, gameVersion, appkey, secret, deviceId, gatewayId);
+engine.login(userID, token, gameID, gameVersion, appkey, secret, deviceID, gatewayID);
 ```
 
 参数说明:
@@ -143,8 +143,7 @@ response.joinRoomResponse = function(status, roomUserInfoList, roomInfo) {
 其他玩家加入房间的回调：
 
 ```javascript
-reponse.joinRoomNotify = function(userID, roomUserInfo) {
-	console.log("玩家：", userID);
+reponse.joinRoomNotify = function(roomUserInfo) {
 	console.log("房间新加的用户的信息：", roomUserInfo);
 }
 ```
