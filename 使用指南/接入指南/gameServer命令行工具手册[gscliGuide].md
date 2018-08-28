@@ -8,7 +8,7 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 ### Windows环境
 - 在D盘创建目录 matchvs （这里创建的目录仅仅是个示例，用户可以使用任意的目录名，可以在任何路径下）  
 
-- 将下载的可执行文件 matchvs.exe 放到 `D:\matchv` 目录下
+- 将下载的可执行文件 matchvs.exe 放到 `D:\matchvs` 目录下
 - 修改环境变量：PATH，将 `D:\matchvs` 追加在变量值后面，与前面的内容用 ` ;`隔开    
 
 ![image](http://imgs.matchvs.com/static/mvs1.png)
