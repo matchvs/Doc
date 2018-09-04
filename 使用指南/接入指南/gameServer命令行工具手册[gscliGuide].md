@@ -1,6 +1,6 @@
 ## 命令行工具简介
-matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，可以在Windows和Linux系统中使用。
-该命令行工具提供了以下功能：创建gameServer、启动服务、重启服务、查看CPS的运行日志。
+matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，可以在Windows、Linux和Mac系统中使用。
+该命令行工具提供了以下功能：创建gameServer、启动服务、重启服务、查看gameServer列表。
 
 
 
@@ -8,7 +8,7 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 ### Windows环境
 - 在D盘创建目录 matchvs （这里创建的目录仅仅是个示例，用户可以使用任意的目录名，可以在任何路径下）  
 
-- 将下载的可执行文件 matchvs.exe 放到 `D:\matchv` 目录下
+- 将下载的可执行文件 matchvs.exe 放到 `D:\matchvs` 目录下
 - 修改环境变量：PATH，将 `D:\matchvs` 追加在变量值后面，与前面的内容用 ` ;`隔开    
 
 ![image](http://imgs.matchvs.com/static/mvs1.png)
@@ -30,6 +30,10 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 
 ![image](http://imgs.matchvs.com/static/gs_linuxhelp.png)
 
+### Mac环境
+
+参考Linux环境安装配置步骤。
+
 
 
 ## 开发者帐号登录
@@ -37,14 +41,33 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 
 使用在Matchvs官网注册的账号和密码进行登录，如果还没有账号，请前往[Matchvs官网](http://www.matchvs.com/vsRegister)进行注册。
 
-根据提示输入邮箱（手机号）和密码进行登录，成功登录后如下图：
-![image](http://imgs.matchvs.com/static/gs_login.png)
+根据提示输入邮箱（手机号）和密码进行登录：
+
+```shell
+F:\>matchvs login
+	Email or Mobile phone: 						# 输入你注册的邮箱或手机号
+	Password: 									# 输入密码
+	1 -- Matchvs
+	2 -- Cocos
+	3 -- Egret（白鹭）
+	channel（请在上面的渠道列表选择，输入序号）： 	   # 选择账号注册渠道
+```
+
+输入账号和密码，然后命令行工具会提示选择账号注册渠道，这里根据自己的账号类型进行选择：
+
+* Matchvs：直接在Matchvs官网注册的用户
+
+* Cocos：在Cocos官网授权登录的用户
+
+* Egret：在Egret官网授权登录的用户
+
+**同一个邮箱可以在多个渠道注册，但是数据并不互通。**
 
 
 
 ## 查看gameServer列表
-`matchvs list`  
-查看帐号下的gameServer列表  
+`matchvs list` 
+查看帐号下的gameServer列表 
 ![image](http://imgs.matchvs.com/static/gs_list.png)
 
 
@@ -106,14 +129,6 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 ![image](http://imgs.matchvs.com/static/gs_restartCLI.png)
 
 
-
-## 查看日志
-
-`matchvs logs <GS_key>`
-
-查询gameServer最新200行日志。
-
- ![image](http://imgs.matchvs.com/static/gs_logs.png)
 
 ## 开启调试模式
 

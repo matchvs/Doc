@@ -596,7 +596,7 @@ engine.getRoomList(filter)
 
 #### 说明
 
-- 开发者通过该接口可以获取所有客户端主动创建的房间列表。不同模式(mode)下的玩家不会被匹配到一起，开发者可以利用mode区分竞技模式，普通模式等游戏模式。开发者可以通过设置RoomFilter来对获取的房间进行过滤
+- 开发者通过该接口可以获取所有客户端主动创建的房间列表。不同模式(mode)下的玩家不会被匹配到一起，开发者可以利用mode区分竞技模式，普通模式等游戏模式。开发者可以通过设置RoomFilter来对获取的房间进行过滤，getRoomList的过滤规则是并集过滤，与filter中的过滤字段有一个相同都会通过接口返回，getRoomListEx提供了严格匹配。
 
 ## getRoomListResponse
 
@@ -661,7 +661,7 @@ engine.getRoomListEx(filter);
 
 #### 说明
 
-- getRoomListEx 是 getRoomList 接口的扩展功能接口，只能获取调用 createRoom 接口创建的房间，获取房间列表参数必须和createRoom接口创建的房间参数一致而且 createRoom中的参数 visibility 必须设置为1(可见)。比如：createRoom 参数结构 如下
+- getRoomListEx 是 getRoomList 接口的扩展功能接口，只能获取调用 createRoom 接口创建的房间，获取房间列表参数必须和createRoom接口创建的房间参数完全一致而且 createRoom中的参数 visibility 必须设置为1(可见)比如：createRoom 参数结构 如下
 
 ```
 var createRoomInfo = new MsCreateRoomInfo("Matchvs",3, 0, 0, 1, "mapA")
