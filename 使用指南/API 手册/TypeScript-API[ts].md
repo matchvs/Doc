@@ -351,7 +351,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 | 属性        | 类型   | 描述     | 示例值 |
 | ----------- | ------ | -------- | ------ |
-| userId      | number | 用户ID   | 32322  |
+| userID      | number | 用户ID   | 32322  |
 | userProfile | string | 玩家简介 | ""     |
 
 #### MsRoomInfo 的属性	
@@ -1513,7 +1513,7 @@ response.errorResponse = function(errCode, errMsg) {
 | 201    | 重连到大厅，没有进入房间                                     |
 | 400    | 请求不存在                                                   |
 | 401    | 无效 appkey                                                  |
-| 403    | 访问禁止                                                     |
+| 403    | 访问禁止，该用户多端登录。                                   |
 | 404    | 无服务                                                       |
 | 405    | 房间已满                                                     |
 | 406    | 房间关闭                                                     |
