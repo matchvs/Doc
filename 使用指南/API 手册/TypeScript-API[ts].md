@@ -162,9 +162,10 @@ engine.login(userID: number, token: string, gameID: number, gameVersion: number,
 | 0      | 成功                         |
 | -1     | 失败                         |
 | -2     | 未初始化，请先调用初始化接口 |
-| -3     | 正在登录                     |
-| -4     | 已经登录，请勿重复登录       |
-| -6     | 正在登出                     |
+| -3     | 正在初始化                   |
+| -5     | 正在登录                     |
+| -6     | 已经登录，请勿重复登录       |
+| -11    | 正在登出                     |
 
 ## loginResponse
 
@@ -350,7 +351,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 
 | 属性        | 类型   | 描述     | 示例值 |
 | ----------- | ------ | -------- | ------ |
-| userId      | number | 用户ID   | 32322  |
+| userID      | number | 用户ID   | 32322  |
 | userProfile | string | 玩家简介 | ""     |
 
 #### MsRoomInfo 的属性	
@@ -1364,11 +1365,11 @@ response.reconnectResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>
 
 #### 参数
 
-| 参数             | 类型                  | 描述                            | 示例值 |
-| ---------------- | --------------------- | ------------------------------- | ------ |
-| status           | number                | 状态返回，200表示成功，其他失败 | 200    |
-| roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表              |        |
-| roomInfo         | MsRoomInfo            | 房间信息构成的对象              |        |
+| 参数             | 类型                  | 描述                                                         | 示例值 |
+| ---------------- | --------------------- | ------------------------------------------------------------ | ------ |
+| status           | number                | 状态返回，200表示成功， 201-重连房间失败但是处于登录状态，其他失败 | 200    |
+| roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表                                           |        |
+| roomInfo         | MsRoomInfo            | 房间信息构成的对象                                           |        |
 
 #### MsRoomUserInfo 的属性
 
@@ -1497,22 +1498,45 @@ Egret 代码示例
 
 ## 错误码
 
-```
-response.errorResponse = function(error) {
-	console.log("错误信息：", error);
+```typescript
+response.errorResponse = function(errCode, errMsg) {
+	console.log("错误信息：", errMsg);
 }
 
 ```
 
 **注意** Matchvs相关的异常信息可通过该接口获取
 
-| 错误码 | 含义                         |
-| ------ | ---------------------------- |
-| 1001   | 网络错误                     |
-| 500    | 服务器内部错误               |
-| 其他   | 参考对应接口回调的错误码说明 |
+| 错误码 | 含义                                                         |
+| ------ | ------------------------------------------------------------ |
+| 1001   | 网络错误                                                     |
+| 201    | 重连到大厅，没有进入房间                                     |
+| 400    | 请求不存在                                                   |
+| 401    | 无效 appkey                                                  |
+| 403    | 访问禁止，该用户多端登录。                                   |
+| 404    | 无服务                                                       |
+| 405    | 房间已满                                                     |
+| 406    | 房间关闭                                                     |
+| 500    | 服务错误，请确认是否正确打开gameServer                       |
+| 502    | 服务停止，许可证失效 或者账号欠费                            |
+| 503    | ccu 超出额                                                   |
+| 504    | 流量用完                                                     |
+| 507    | 房间号不存在，或您没有进入房间                               |
+| 521    | gameServer 不存在。                                          |
+| 522    | 没有打开帧同步，请调用setFrameSync接口设置帧率               |
+| 527    | 消息发送太频繁，请不要超过每个房间 500次(总人数*(总接收+总发送)) |
 
 ## CHANGELOG
+
+时间：2018.08.20
+
+版本：v.3.7.4.0
+
+```javascript
+1、QQ玩一玩适配
+2、新增503、504等错误码描述。
+3、新增cocos、egret渠道游戏账号区分。
+```
 
 时间：2018.07.13
 

@@ -1,7 +1,7 @@
 Matchvs 服务器会通过注册接口下发“用于在服务器校验的 userID”，开发者在使用时，可将此 userID 与自己游戏的玩家ID进行绑定。
 
 为了方便开发者使用，Matchvs 提供了第三方绑定功能。开发者可以直接调用绑定接口，传入 openID  即可获取绑定后的 Matchvs userID 。如果开发者使用绑定接口，则无需再调用注册接口获取 userID。  
-  
+
 ## 获取 openID
 
 - 调用 `wx.login `接口获取 code 参数。示例代码如下：  
@@ -128,6 +128,56 @@ private static bindOpenIDWithUserID(wxUserInfo:any){
 > sign 计算方式：md5(appKey&gameID=value1&openID=value2&session=value3&thirdFlag=value4&appSecret)得到的md5值就是 sign参数的值。
 >
 > appkey 和 appSecret 是在 matchvs 官网创建游戏时的信息。
+
+#### 返回参数
+
+| 参数   | 类型        | 说明                      |
+| ------ | ----------- | ------------------------- |
+| data   | json object | 接口返回数据              |
+| status | int         | 请求状态值 0-成功 1- 失败 |
+
+- data
+
+| 参数     | 类型   | 说明       |
+| -------- | ------ | ---------- |
+| avatar   | string | 头像       |
+| deviceid | string | 设备ID     |
+| gender   | int    | 暂无说明   |
+| mac      | string | mac 地址   |
+| nickname | string | 昵称       |
+| regTime  | string | 注册时间   |
+| token    | string | 用户校验值 |
+| userid   | int    | 用户ID     |
+
+返回示例：
+
+```json
+{
+  "data": {
+    "avatar": "http://pic.vszone.cn/upload/avatar/1464079975.png",
+    "deviceid": "xxxxxxxxxxxxxxxxxxx",
+    "gender": 0,
+    "mac": "xxxxxxxxxxxxxxxx",
+    "nickname": "玩家sVFaYktf",
+    "regTime": "2018-06-12 17:51:57",
+    "token": "xxxxxxxxxxxxxxxxxxxx",
+    "userid": 3308792
+  },
+  "status": 0
+}
+```
+
+statue 非零
+
+| 参数 | 含义                   | 类型 |
+| ---- | ---------------------- | ---- |
+| 200  | 其它错误               | 整型 |
+| 7000 | 非法参数               | 整型 |
+| 7001 | 查询checkURL失败       | 整型 |
+| 7002 | session检查失败        | 整型 |
+| 7003 | 查询绑定关系失败       | 整型 |
+| 7004 | 绑定注册新用户失败     | 整型 |
+| 7005 | 建立第三方绑定关系失败 | 整型 |
 
 
 

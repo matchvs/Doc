@@ -148,8 +148,9 @@ engine.login(userID, token, gameID, gameVersion, appKey, secretKey, deviceID, ga
 | -1     | 失败                         |
 | -2     | 未初始化，请先调用初始化接口 |
 | -3     | 正在初始化                   |
-| -5     | 已经登录，请勿重复登录       |
-| -6     | 正在登出                     |
+| -5     | 正在登录                     |
+| -6     | 已经登录，请勿重复登录       |
+| -11    | 正在登出                     |
 
 
 
@@ -162,7 +163,7 @@ response.loginResponse(loginRsp)
 
 | 属性   | 类型   | 描述                            | 示例值 |
 | ------ | ------ | ------------------------------- | ------ |
-| status | number | 状态返回 <br>200 成功<br>402 应用校验失败，确认是否在未上线时用了release环境，并检查gameId、appkey 和 secret<br>403 检测到该账号已在其他设备登录<br>404 无效用户 <br>500 服务器内部错误 | 200    |
+| status | number | 状态返回 <br>200 成功<br>402 应用校验失败，确认是否在未上线时用了release环境，并检查gameID、appkey 和 secret<br>403 检测到该账号已在其他设备登录<br>404 无效用户 <br>500 服务器内部错误 | 200    |
 | roomID | number | 房间号                          | 210039 |
 
 #### 说明
@@ -336,7 +337,7 @@ response.joinRoomResponse(status, roomUserInfoList, roomInfo)
 
 | 属性        | 类型   | 描述     | 示例值 |
 | ----------- | ------ | -------- | ------ |
-| userId      | number | 用户ID   | 32322  |
+| userID      | number | 用户ID   | 32322  |
 | userProfile | string | 玩家简介 | ""     |
 
 #### 参数roomInfo的属性
@@ -482,7 +483,7 @@ response.leaveRoomResponse(leaveRoomRsp)
 | ------- | ------ | ------------------------------- | ------ |
 | status  | number | 状态返回，200表示成功<br>400 客户端参数错误 <br>404 房间不存在 <br>500 服务器内部错误| 200    |
 | roomID  | string | 房间号                          | 317288 |
-| userId  | number | 用户ID                          | 317288 |
+| userID  | number | 用户ID                          | 317288 |
 | cpProto | string | 负载信息                        |        |
 
 #### 说明
@@ -500,7 +501,7 @@ response.leaveRoomNotify(leaveRoomInfo)
 
 | 参数    | 类型   | 描述                     | 示例值 |
 | ------- | ------ | ------------------------ | ------ |
-| userId  | number | 房间号                   | 200    |
+| userID  | number | 房间号                   | 200    |
 | roomID  | string | 刚刚离开房间的用户的信息 |        |
 | owner   | number | 房主                     |        |
 | cpProto | string | 附加信息                 |        |
@@ -770,7 +771,7 @@ response.getRoomDetailResponse(rsp);
 
 | 属性        | 类型   | 描述     | 示例值 |
 | ----------- | ------ | -------- | ------ |
-| userId      | number | 用户ID   | 32322  |
+| userID      | number | 用户ID   | 32322  |
 | userProfile | string | 玩家简介 | ""     |
 
 #### 说明
@@ -892,7 +893,7 @@ engine.sendEvent(msg)
 ## sendEventEx
 
 ```javascript
-engine.sendEventEx(type, cpProto, targetType, [targetUserId])
+engine.sendEventEx(type, cpProto, targetType, [targetUserID])
 ```
 
 #### 参数
@@ -902,7 +903,7 @@ engine.sendEventEx(type, cpProto, targetType, [targetUserId])
 | type         | number | 消息类型。0表示转发给房间成员；1表示转发给game server；2表示转发给房间成员及game server | 0           |
 | cpProto      | string | 消息内容                                     | "hello"     |
 | targetType   | number | 目标类型。0表示发送目标为目标列表成员；1表示发送目标为除目标列表成员以外的房间成员 | 0           |
-| targetUserId | array  | 目标列表                                     | [1001,1002] |
+| targetUserID | array  | 目标列表                                     | [1001,1002] |
 
 #### 返回值
 
@@ -962,7 +963,7 @@ response.sendEventNotify(eventInfo)
 
 | 参数        | 类型     | 描述                                    | 示例值     |
 | --------- | ------ | ------------------------------------- | ------- |
-| srcUserId | number | 推送方用户ID，表示是谁发的消息                      | 321     |
+| srcUserID | number | 推送方用户ID，表示是谁发的消息                      | 321     |
 | cpProto   | string | 消息内容，对应[sendEvent](#sendEvent)中的msg参数 | "hello" |
 
 #### 说明
@@ -999,7 +1000,7 @@ response.gameServerNotify(eventInfo);
 
 | 参数      | 类型   | 描述                       | 示例值       |
 | --------- | ------ | -------------------------- | ------------ |
-| srcUserId | number | gameServer推送时 这个值为0 | 0            |
+| srcUserID | number | gameServer推送时 这个值为0 | 0            |
 | cpProto   | string | 推送的消息内容             | “gameServer” |
 
 #### 说明
@@ -1010,14 +1011,14 @@ response.gameServerNotify(eventInfo);
 ## kickPlayer
 
 ```javascript
-engine.kickPlayer(userId, cpProto)
+engine.kickPlayer(userID, cpProto)
 ```
 
 #### 参数
 
 | 参数      | 类型     | 描述    | 示例值    |
 | ------- | ------ | ----- | ------ |
-| userId  | number | 用户id  | 655444 |
+| userID  | number | 用户id  | 655444 |
 | cpProto | string | 自定义数据 | “kick” |
 
 #### 返回值
@@ -1065,7 +1066,7 @@ response.kickPlayerNotify(KickPlayerNotify)
 
 | 参数               | 类型     | 描述                                       | 示例值                                      |
 | ---------------- | ------ | ---------------------------------------- | ---------------------------------------- |
-| KickPlayerNotify | object | srcUserId:踢人用户id<br />userId:被踢用户id<br />cpProto:自定义数据<br />owner:房主 | srcUserId:223333<br />userId:344222<br />cpProto:'kick'<br />owner:223333 |
+| KickPlayerNotify | object | srcUserID:踢人用户id<br />userID:被踢用户id<br />cpProto:自定义数据<br />owner:房主 | srcUserId:223333<br />userId:344222<br />cpProto:'kick'<br />owner:223333 |
 
 #### 说明
 
@@ -1337,17 +1338,17 @@ response.reconnectResponse(status, roomUserInfoList, roomInfo);
 
 #### 参数
 
-| 参数             | 类型                  | 描述                            | 示例值 |
-| ---------------- | --------------------- | ------------------------------- | ------ |
-| status           | number                | 状态返回，200表示成功，其他失败 | 200    |
-| roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表              |        |
-| roomInfo         | MsRoomInfo            | 房间信息构成的对象              |        |
+| 参数             | 类型                  | 描述                                                         | 示例值 |
+| ---------------- | --------------------- | ------------------------------------------------------------ | ------ |
+| status           | number                | 状态返回，200表示成功， 201-重连房间失败但是处于登录状态，其他失败 | 200    |
+| roomUserInfoList | Array<MsRoomUserInfo> | 房间内玩家信息列表                                           |        |
+| roomInfo         | MsRoomInfo            | 房间信息构成的对象                                           |        |
 
 #### MsRoomUserInfo 的属性
 
 | 属性        | 类型   | 描述     | 示例值 |
 | ----------- | ------ | -------- | ------ |
-| userId      | number | 用户ID   | 32322  |
+| userID      | number | 用户ID   | 32322  |
 | userProfile | string | 玩家简介 | ""     |
 
 #### MsRoomInfo 的属性
@@ -1469,20 +1470,42 @@ initReopenRoom: function (self) {
 ## 错误码
 
 ```
-response.errorResponse = function(error) {
-	console.log("错误信息：", error);
+response.errorResponse = function(errCode, errMsg) {
+	console.log("错误信息：", errMsg);
 }
 ```
 **注意** Matchvs相关的异常信息可通过该接口获取
 
 | 错误码 | 含义                                                         |
 | ------ | ------------------------------------------------------------ |
-| 1001    | 网络错误                     |
-| 500     | 服务器内部错误                 |
-| 其他     | 参考对应接口回调的错误码说明   |
-
+| 1001   | 网络错误                                                     |
+| 201    | 重连到大厅，没有进入房间                                     |
+| 400    | 请求不存在                                                   |
+| 401    | 无效 appkey                                                  |
+| 403    | 访问禁止                                                     |
+| 404    | 无服务                                                       |
+| 405    | 房间已满                                                     |
+| 406    | 房间关闭                                                     |
+| 500    | 服务错误，请确认是否正确打开gameServer                       |
+| 502    | 服务停止，许可证失效 或者账号欠费                            |
+| 503    | ccu 超出额                                                   |
+| 504    | 流量用完                                                     |
+| 507    | 房间号不存在，或您没有进入房间                               |
+| 521    | gameServer 不存在。                                          |
+| 522    | 没有打开帧同步，请调用setFrameSync接口设置帧率               |
+| 527    | 消息发送太频繁，请不要超过每个房间 500次(总人数*(总接收+总发送)) |
 
 ## CHANGELOG
+
+时间：2018.08.20
+
+版本：v.3.7.4.0
+
+```javascript
+1、QQ玩一玩适配
+2、新增503、504等错误码描述。
+3、新增cocos、egret渠道游戏账号区分。
+```
 
 时间：2018.07.13
 
@@ -1490,7 +1513,7 @@ JSSDK版本：v3.7.3.0+
 
 ```
 1. 新增 joinRoomResponse 接口参数 state
-2. 所有包含userId参数的数据类型都新增了一个userID字段，原来userId也存在，建议使用userID。
+2. 所有包含userID参数的数据类型都新增了一个userID字段，原来userID也存在，建议使用userID。
 ```
 
 时间：2018.05.29

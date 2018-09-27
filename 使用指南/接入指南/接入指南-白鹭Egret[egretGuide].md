@@ -2,7 +2,7 @@
 
 ## 接入前说明
 
-`MatchvsSDK` 使用是以简单的接口调用和接口返回的方式实现相关联网操作。比如随机加入房间只需要调用`joinRandRoom接口`，加入房间结果就以接口 `joinRoomResponse` 返回。在整个使用过程中，开发者只需要关心`MatchvsEngine`(接口请求调用对象)和 `MatchvsResponse`(接口调用返回对象)。接口请求使用 `MatchvsEngine`对象实例，接口返回使用 `MatchvsResponse` 对象实例。后面后介绍这两个对象的使用方法。此文档只是用于引导开发者接入SDK，需要接口口详细的参数说明请看 [API手册](http://www.matchvs.com/service?page=js)  
+`MatchvsSDK` 使用是以简单的接口调用和接口返回的方式实现相关联网操作。比如随机加入房间只需要调用`joinRandRoom接口`，加入房间结果就以接口 `joinRoomResponse` 返回。在整个使用过程中，开发者只需要关心`MatchvsEngine`(接口请求调用对象)和 `MatchvsResponse`(接口调用返回对象)。接口请求使用 `MatchvsEngine`对象实例，接口返回使用 `MatchvsResponse` 对象实例。后面后介绍这两个对象的使用方法。此文档只是用于引导开发者接入SDK，需要接口详细的参数说明请看 [API手册](http://www.matchvs.com/service?page=js)  
 
 #### SDK游戏交互时序图
 
@@ -40,7 +40,7 @@ engine.init(response, "Matchvs", "alpha", 201016);
 | response | 回调对象(`MatchvsResponse` 实例)              |
 | channel  | 渠道，填“Matchvs”即可                         |
 | platform | 平台，调试环境填“alpha” ，正式环境填“release” |
-| gameId   | 游戏ID，来自官网控制台游戏信息                |
+| gameId   | 游戏ID，来自 Matchvs 官网控制台游戏信息       |
 
 
 **注意** 在整个应用全局，开发者只需要对引擎做一次初始化。
@@ -83,13 +83,13 @@ engine.login(userID, token, gameID, gameVersion, appkey, secret, deviceID, gatew
 | gameID      | 游戏ID，来自Matchvs官网控制台游戏信息    |
 | gameVersion | 游戏版本，自定义，用于隔离匹配空间       |
 | appkey      | 游戏Appkey，来自Matchvs控制台游戏信息    |
-| serect      | secret key，来自Matchvs控制台游戏信息    |
+| secret      | secret key，来自Matchvs控制台游戏信息    |
 | deviceID    | 设备ID，用于多端登录检测，请保证是唯一ID |
 | gatewayID   | 服务器节点ID，默认为0                    |
 
 - 其中，appKey，secret，gameID是你在Matchvs官网创建游戏后获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
 - userID 和 token 是调用 registerUser 接口 **注册成功** 的回调信息。
-- deviceId 用于检测是否存在多个设备同时登录同一个用户的情况，如果一个账号在两台设备上登录，则后登录的设备会连接失败。
+- deviceID 用于检测是否存在多个设备同时登录同一个用户的情况，如果一个账号在两台设备上登录，则后登录的设备会连接失败。
 - Matchvs默认将相同游戏版本的用户匹配到一起。如果开发者对游戏进行了版本升级，不希望两个版本的用户匹配到一起，此时可以在登录的时候通过`gameVersion`区分游戏版本。 
 
 登录成功会收到回调 ：
@@ -177,7 +177,7 @@ engine.joinOver(cpProto);
 ```javascript
 response.joinOverResponse = function(joinOverRsp) {
 	// 返回值
-	console.log("加入房间结果：", joinOverRsp.status);
+	console.log("禁止加入房间调用状态：", joinOverRsp.status);
 	// 负载数据
 	console.log("负载信息：", joinOverRsp.cpProto);
 }
