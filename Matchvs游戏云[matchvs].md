@@ -10,7 +10,7 @@ Matchvs游戏云（简称“Matchvs”）为开发者提供游戏联网通信解
 
 ## 特色  
 
-### 多节点低延迟
+### 多节点低延迟 
 
 ![](http://imgs.matchvs.com/static/Introduction1.png)
 
