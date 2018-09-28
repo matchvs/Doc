@@ -13,8 +13,8 @@ MatcvhsSDK 库文件可到 [官网下载](http://www.matchvs.com/serviceDownload
 MatcvhsSDK库 `matchvs`文件夹包括以下三个文件：
 
 - matchvs.js： MatchvsSDK  JavaScript 源代码代码文件。
-- matchvs.d.ts：MatchvsSDK TypScript 定义文件。
-- matchvs.min.js：MatchvsSDK JavaScript 源码压缩文件。
+- matchvs.d.ts：MatchvsSDK  TypScript 定义文件。
+- matchvs.min.js：MatchvsSDK  JavaScript 源码压缩文件。 
 
 Matchvs SDK 接口服务分为 **请求服务** 和 **回调服务** ， 使用是以简单的接口调用和接口返回的方式实现相关联网操作。比如随机加入房间只需要调用`joinRandRoom接口`，加入房间结果就以接口 `joinRoomResponse` 返回。在整个使用过程中，开发者只需要关心`MatchvsEngine`(接口请求调用对象)和 `MatchvsResponse`(接口调用返回对象)。接口请求使用 `MatchvsEngine`对象实例，接口返回使用 `MatchvsResponse` 对象实例。先获取这两个类的对象作为全局使用。例如：
 
