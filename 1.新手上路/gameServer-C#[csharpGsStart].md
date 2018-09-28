@@ -1,4 +1,4 @@
-## 创建游戏
+## 创建游戏  
 
 在开始使用 gameServer 之前，你需要创建自己的游戏。如何创建游戏详见 [Matchvs快速入门](新手上路-Matchvs[MatchvsStart].md)。
 
@@ -85,7 +85,7 @@ myGameServer
 └── gameServermeta
 ```
 
-请保证目录结构完整，否则可能出现 gameServer 无法发布的情况。
+请保证目录结构完整，否则可能出现 gameServer 无法发布的情况。  
 
 
 
