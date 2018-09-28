@@ -1,6 +1,6 @@
 ## 新建游戏
 
-1.使用Matchvs游戏云需要AppKey、AppSecret，通过Matchvs官网创建游戏获取。[进入官网](http://www.matchvs.com/manage/gameContentList/)  
+1.使用Matchvs游戏云需要AppKey、AppSecret，通过Matchvs官网创建游戏获取。[进入官网](http://www.matchvs.com/manage/gameContentList/)
 
 2.登陆官网，点击右上角控制台进入，若没有Matchvs官网账号。[立即注册](http://www.matchvs.com/vsRegister)   
 
