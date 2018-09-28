@@ -12,7 +12,7 @@
 
 打开Lanucher选择对应的egret引擎版本下载安装（egret更新较快建议安装最新的Stableb版本），如下图：
 
-![](Egret新手上路img/egret_start1.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/Egretimg/egret_start1.png)
 
 #### 3、安装IDE工具Wing
 
@@ -24,7 +24,7 @@
 
 打开Lanucher 定位到项目页面。创建项目。在项目创建页面勾选Matchvs游戏云。并创建。
 
-![](Egret新手上路img/egret_start2.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/Egretimg/egret_start2.png)
 
 #### 2、替换matchvs文件夹下面的内容
 
@@ -36,7 +36,7 @@
 
 创建好项目后，在打开项目的wing左边导航可以的libs目录下可以看到有 matchvs文件夹，如下图：
 
-![](Egret新手上路img/egret_start3.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/Egretimg/egret_start3.png)
 
 #### 4、配置 egretProperties.json 文件
 
@@ -51,7 +51,7 @@
 
 如图所示：
 
-![](Egret新手上路img/egret_start5.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/Egretimg/egret_start5.png)
 
 以上步骤已经完美集成 Matchvs SDK，接下来就开启你的 联网对战之旅。
 

@@ -6,7 +6,7 @@ Creator开发者可以通过本文档开始Matchvs之旅。
 
 如果你的电脑还没有安装cocosCreator可以前往cocos官网进行下载[cocos下载地址](http://www.cocos.com/download)
 
-![](新手上路-CocosCreatorImg/creatorDownload.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorDownload.png)
 
 选取对应的版本进行下载和使用。
 
@@ -14,7 +14,7 @@ Creator开发者可以通过本文档开始Matchvs之旅。
 
 下载成功以后得到一个zip文件，如下图所示
 
-![](新手上路-CocosCreatorImg/creatorZip.jpg)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorZip.jpg)
 
 打开zip后双击CocosCreator_setup.exe,选择对应的安装路径进行安装，此过程需要几分钟。
 
@@ -22,7 +22,7 @@ Creator开发者可以通过本文档开始Matchvs之旅。
 
 CreatorIDE安装成功后，双击打开CreatorIDE，选择新建项目选择一个空白工程，如下图所示
 
-![](新手上路-CocosCreatorImg/creatorNewProject.jpg)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorNewProject.jpg)
 
 选择好自己的工程路径后，点击新建项目,新的工程就创建好了。
 
@@ -30,19 +30,19 @@ CreatorIDE安装成功后，双击打开CreatorIDE，选择新建项目选择一
 
 工程打开以后，点击CreatorIDE上方的扩展按钮，如图所示
 
-![](新手上路-CocosCreatorImg/creatorExtend.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorExtend.png)
 
 点击扩展商店，点击Creator插件，选择Matchvs游戏云-联网服务插件，如下图所示
 
-![](新手上路-CocosCreatorImg/creatorStore.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorStore.png)
 
 进入插件页面后，点击下载完成以后点击安装按钮,选择安装到 **项目目录**
 
-![](新手上路-CocosCreatorImg/creatorMatchvsInstall.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorMatchvsInstall.png)
 
 安装成功后，重启CreatorIDE，如下图所示
 
-![](新手上路-CocosCreatorImg/creatorInstallSuccess.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorInstallSuccess.png)
 
 ## 第一行代码
 
@@ -50,7 +50,7 @@ CreatorIDE安装成功后，双击打开CreatorIDE，选择新建项目选择一
 
  2：双击场景文件创建一个Button和Label。目录结构如下
 
-![](新手上路-CocosCreatorImg/creator_9.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creator_9.png)
 
  3：在代码中定义login,info两个对象，代码如下。
 
@@ -75,18 +75,18 @@ cc.Class({
 ```
  4：回到IDE中点击场景文件点击添加组件按钮，添加用户脚本文件
 
-![](新手上路-CocosCreatorImg/creator_10.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creator_10.png)
 
  5：将创建的对象与对应的精灵绑定，将1拖拽到2，3拖拽到4进行对象与精灵的绑定。
 
-![](新手上路-CocosCreatorImg/creator_11.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creator_11.png)
 
 绑定成功如下图所示
 
-![](新手上路-CocosCreatorImg/creator_12.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creator_12.png)
 
  6：Matchvs SDK 接口使用
-	
+​	
  - 第一步初始化 init
 
 ```javascript

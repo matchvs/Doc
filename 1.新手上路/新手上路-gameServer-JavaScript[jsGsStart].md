@@ -8,7 +8,7 @@
 
 成功创建游戏后，点击左侧菜单栏 “gameServer” 即可进入 gameServer 列表页。
 
-![](gameServerimg/init.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/init.png)
 
 Matchvs 使用 git 管理 gameServer，所以在创建 gameServer 之前，你需要将自己的 SSH key 上传至 Matchvs 账号。
 
@@ -18,21 +18,21 @@ Matchvs 使用 git 管理 gameServer，所以在创建 gameServer 之前，你�
 
 2. 点击上图中的 “立即上传”
 
-   ![](gameServerimg/uploadsshkey.png)
+   ![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/uploadsshkey.png)
 
    把第1步复制的内容粘贴到输入框，注意不要输入多余的空格或空行，点击确定。
 
 3. 确定上传成功
 
-   ![](gameServerimg/uploadsshkeysuccess.png)
+   ![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/uploadsshkeysuccess.png)
 
 SSH key 上传成功后，点击 “创建gameServer”，填写 gameServer 基本信息：
 
-![](gameServerimg/creategameserver.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/creategameserver.png)
 
 创建成功后的 gameServer 相关信息展示：
 
-![](gameServerimg/creategameserversuccess.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/creategameserversuccess.png)
 
 gameServer 创建成功后，Matchvs 会为每个 gameServer 分配一个唯一的 git 仓库地址。在本示例中，Matchvs 分配的 git 仓库地址为： `ssh://git@git.matchvs.com:3879/1424769556baec5362f5b1513f7e1167.git`。下一小节将介绍如何使用 git 仓库。
 
@@ -52,7 +52,7 @@ warning: You appear to have cloned an empty repository.
 
 前往[下载中心](http://www.matchvs.com/serviceDownload)，下载 Node.js 版本的 gameServer 框架（框架版本可能有更新，以官网展示为准）:
 
-![](gameServerimg/nodegameserver.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/nodegameserver.png)
 
 下载完成并解压，将解压后的所有文件复制到 `myGameServer`目录下，这时的文件结构如下所示：
 
@@ -87,7 +87,7 @@ gameServer 配置文件路径为`myGameServer/conf/config.json`，其中包含�
 
 - **addr**：gameServer服务监听地址。IP默认为 “0.0.0.0” 即可，不建议修改。端口号可以从官网查询到：
 
-  ![](gameServerimg/gameserverdetail.png)
+  ![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/gameserverdetail.png)
 
   该端口号由系统在创建 gameServer 时分配以保证全局唯一性。
 

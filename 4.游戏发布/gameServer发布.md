@@ -88,11 +88,11 @@ gameServer 本地开发调试完成后需要将代码推送到 Matchvs 远程仓
 
 前往 Matchvs 官网控制台：
 
-![](gameServer发布img/unpublicgame&gameserver.png)
+![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/unpublicgame&gameserver.png)
 
 点击”我的游戏“进入我的游戏列表，选择要发布的游戏点击”发布上线“，确定之后会提交给管理员审核，管理员审核通过之后游戏状态变更为“已商用”，即已发布上线。
 
-![](gameServer发布img/publicgame&gameserver.png)
+![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/publicgame&gameserver.png)
 
 
 
@@ -108,8 +108,8 @@ gameServer 本地开发调试完成后需要将代码推送到 Matchvs 远程仓
 
 前往 Matchvs 官网控制台：
 
-![](gameServer发布img/unpublicgameserver.png)
+![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/unpublicgameserver.png)
 
 点击”gameServer“进入我的gameServer列表，选择要发布的 gameServer 点击“发布”，发布成功之后“启动”按钮变成可点击状态，点击“启动”即可启动 gameServer。
 
-![](gameServer发布img/publishedgameserver.png)
+![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/publishedgameserver.png)
