@@ -1,6 +1,6 @@
 # Matchvs 集成项目发布
 
-集成Matchvs SDK 同时支持多个平台的发布，几乎与egret发布多平台是完美想嵌的。
+集成Matchvs SDK 同时支持多个平台的发布，几乎与egret发布多平台是完美想嵌的。  
 
 - HTML5 
 - IOS
