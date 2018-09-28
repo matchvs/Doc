@@ -12,7 +12,7 @@
 
 Matchvs 使用 git 管理 gameServer，所以在创建 gameServer 之前，你需要将自己的 SSH key 上传至 Matchvs 账号。
 
-1. 复制 SSH key 到粘贴板
+1. 复制 SSH key 到粘贴板 
 
    SSH key 文件通常位于 `~/.ssh/id_rsa.pub`。如果文件不存在，请参阅 git 手册生成 SSH key。
 
