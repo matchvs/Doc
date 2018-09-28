@@ -1,4 +1,4 @@
-## 创建房间
+## 创建房间   
 
 房间被创建时，gameServer 会触发`onCreateRoom()`消息，如有"房间创建“的相关逻辑应写在该方法里。
 
@@ -31,11 +31,11 @@ Matchvs 提供了在 gameServer 里主动创建房间的接口`createRoom()`。�
  /**
  * 创建房间
  * @param {Object} msg 创建房间消息结构
- * @param {number} msg.gameID 游戏ID
- * @param {number} msg.ttl 空房间存活时长，单位秒
- * @param {Object} msg.roomInfo 房间信息
- * @param {string} msg.roomInfo.roomName 房间名称
- * @param {number} msg.roomInfo.maxPlayer 房间最大人数
+ * @param {number} msg.gameID 游戏ID 
+ * @param {number} msg.ttl 空房间存活时长，单位秒 
+ * @param {Object} msg.roomInfo 房间信息 
+ * @param {string} msg.roomInfo.roomName 房间名称 
+ * @param {number} msg.roomInfo.maxPlayer 房间最大人数 
  * @param {number} msg.roomInfo.mode 模式
  * @param {number} msg.roomInfo.canWatch 是否可观战
  * @param {number} msg.roomInfo.visibility 房间是否可见：0不可见，1可见
