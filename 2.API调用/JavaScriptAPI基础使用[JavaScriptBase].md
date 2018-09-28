@@ -54,7 +54,7 @@ response.registerUserResponse : function(userInfo) {
 }
 ```
 
-## 登录
+## 登录   
 
 成功获取用户ID后即可连接Matchvs服务：
 
