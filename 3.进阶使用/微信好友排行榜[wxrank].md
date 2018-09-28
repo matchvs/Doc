@@ -2,7 +2,7 @@
 
 1.保存每个用户的分数  
 2.获取好友列表,并获取好友的分数  
-3.渲染排行榜  
+3.渲染排行榜    
 
 ![friendlist](http://imgs.matchvs.com/static/res/rank.jpg)
 
