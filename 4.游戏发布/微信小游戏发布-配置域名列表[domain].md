@@ -3,7 +3,7 @@
 请根据微信[小游戏域名配置文档](https://developers.weixin.qq.com/miniprogram/dev/api/api-network.html?search-key=%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE&q=)进行配置.
 > 服务器域名请在 `小程序后台-设置-开发设置-服务器域名 `中进行配置，配置时需要注意：
 >
-> 1. 域名只支持 https (request、uploadFile、downloadFile) 和 wss (connectSocket) 协议；
+> 1. 域名只支持 https (request、uploadFile、downloadFile) 和 wss (connectSocket) 协议；  
 > 2. 域名不能使用 IP 地址或 localhost
 > 3. 域名必须经过 ICP 备案；
 > 4. 出于安全考虑，api.weixin.qq.com 不能被配置为服务器域名，相关API也不能在小程序内调用。 开发者应将 appsecret 保存到后台服务器中，通过服务器使用 appsecret 获取 accesstoken，并调用相关 API。
