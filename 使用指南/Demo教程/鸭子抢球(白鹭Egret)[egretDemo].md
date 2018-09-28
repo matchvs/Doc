@@ -16,15 +16,15 @@ v3.2.7.0 去除之前的 matchvs_wx 目录。现在目录如下：
 
 ## Demo下载和体验
 
+Demo 支持使用 Matchvs云和独立部署两种配置模式。
+
 - [官网](http://www.matchvs.com/serviceDownload)
 - [GitHub](https://github.com/matchvs/demo-Egret)
 - [直接体验连接](http://demo.matchvs.com/Egret/)
 
 > **注意**：下载Demo源码后，需要使用Egret的Wing打开工程(Wing建议使用4.1.0以上的版本，Egret引擎建议使用5.1.5以上版本)。满三人才可以开始游戏，使用三个不同的浏览器运行。Demo支持三人同时游戏，匹配成功后，玩家通过按住按钮左右滑动来推动小鸭子向左向右移动抢足球。
 
-
-
-## Demo配置
+## Demo 使用Matchvs云配置
 
 Demo运行之前需要去 [Matchvs 官网](http://www.matchvs.com/) 配置游戏相关信息，以获取Demo运行所需要的GameID、AppKey、SecretID。如图：
 
@@ -59,7 +59,7 @@ Demo运行之前需要去 [Matchvs 官网](http://www.matchvs.com/) 配置游戏
 
 把游戏信息配置好就可以运行试玩，Demo运行界面如下，可以点击随机匹配开始：
 
-![img](http://imgs.matchvs.com/static/egret//MatchvsDemo_Egret_4.png)
+![img](http://imgs.matchvs.com/static/egret/MatchvsDemo_Egret_4.png)
 
 ## Matchvs SDK 引入
 
@@ -878,3 +878,94 @@ private reconnectResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 }
 ```
 
+## Demo 独立部署配置
+
+上面介绍的是在Matchvs官网控制台创建游戏账号使用Demo，下面我们来介绍在Demo中配置独立部署参数。在使用Demo之前需要先独立部署Matchvs服务到你自己的服务器，并配置好游戏信息。在Demo的login页面右下角有一个独立部署按钮，如下图：
+
+![img](http://imgs.matchvs.com/static/egret/MatchvsDemo_Egret_7.png)
+
+进入到独立部署参数配置界面。
+
+![img](http://imgs.matchvs.com/static/egret/MatchvsDemo_Egret_8.png)
+
+这些参数来自你部署Matchvs服务的时候配置的信息。
+
+服务地址：部署Matchvs 服务 (可以执行 ./matchvs_tool deploy info，可查看部署结果及运行服务) wss_proxy 中的value。
+
+![](http://imgs.matchvs.com/static/deploy/3.png)
+
+gameID，appKey，secretKey 在独立部署中执行 `./matchvs_tool game add ` 添加的信息例如：
+
+```shell
+[root@deployer bin]# ./matchvs_tool game add 1000 appkey123abc appsecret123abc
+```
+
+执行 `./matchvs_tool game list`可以查看已添加的游戏信息列表。
+
+![](http://imgs.matchvs.com/static/deploy/6.png)
+
+>  **注意**：userID 和 token 不是使用 MatchvsSDK 中的 registerUser 接口获取的，而是你自己设置的用户。如果你没有设置 userID 和 token 你可以暂时 随便填写一个。具体的请阅读独立部署服务端配置文档。
+
+填写好服务信息和用户信息就可以登录到Demo的大厅界面了。
+
+## Matchvs SDK 独立部署接入指引
+
+独立部署与使用Matchvs云游戏接入SDK不同之处就是调用初始化接口不一样，还有不需要调用registerUser接口，userID 和 token是由开发者自己定义。独立部署使用的初始化接口是premiseInit 。初始化回调接口还是与之前一样使用 initResponse 接口
+
+### 独立部署SDK初始化
+
+#### MsEngine.ts 和 MsResponse.ts 文件定义
+
+```typescript
+//MsEngine.ts 请求
+public premiseInit(endPoint:string, gameID:number):number{
+    this._response = MsResponse.getInstance.getResponse();
+    let res = this._engine.premiseInit( MsResponse.getInstance.getResponse(),endPoint, gameID);
+    if (res !== 0){
+        console.info("[MsEngine premiseInit failed] resCode:",res);
+        return res;
+    }
+    console.info("[MsEngine premiseInit seccess] resCode:",res);
+    return res;
+}
+
+//MsResponse.ts 回调
+private initResponse(status:number){
+    console.info("initResponse status：",status);
+    this.dispatchEvent(new egret.Event(MsEvent.EVENT_INIT_RSP,false,false,{status:status}));
+}
+
+
+```
+
+#### 使用示例
+
+```typescript
+//PremiseLoginUI.ts
+ button.addEventListener(egret.TouchEvent.TOUCH_TAP, e => {
+     GameData.configEnvir(input.text, cbx.selected);
+     console.log(" environment=" + GameData.DEFAULT_ENV + " gameid=" + GameData.gameID);
+     //这里调用 MsEngine.ts 中的函数     
+     let result = mvs.MsEngine.getInstance.init(GameData.CHANNEL, GameData.DEFAULT_ENV, GameData.gameID);
+        }, this);
+/**
+ * 初始化
+ */
+private premiseInit(event:egret.TouchEvent){
+    let endPoint:string = this.txt_endport.text;
+    let gameID:number = Number(this.txt_gameID.text);
+    mvs.MsEngine.getInstance.premiseInit(endPoint,gameID);
+}
+
+//LoginView.ts 在页面用户监听到的回调事件
+private initResponse(ev:egret.Event) {
+    console.log("initResponse,status:" + ev.data.status);
+    ...
+}
+```
+
+**注意** 在整个应用全局，开发者只需要对引擎做一次初始化。
+
+### 登录
+
+登录以及其他操作都是使用与MatchvsSDK云游戏是一样的。
