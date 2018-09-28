@@ -16,7 +16,7 @@
 
 #### 3、安装IDE工具Wing
 
-打开Lanucher 定位到工具页面，下载wing并安装。
+打开Lanucher 定位到工具页面，下载wing并安装。  
 
 ## Matchvs 集成
 
