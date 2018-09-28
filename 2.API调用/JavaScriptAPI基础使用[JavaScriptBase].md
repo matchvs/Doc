@@ -13,7 +13,7 @@ var jsMatchvs = require("matchvs.all");
 var engine = new jsMatchvs.MatchvsEngine();
 ```
 
-另外创建一个回调对象，在进行注册、登录、发送消息等操作之后，该对象的方法会被异步调用：
+另外创建一个回调对象，在进行注册、登录、发送消息等操作之后，该对象的方法会被异步调用：   
 
 ```javascript
 var jsMatchvs = require("matchvs.all");
