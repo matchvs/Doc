@@ -1,4 +1,4 @@
-## init
+## init 
 
 ```
 int32_t init(MatchVSResponse *pMatchVSResponse, const MsString &channel, const MsString &platform, uint32_t gameID);
