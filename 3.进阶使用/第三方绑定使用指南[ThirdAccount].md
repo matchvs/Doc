@@ -1,6 +1,6 @@
 Matchvs 服务器会通过注册接口下发“用于在服务器校验的 userID”，开发者在使用时，可将此 userID 与自己游戏的玩家ID进行绑定。
 
-为了方便开发者使用，Matchvs 提供了第三方绑定功能。开发者可以直接调用绑定接口，传入 openID  即可获取绑定后的 Matchvs userID 。如果开发者使用绑定接口，则无需再调用注册接口获取 userID。  
+为了方便开发者使用，Matchvs 提供了第三方绑定功能。开发者可以直接调用绑定接口，传入 openID  即可获取绑定后的 Matchvs userID 。如果开发者使用绑定接口，则无需再调用注册接口获取 userID。     
 
 ## 获取 openID
 
