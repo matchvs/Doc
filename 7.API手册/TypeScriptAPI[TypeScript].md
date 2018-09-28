@@ -1088,9 +1088,9 @@ engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array <
 
 | 属性     | 类型          | 描述                                                         | 示例值      |
 | -------- | ------------- | ------------------------------------------------------------ | ----------- |
-| msgType  | number        | 0-包含destUids用户  1-排除destUids的用户                     | 0           |
+| msgType  | number        | 消息发送的地方：0-发客户端不发gameServer  1-不发客户端+发gameServer   2-发客户端 发gameServer | 0           |
 | data     | string        | 要发送的数据                                                 | “hello”     |
-| desttype | number        | 消息发送的地方：0-发客户端不发gameServer  1-不发客户端+发gameServer   2-发客户端 发gameServer | 2           |
+| desttype | number        | 0-包含destUids用户  1-排除destUids的用户                     | 2           |
 | userids  | Array<number> | 玩家ID集合                                                   | [1234,4567] |
 
 #### 返回值
