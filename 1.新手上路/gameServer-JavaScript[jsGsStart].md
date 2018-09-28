@@ -1,6 +1,6 @@
 ## 创建游戏
 
-在开始使用 gameServer 之前，你需要创建自己的游戏。如何创建游戏详见 [Matchvs快速入门](新手上路-Matchvs[MatchvsStart].md)。
+在开始使用 gameServer 之前，你需要创建自己的游戏。如何创建游戏详见 [Matchvs快速入门](新手上路-Matchvs[MatchvsStart].md)。 
 
 
 
