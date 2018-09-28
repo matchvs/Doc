@@ -7,7 +7,7 @@
 > 2. 域名不能使用 IP 地址或 localhost
 > 3. 域名必须经过 ICP 备案；
 > 4. 出于安全考虑，api.weixin.qq.com 不能被配置为服务器域名，相关API也不能在小程序内调用。 开发者应将 appsecret 保存到后台服务器中，通过服务器使用 appsecret 获取 accesstoken，并调用相关 API。
-> 5. 对于每个接口，分别可以配置最多 20 个域名
+> 5. 对于每个接口，分别可以配置最多 20 个域名  
 
 ## request 合法域名:
 https://vsuser.matchvs.com
