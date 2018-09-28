@@ -2,7 +2,7 @@
 
 ## 开发环境搭建
 
-Unity安装和下载(必须Unity 5+):  
+Unity安装和下载(必须Unity 5+):
 
  https://store.unity.com/
 
@@ -64,7 +64,7 @@ engine.init(matchVSResponses, channel, platform, gameid);
 
 文件路径:`Assets\Script\MainUI\GameManager.cs  ` 
 
-**注意** 在整个应用全局，开发者只需要对引擎做一次初始化。
+**注意** 在整个应用全局，开发者只需要对引擎做一次初始化。 
 
 ## 建立连接
 
