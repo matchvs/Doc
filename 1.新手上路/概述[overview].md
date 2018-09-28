@@ -14,7 +14,7 @@ Matchvs将游戏的大厅、房间、游戏交互等流程通用化，深入了�
 
 ## gameServer Framework
 
-在获得了基础的联网能力之后，Matchvs还为游戏开发者提供了基于联网的服务端框架——gameServer Framework。通过gameServer Framework，开发者可以对服务端的联网能力进行扩展，实现自定义的服务端逻辑。
+在获得了基础的联网能力之后，Matchvs还为游戏开发者提供了基于联网的服务端框架——gameServer Framework。通过gameServer Framework，开发者可以对服务端的联网能力进行扩展，实现自定义的服务端逻辑。 
 
 ## V盟广告
 
