@@ -2,7 +2,7 @@
 
 ## 开发环境搭建
 
-Unity安装和下载(必须Unity 5+):
+Unity安装和下载(必须Unity 5+):  
 
  https://store.unity.com/
 

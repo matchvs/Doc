@@ -4,7 +4,7 @@
 
 
 
-## 创建 gameServer
+## 创建 gameServer  
 
 成功创建游戏后，点击左侧菜单栏 “gameServer” 即可进入 gameServer 列表页。
 
