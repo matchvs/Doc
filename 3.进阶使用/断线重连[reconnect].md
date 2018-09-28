@@ -6,7 +6,7 @@ Matchvs 提供了断线重连的功能：当客户端网络异常（包含网络
 
 
 
-![](http://imgs.matchvs.com/static/reconnect4.png)
+![](http://imgs.matchvs.com/static/reconnect4.png)  
 
 
 
