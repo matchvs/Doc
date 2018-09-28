@@ -19,7 +19,7 @@ public:
 ```
 
 
-Matchvs提供了两个环境，alpha调试环境和release正式环境。  
+Matchvs提供了两个环境，alpha调试环境和release正式环境。    
 
 游戏开发调试阶段请使用alpha环境，即sPlatform传参"alpha"。如下：
 
