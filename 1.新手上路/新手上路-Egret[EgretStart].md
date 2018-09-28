@@ -6,7 +6,7 @@
 
 #### 1、Lanucher 安装。
 
-- [Lanucher 下载](https://www.egret.com/) 
+- [Lanucher 下载](https://www.egret.com/)  
 
 #### 2、安装egret引擎版。
 
