@@ -33,7 +33,7 @@ gameID获取请[前往控制台](http://www.matchvs.com/manage/gameContentList)
 
 ## 注册
 
-**注意** userID和token有需要的可以缓存起来，在之后的应用启动中不必重复获取。如果你有自己的用户系统，可以将Matchvs 提供的 userID 和用户系统进行映射，也可以使用我们提供的第三方账号绑定功能，详情参考[第三方绑定解决方法]()。
+**注意** userID和token有需要的可以缓存起来，在之后的应用启动中不必重复获取。如果你有自己的用户系统，可以将Matchvs 提供的 userID 和用户系统进行映射，也可以使用我们提供的第三方账号绑定功能，详情参考[第三方绑定解决方法](http://www.matchvs.com/service?page=ThirdAccount)。
 
 Matchvs提供的用户ID被用于在各个服务中校验连接的有效性，调试前开发者需要先获取到一个合法的用户ID。
 
