@@ -47,6 +47,6 @@ matchvsEngine.login(GameData.userId, GameData.token,
         GameData.secretKey, GameData.deviceId, GameData.gatewayId)
 // ...
 ```
-更多接口功能和用法可[参考此处](http://www.matchvs.com/service?page=creatorGuide) ；
+更多接口功能和用法可[参考此处](http://www.matchvs.com/service?page=JavaScriptBase) ；
 
-API 文档在[这里](http://www.matchvs.com/service?page=js) 。
+### API 文档在 [这里](http://www.matchvs.com/service?page=JavaScript) 。

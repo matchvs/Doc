@@ -223,4 +223,4 @@ cc.Class({
 ```
 
 
-[更多Matchvs文档查看基础功能文档](http://www.matchvs.com/service?page=JavaScriptApITransfer)
+[更多Matchvs文档查看基础功能文档](http://www.matchvs.com/service?page=JavaScriptBase)
