@@ -56,5 +56,5 @@
 
 具体如何把使用已经发布好的QQ玩一玩代码可以参考 [egret相关教程](http://developer.egret.com/cn/github/egret-docs/Engine2D/bricksgame/start/index.html) ，以及 [QQ轻游](http://hudong.qq.com/) 相关说明。
 
-## 其他平台请查看 [Egret发布教程](http://developer.egret.com/cn/github/egret-docs/Engine2D/publish/index.html) 
+#### 其他平台请查看 [Egret发布教程](http://developer.egret.com/cn/github/egret-docs/Engine2D/publish/index.html) 
 
