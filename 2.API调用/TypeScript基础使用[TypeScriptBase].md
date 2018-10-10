@@ -2,7 +2,7 @@
 
 ## 阅读前
 
-在阅读我们文档之前，请确保你已经阅读了我们的 [新手入门]() 文档，并且了解了我们 Matchvs SDK的 使用流程，SDK 接口调用是需要安装相应的顺序才能成功调用。下面是介绍一个普通的游戏如何接入我们Matchvs SDK 。
+在阅读我们文档之前，请确保你已经阅读了我们的 [新手入门](http://www.matchvs.com/service?page=EgretStart) 文档，并且了解了我们 Matchvs SDK的 使用流程，SDK 接口调用是需要安装相应的顺序才能成功调用。下面是介绍一个普通的游戏如何接入我们Matchvs SDK 。
 
 #### Matchvs 接口调用时序图
 
@@ -81,7 +81,7 @@ class MsEngine {
 
 Matchvs提供的 `userID` 被用于在各个服务中校验连接的有效性，调试前开发者需要先获取到一个合法的`userID`。调用registerUser接口获取，在registerResponse回调返回。
 
-每次调用 registerUser 接口都会生成新的 `userID` 为了节省资源消耗， `userID`和 `token` 有需要的可以缓存起来，在之后的应用启动中不必重复获取。如果你有自己的用户系统，可以将Matchvs 提供的 userID 和用户系统进行映射。可以参考 [Matchvs 第三方账号绑定](http://www.matchvs.com/service?page=third)，让您的用户唯一对应一个userID，以节省资源。[可参考多开说明](http://www.matchvs.com/service?page=MultipleIdentities) 
+每次调用 registerUser 接口都会生成新的 `userID` 为了节省资源消耗， `userID`和 `token` 有需要的可以缓存起来，在之后的应用启动中不必重复获取。如果你有自己的用户系统，可以将Matchvs 提供的 userID 和用户系统进行映射。可以参考 [Matchvs 第三方账号绑定](http://www.matchvs.com/service?page=ThirdAccount)，让您的用户唯一对应一个userID，以节省资源。[可参考多开说明](http://www.matchvs.com/service?page=MultipleIdentities) 
 
 为了资源节省，我们在registerUserResponse 回调前把userID信息缓存在本地，数据会暂存在浏览器中。所以使用同一个浏览器调用 registerUser 接口会返回相同的 userID信息。如果需要清除缓存的用户信息请调用 。`LocalStore_Clear()` 接口。
 
@@ -176,7 +176,7 @@ class MsEngine {
 
 ### joinRandomRoom
 
-当房间里人数等于maxPlayer时，房间人满。系统会将玩家随机加入到人未满且没有 [joinOver](http://cn.matchvs.com/service?page=APIJavaScript#joinOver) 的房间。如果不存在人未满且没有joinOver的房间，则系统会再创建一个房间，然后将玩家加入到该房间。玩家 `userProfile` 的值可以自定义，接下来会通过回调函数（如 `joinRoomResponse ` ）传给其他客户端。
+当房间里人数等于maxPlayer时，房间人满。系统会将玩家随机加入到人未满且没有 joinOver 的房间。如果不存在人未满且没有joinOver的房间，则系统会再创建一个房间，然后将玩家加入到该房间。玩家 `userProfile` 的值可以自定义，接下来会通过回调函数（如 `joinRoomResponse ` ）传给其他客户端。
 
 ```typescript
 engine.joinRandomRoom(maxPlayer:number, userProfile:string):number
@@ -198,7 +198,7 @@ response.joinRoomResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>,
 response.joinRoomNotify(roomUserInfo:MsRoomUserInfo);
 ```
 - 某个玩家加入房间之后，如果该房间后来又有其他玩家加入，那么将会收到回调通知，response.joinRoomNotify方法会被SDK调用，调用时传入的roomUserInfo是新加入的其他玩家的信息，不是本玩家的信息。
-- roomUserInfo的属性与response.joinRoomResponse中的[roomUserInfoList中的元素包含的属性](http://cn.matchvs.com/service?page=APIJavaScript#roomUserInfo)相同。
+- roomUserInfo的属性与response.joinRoomResponse中的 roomUserInfoList 中的元素包含的属性相同。
 
 ### 示例代码
 
