@@ -2,7 +2,7 @@
 
 ![](http://imgs.matchvs.com/static/时序图.jpg)
 
-## 初始化
+## 初始化  
 
 新建一个子类（如：`MatchVSResponseInner`）继承抽象类`MatchVSResponse`，并实现其中的的抽象方法。代码如下:
 ```
