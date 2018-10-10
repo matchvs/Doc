@@ -1,6 +1,6 @@
 微信小游戏如果没有配置可信域名列表. 需要开启调试模式才可以访问非微信第三方服务器. 造成登录Matchvs失败.    
 
-请根据微信[小游戏域名配置文档](https://developers.weixin.qq.com/miniprogram/dev/api/api-network.html?search-key=%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE&q=)进行配置.
+请根据微信[小游戏域名配置文档](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)进行配置.
 > 服务器域名请在 `小程序后台-设置-开发设置-服务器域名 `中进行配置，配置时需要注意：
 >
 > 1. 域名只支持 https (request、uploadFile、downloadFile) 和 wss (connectSocket) 协议；  
