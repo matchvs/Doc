@@ -63,6 +63,28 @@ if(result === 0) {
 }
 ```
 
+### premiseInit
+
+使用独立部署的游戏调用此接口初始化SDK。
+
+```typescript
+function engine.premiseInit(response:MatchvsResponse, endPoint:string, gameID:number):number
+```
+
+#### 参数
+
+| 参数     | 类型            | 描述                          | 示例值         |
+| -------- | --------------- | ----------------------------- | -------------- |
+| response | MatchvsResponse | 回调类型MatchvsResponse的对象 | response       |
+| endPoint | string          | 服务配置的域名地址            | test.xxxxx.com |
+| gameID   | number          | 服务配置的游戏ID              | 123456         |
+
+#### 返回值
+
+| 错误码 | 含义         |
+| ------ | ------------ |
+| 0      | 接口调用成功 |
+| -1     | 接口调用失败 |
 
 ## initResponse
 
