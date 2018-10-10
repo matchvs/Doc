@@ -251,4 +251,4 @@ response.logoutResponse = function(status) {
 engine.uninit();
 ```
 
-[更多完整API介绍请参考API手册](http://www.matchvs.com/service?page=js)
+[更多完整API介绍请参考API手册](http://www.matchvs.com/service?page=JavaScript)
