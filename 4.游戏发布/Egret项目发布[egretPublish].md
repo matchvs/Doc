@@ -1,6 +1,4 @@
-# Matchvs 集成项目发布
-
-集成Matchvs SDK 同时支持多个平台的发布，几乎与egret发布多平台是完美想嵌的。  
+集成Matchvs SDK 同时支持多个平台的发布，几乎与egret发布多平台是完美适配的。  
 
 - HTML5 
 - IOS
@@ -39,11 +37,11 @@
 
 微信小游戏发布成功可以选择使用微信开发者工具打开。打开可能会有点慢，等个一分钟就可以了，如果还没有打开，自己打开微信开发者工具打开导入刚刚发布的小程序。
 
-打开刚刚使用 Egret发布的微信小程序可能会遇到，**fixedWidth**  模式不匹配问题，可参考下图配置：
+打开刚刚使用 Egret发布的微信小程序可能会遇到，`fixedWidth` **模式不匹配问题，可参考下图配置：**
 
 ![](http://imgs.matchvs.com/static/Doc-img/gamePub/EgretImg/egret_report5.png)
 
-把`game.js` 文件下的scaleMode改为fixedWidth，和不验证合法域名，配置好后就可以啦！
+把`game.js` 文件下的`scaleMode`改为`fixedWidth`，和不验证合法域名，配置好后就可以啦！
 
 
 
