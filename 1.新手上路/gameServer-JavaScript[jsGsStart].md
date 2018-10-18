@@ -14,13 +14,13 @@ Matchvs 使用 git 管理 gameServer，所以在创建 gameServer 之前，你�
 
 1. 复制 SSH key 到粘贴板
 
-   SSH key 文件通常位于 `~/.ssh/id_rsa.pub`。如果文件不存在，请参阅 git 手册生成 SSH key。
+   SSH key 文件通常位于 `~/.ssh/id_rsa.pub`。如果文件不存在，请参阅[SSHKey 手册](http://www.matchvs.com/service?page=ssh) 生成 SSH key。
 
 2. 点击上图中的 “立即上传”
 
    ![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/uploadsshkey.png)
 
-   把第1步复制的内容粘贴到输入框，注意不要输入多余的空格或空行，点击确定。
+   把第1步复制的内容粘贴到输入框，**注意不要输入多余的空格或空行**，点击确定。
 
 3. 确定上传成功
 
@@ -48,7 +48,7 @@ Cloning into 'myGameServer'...
 warning: You appear to have cloned an empty repository.
 ```
 
-因为这是一个新的 git 仓库，所以在克隆成功后 git 工具会发出一条警告，忽略该警告信息即可。
+**因为这是一个新的 git 仓库，所以在克隆成功后 git 工具会发出一条警告，忽略该警告信息即可。**
 
 前往[下载中心](http://www.matchvs.com/serviceDownload)，下载 Node.js 版本的 gameServer 框架（框架版本可能有更新，以官网展示为准）:
 
@@ -71,13 +71,13 @@ myGameServer
     └── app.js
 ```
 
-请保证目录结构完整，否则可能出现 gameServer 无法发布的情况。
+**请确保目录结构完整，否则可能出现 gameServer 无法发布的情况。**
 
 
 
 ## 本地开发环境
 
-[Node.js](https://nodejs.org) gameServer 支持 Node.js 8.0 及以上版本。
+[Node.js](https://nodejs.org) gameServer 支持**Node.js 8.0及以上版本**。
 
 
 
@@ -85,7 +85,7 @@ myGameServer
 
 gameServer 配置文件路径为`myGameServer/conf/config.json`，其中包含以下默认配置项：
 
-- **addr**：gameServer服务监听地址。IP默认为 “0.0.0.0” 即可，不建议修改。端口号可以从官网查询到：
+- **addr**：gameServer服务监听地址。**IP默认为 “0.0.0.0” 即可，不建议修改**。端口号可以从官网查询到：
 
   ![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/gameserverdetail.png)
 
@@ -96,7 +96,7 @@ gameServer 配置文件路径为`myGameServer/conf/config.json`，其中包含�
 - **logLevel**：日志配置。gameServer 使用 [log4js](https://www.npmjs.com/package/log4js) 作为日志管理框架，如需自定义 log 输出可在了解 log4js 的前提下自行修改配置文件。
 
 - **register**：独立部署配置，仅在使用 Matchvs 独立部署解决方案时开启。
-
+```
   - enable：register 注册服务控制开关，设为 true 时开启独立部署模式，设为 false 时关闭独立部署模式。
   - gameID：开发者自定义游戏ID。
   - svcName：gameServer 服务名，与 podName 组合作为该 gameServer 的唯一标识。 
@@ -105,16 +105,16 @@ gameServer 配置文件路径为`myGameServer/conf/config.json`，其中包含�
   - remotePort：gameServer 注册服务端口，由独立部署方案提供。
   - localHost：gameServer 对外服务地址，该地址需要能被独立部署的引擎服务访问。
   - localPort：gameServer 对外服务端口。
-
-- **roomConf**：gameServer 支持房间管理功能，开发者通过在 gameServer 里调用 API 接口可以实现房间创建、设置房间存活时常和房间删除等操作。如需在本地调试时使用房间管理功能，则需要开启 roomConf 配置。
-
+```
+- **roomConf**：gameServer 支持房间管理功能，开发者通过在 gameServer 里调用 API 接口可以实现房间创建、设置房间存活时常和房间删除等操作。**如需在本地调试时使用房间管理功能，则需要开启 roomConf 配置。**
+```
   - enable：房间管理服务控制开关，设为 true 时开启房间管理服务，设为 false 时关闭房间管理服务。
   - svcName：gameServer 服务名，开启`matchvs debug`时在终端显示，与 podName 组合作为该 gameServer 的唯一标识。
   - podName：gameServer 实例名，开启`matchvs debug`时在终端显示，与 svcName 组合作为该 gameServer 的唯一标识。
   - remoteHost：gameServer 房间管理服务地址，开启`matchvs debug`时在终端显示。
   - remotePort：gameServer  房间管理服务端口，开启`matchvs debug`时在终端显示。
-
-为了方便开发者在开发过程中快速调试和定位问题，matchvs 命令行工具提供了本地调试命令`matchvs debug <GS_key>`。使用时只需把 <GS_key> 替换为需要开启本地调试的 gameServer 的 GS_key，然后执行命令即可开启本地调试。例如：
+```
+为了方便开发者在开发过程中快速调试和定位问题，[matchvs 命令行工具](http://www.matchvs.com/service?page=GameServerCMD)提供了本地调试命令`matchvs debug <GS_key>`。使用时只需把 <GS_key> 替换为需要开启本地调试的 gameServer 的 GS_key，然后执行命令即可开启本地调试。例如：
 
 ```shell
 $ matchvs debug 1424769556baec5362f5b1513f7e1167
@@ -143,7 +143,8 @@ $ node main.js
 
 ## Demo 客户端与 gameServer 建立连接
 
-本地调试模式只支持测试环境，所以 Demo 客户端需要切换到测试环境，即 Demo 配置文件中的 `channel`需要修改为 `Matchvs`，`platform`需要修改为`alpha`。
+本地调试模式只支持测试环境，所以 Demo 客户端需要切换到测试环境，即 Demo 客户端 Matchvs `init`接口的 `channel`需要修改为 `Matchvs`，`platform`需要修改为`alpha`。  
+本地调试和线上运行的区别，请参考[环境说明](http://www.matchvs.com/service?page=envGuide)
 
 运行Demo客户端，此时Matchvs 引擎就会将客户端的请求转发到开发者本地 gameServer 服务，开发者无须提交代码即可在本地调试代码。
 
@@ -172,3 +173,4 @@ $ node main.js
      createTime: '1536576460' } }
 ```
 
+gameServer 详细使用[参考此处](http://www.matchvs.com/service?page=GameServerNodeJSBase)

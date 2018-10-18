@@ -78,19 +78,20 @@ gameServer 本地开发调试完成后需要将代码推送到 Matchvs 远程仓
     * [new branch]      master -> master
    ```
 
-   推送结果显示：`remote: Build Successful !!`表示代码已经成功推送到了 Matchvs 远程仓库，并且构建成功。如果推送失败则会显示相应的错误原因。
+   推送结果显示：`remote: Build Successful !!`表示代码已经成功推送到了 Matchvs 远程仓库，并且构建成功。  
+   如果推送失败则会显示相应的错误原因。
 
 ## 发布上线
 
 ### 发布游戏
 
-发布 gameServer 的前提是游戏已经发布上线，否则 gameServer将会发布失败。
+**发布 gameServer 的前提是游戏已经发布上线，否则 gameServer将会发布失败。**
 
 前往 Matchvs 官网控制台：
 
 ![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/unpublicgame&gameserver.png)
 
-点击”我的游戏“进入我的游戏列表，选择要发布的游戏点击”发布上线“，确定之后会提交给管理员审核，管理员审核通过之后游戏状态变更为“已商用”，即已发布上线。
+点击”我的游戏“进入我的游戏列表，选择要发布的游戏点击”发布上线“，游戏状态变更为“已商用”，即已发布上线。
 
 ![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/publicgame&gameserver.png)
 

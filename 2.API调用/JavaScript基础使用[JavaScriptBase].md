@@ -26,7 +26,7 @@ var response = new jsMatchvs.MatchvsResponse();
 engine.init(response, channel, platform, gameID);
 ```
 
-Matchvs 提供了两个环境，alpha 调试环境和 release 正式环境。游戏开发调试阶段请使用 alpha 环境，即 platform 传参"alpha"。参数列表如下：
+Matchvs 提供了两个环境，alpha 调试环境和 release 正式环境。游戏开发调试阶段请使用 alpha 环境，即 platform 传参"alpha"。[环境说明](http://www.matchvs.com/service?page=envGuide)，参数列表如下：
 
 
 gameID获取请[前往控制台](http://www.matchvs.com/manage/gameContentList)
@@ -250,5 +250,6 @@ response.logoutResponse = function(status) {
 ```javascript
 engine.uninit();
 ```
+[错误码说明](http://www.matchvs.com/service?page=ErrCode)  
 
 [更多完整API介绍请参考API手册](http://www.matchvs.com/service?page=JavaScript)

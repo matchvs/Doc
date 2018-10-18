@@ -1,6 +1,4 @@
-# Matchvs 游戏管理
-
-## 登录Matchvs控制台
+## 注册 Matchvs
 
 [点击登录](http://www.matchvs.com/login) 如果还没有注册账号请先注册
 
@@ -18,10 +16,10 @@ st->op1->op2->op3->ed
 
 ```
 
-创建好游戏后可以查看创建的游戏信息，比如 appkey, Secret, gameID 等如下图：
+创建好游戏后可以查看创建的游戏信息，比如` appkey, Secret, gameID `等如下图：
 
 ![](http://imgs.matchvs.com/static/Doc-img/new-start/MatchvsManageimg/Matchvs_use1.png)
 
-使用 Matchvs SDK 需要用到 appKey、secret, gameID 等信息。
+使用 Matchvs SDK 需要用到` appKey、secret, gameID` 等信息。
 
 
