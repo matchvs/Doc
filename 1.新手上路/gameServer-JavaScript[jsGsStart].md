@@ -143,7 +143,8 @@ $ node main.js
 
 ## Demo 客户端与 gameServer 建立连接
 
-本地调试模式只支持测试环境，所以 Demo 客户端需要切换到测试环境，即 Demo 客户端 Matchvs `init`接口的 `channel`需要修改为 `Matchvs`，`platform`需要修改为`alpha`。
+本地调试模式只支持测试环境，所以 Demo 客户端需要切换到测试环境，即 Demo 客户端 Matchvs `init`接口的 `channel`需要修改为 `Matchvs`，`platform`需要修改为`alpha`。  
+本地调试和线上运行的区别，请参考[环境说明](http://www.matchvs.com/service?page=envGuide)
 
 运行Demo客户端，此时Matchvs 引擎就会将客户端的请求转发到开发者本地 gameServer 服务，开发者无须提交代码即可在本地调试代码。
 
