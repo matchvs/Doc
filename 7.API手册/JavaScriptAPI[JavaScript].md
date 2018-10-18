@@ -1956,6 +1956,514 @@ initReopenRoom: function (self) {
     }
 ```
 
+
+
+## getWatchRoomList
+
+获取可以观战房间的列表信息。可观战的房间是由 createRoom 接口创建，并且 canWatch 参数配置为可观战模式。
+
+```javascript
+engine.getWatchRoomList(filter)
+```
+
+#### 参数 
+
+| 参数   | 类型           | 描述                 | 示例值 |
+| ------ | -------------- | -------------------- | ------ |
+| filter | MsRoomFilterEx | 获取房间信息过滤条件 |        |
+
+#### MsRoomFilterEx
+
+| 参数         | 类型   | 描述                                              | 示例值         |
+| ------------ | ------ | ------------------------------------------------- | -------------- |
+| maxPlayer    | number | 房间最大人数 (0-全部)                             | 3              |
+| mode         | number | 模式（0-全部）*创建房间时，mode最好不要填0        | 0              |
+| canWatch     | number | 是否可以观战 0-全部 1-可以 2-不可以               | 1              |
+| roomProperty | string | 房间属性                                          | “roomProperty” |
+| full         | number | 0-全部 1-满 2-未满                                | 0              |
+| state        | number | 0-全部 1-开放 2-关闭                              | 0              |
+| sort         | number | 0-不排序 1-创建时间排序 2-玩家数量排序 3-状态排序 | 0              |
+| order        | number | 0-ASC  1-DESC                                     | 0              |
+| pageNo       | number | 页码，0为第一页                                   | 0              |
+| pageSize     | number | 每一页的数量应该大于 0                            | 10             |
+
+#### 返回值
+
+| 返回码 | 说明                               |
+| ------ | ---------------------------------- |
+| 0      | 接口调用成功                       |
+| -2     | 未初始化                           |
+| -3     | 正在初始化                         |
+| -4     | 未登录                             |
+| -5     | 正在登录                           |
+| -7     | 正在创建房间，或者正在加入游戏房间 |
+| -11    | 正在登出                           |
+| -12    | 正在加入观战房间                   |
+
+#### 示例代码
+
+```javascript
+function GetWatchRooms(){
+    var filter = new MsRoomFilterEx(3, 0, 1, "roomProperty", 0, 1, 0, 0, 0, 3);
+    engine.getWatchRoomList(filter);
+}
+```
+
+
+
+## getWatchRoomsResponse
+
+获取观战列表房间回调
+
+```javascript
+response.getWatchRoomsResponse(rooms);
+```
+
+#### 参数
+
+| 参数  | 类型               | 说明                     | 示例值 |
+| ----- | ------------------ | ------------------------ | ------ |
+| rooms | MsGetRoomListExRsp | 获取观战房间列表回调信息 |        |
+
+#### MsGetRoomListExRsp
+
+| 参数      | 类型                   | 说明                                                         | 示例值 |
+| --------- | ---------------------- | ------------------------------------------------------------ | ------ |
+| status    | number                 | 接口调用状态 200 成功，其他值请看 [错误码说明](http://www.matchvs.com/service?page=ErrCode) |        |
+| total     | number                 | 房间                                                         |        |
+| roomAttrs | Array<MsRoomAttribute> | 房间信息列信息                                               |        |
+
+MsRoomAttribute 属性可以参考 getRoomListExResponse 接口。
+
+#### 示例代码
+
+```javascript
+response.getWatchRoomsResponse = function(rooms){
+    if(status == 200){
+        console.log("当前房间数量："，total);
+        roomAttrs.forEach((e)={
+            console.log("房间信息："，JSON.stringify(e));
+        });
+    }
+}
+```
+
+
+
+## joinWatchRoom
+
+加入观战房间请求接口，观战房间必须是在 getWatchRoomsResponse 接口中获取到的房间。
+
+```javascript
+engine.joinWatchRoom = function(roomID, userProfile){}
+```
+
+#### 参数
+
+| 参数        | 类型   | 说明                                                         | 示例值 |
+| ----------- | ------ | ------------------------------------------------------------ | ------ |
+| roomID      | string | 有效的房间号 (房间必须是可观战房间)在调用createRoom的时候设置 |        |
+| userProfile | string | 附加信息                                                     |        |
+
+#### 返回值
+
+| 返回码 | 说明                               |
+| ------ | ---------------------------------- |
+| 0      | 接口调用成功                       |
+| -2     | 未初始化                           |
+| -3     | 正在初始化                         |
+| -4     | 未登录                             |
+| -5     | 正在登录                           |
+| -7     | 正在创建房间，或者正在加入游戏房间 |
+| -8     | 已经在(观战)房间                   |
+| -10    | 正在离开房间                       |
+| -11    | 正在登出                           |
+| -12    | 正在加入观战房间                   |
+| -14    | 正在观战离开房间                   |
+
+#### 示例代码
+
+```javascript
+function JoinWatch(){
+    var resNo = engine.joinWatchRoom("12345678900000000","nickName+avatar");
+    if(resNo = 0){
+        console.log("OK");
+    }
+}
+```
+
+
+
+## joinWatchRoomResponse
+
+加入观战房间回调函数，调用 joinWatchRoom 接口后通过这个接口告知加入结果
+
+```javascript
+response.joinWatchRoomResponse= function (rsp){};
+```
+
+#### 参数
+
+| 参数 | 类型                   | 说明 | 示例值 |
+| ---- | ---------------------- | ---- | ------ |
+| rsp  | MVS.MsJoinWatchRoomRsp |      |        |
+
+#### MVS.MsJoinWatchRoomRsp
+
+| 参数       | 类型                | 说明                                                         | 示例值 |
+| ---------- | ------------------- | ------------------------------------------------------------ | ------ |
+| status     | number              | 状态值 200 成功，其他错误值请看 [错误码文档](http://www.matchvs.com/service?page=ErrCode) | 200    |
+| roomStatus | number              | 当前房间状态                                                 |        |
+| reserved   |                     |                                                              |        |
+| wathchInfo | MVS.MsLiveWatchInfo | 观战房间信息                                                 |        |
+|            |                     |                                                              |        |
+
+#### MVS.MsLiveWatchInfo
+
+| 参数          | 类型               | 说明                                             | 示例值 |
+| ------------- | ------------------ | ------------------------------------------------ | ------ |
+| roomID        | string             | 房间ID                                           |        |
+| startTS       | string             | 游戏开始时间                                     |        |
+| delayMS       | number             | 延迟时间（观战延缓的时间，不与游戏当前进度同步） |        |
+| cacheMS       | number             | 缓存时间                                         |        |
+| maxAudiences  | number             | 最大观战                                         |        |
+| curAudiences  | number             | 当前观战                                         |        |
+| peakAudiences | number             |                                                  |        |
+| lastAudiences | MVS.MsLiveAudience | 观战列表信息                                     |        |
+
+#### MVS.MsLiveAudience
+
+| 参数      | 类型   | 说明         | 示例值  |
+| --------- | ------ | ------------ | ------- |
+| userID    | number | 用户ID       | 123456  |
+| profile   | string | 用户附带消息 | “hello” |
+| enterTime | string | 进入时间     |         |
+
+#### 示例代码
+
+```javascript
+response.joinWatchRoomResponse = function(status){
+    if(status == 200){
+        console.log("加入观战房间成功");
+    }
+}
+```
+
+
+## joinWatchRoomNotify
+
+加入观战房间异步回调
+
+```javascript
+response.joinWatchRoomNotify = function (user) {}
+```
+
+#### 参数
+
+| 参数 | 类型           | 说明     | 示例值 |
+| ---- | -------------- | -------- | ------ |
+| user | MsRoomUserInfo | 用户信息 |        |
+
+#### MsRoomUserInfo
+
+| 属性        | 类型   | 描述     | 示例值 |
+| ----------- | ------ | -------- | ------ |
+| userID      | number | 用户ID   | 32322  |
+| userProfile | string | 玩家简介 | ""     |
+
+#### 示例代码
+
+```javascript
+response.joinWatchRoomNotify = function(user){
+    console.log("用户加入观战：",user.userID);
+    console.log("用户加入观战时附带的信息：",user.userProfile);
+}
+```
+
+
+
+## setLiveOffset
+
+设置观战数据偏移位置，指定从哪里开始播放。
+
+```javascript
+engine.setLiveOffset = function(offsetMS){};
+```
+
+#### 参数
+
+| 参数     | 类型   | 说明                                                   | 示例值 |
+| -------- | ------ | ------------------------------------------------------ | ------ |
+| offsetMS | number | 偏移时间，-1 表示从头， 0 表示不追， >0 表示最近多少ms | -1     |
+
+#### 返回值
+
+| 返回码 | 说明                               |
+| ------ | ---------------------------------- |
+| 0      | 接口调用成功                       |
+| -2     | 未初始化                           |
+| -3     | 正在初始化                         |
+| -4     | 未登录                             |
+| -5     | 正在登录                           |
+| -7     | 正在创建房间，或者正在加入游戏房间 |
+| -6     | 不在观战房间                       |
+| -10    | 正在离开房间                       |
+| -11    | 正在登出                           |
+| -12    | 正在加入观战房间                   |
+
+#### 示例代码
+
+```javascript
+function SetLiveOffset(){
+    var resNo = engine.setLiveOffset(-1);
+    if(resNo == 0){
+        console.log("OK");
+    }
+}
+```
+
+
+
+## setLiveOffsetResponse
+
+设置观战数据偏移位置接口请求回调函数。
+
+```javascript
+response.setLiveOffsetResponse = function(status){};
+```
+
+#### 参数
+
+| 参数   | 类型   | 说明                                                         | 示例值 |
+| ------ | ------ | ------------------------------------------------------------ | ------ |
+| status | number | 200 成功，其他错误值请看 [错误码文档](http://www.matchvs.com/service?page=ErrCode) | 200    |
+
+#### 示例代码
+
+```javascript
+response.setLiveOffsetResponse = function(status){
+    if(status == 200){
+        console.log("设置观战数据偏移位置成功");
+    }
+};
+```
+
+## liveFrameUpdate
+
+设置观战数据偏移值后，在游戏中对战的数据就会通过这个接口根据游戏的帧率返回数据。游戏帧率设置是 setFrameSync 接口。
+
+```javascript
+response.liveFrameUpdate = function(data){}
+```
+
+#### 参数
+
+| 参数 | 类型        | 说明       | 示例值 |
+| ---- | ----------- | ---------- | ------ |
+| data | MsFrameData | 游戏帧数据 |        |
+
+#### MsFrameData
+
+| 参数           | 类型               | 描述                     | 示例值 |
+| -------------- | ------------------ | ------------------------ | ------ |
+| frameIndex     | number             | 帧序号                   |        |
+| frameItems     | Array<MsFrameItem> | 同步帧内的数据包数组     |        |
+| frameWaitCount | number             | 同步帧内的数据包数组数量 |        |
+
+#### MsFrameItem 的属性
+
+| 参数      | 类型   | 描述     | 示例值 |
+| --------- | ------ | -------- | ------ |
+| srcUserID | number | 用户ID   |        |
+| cpProto   | string | 附加消息 |        |
+| timestamp | string | 时间戳   |        |
+
+#### 示例代码
+
+```javascript
+response.liveFrameUpdate = function(data){
+    var i = 0;
+    while ( i < data.frameItems.length){
+        console.log("[Rsp]liveFrameUpdate cpProto:"+ data.frameItems[i++].cpProto);
+    }
+};
+```
+
+
+
+## changeRole
+
+游戏角色与观战者角色的身份转换请求接口。在游戏中，如果需要转换为观战者就需要调用该接口，反之如果观战者需要加入游戏中也要调用此接口。切换角色的时候会 在产生changeRole 回调后，根据不同的模式分别触发 joinRoomResponse 和joinWatchRoomResponse 回调接口。
+
+```javascript
+engine.changeRole = function(userProfile, rType){}
+```
+
+#### 参数
+
+| 参数        | 类型   | 描述                                                         | 示例值 |
+| ----------- | ------ | ------------------------------------------------------------ | ------ |
+| userProfile | string | 附带消息，默认填空值                                         | ""     |
+| rType       | number | 要转换的模式，0-切换到游戏模式，1-切换到观战模式，这是一个可选参数，如果不填该参数，接口会根据你当前处于什么模式自动转换。 | 1      |
+
+#### 返回值
+
+| 返回码 | 说明                               |
+| ------ | ---------------------------------- |
+| 0      | 接口调用成功                       |
+| -2     | 未初始化                           |
+| -3     | 正在初始化                         |
+| -4     | 未登录                             |
+| -5     | 正在登录                           |
+| -7     | 正在创建房间，或者正在加入游戏房间 |
+| -6     | 没有进入房间                       |
+| -10    | 正在离开房间                       |
+| -11    | 正在登出                           |
+| -12    | 正在加入观战房间                   |
+| -30    | 设置的 rType 值与当前模式冲突。    |
+| -1     | 其他错误                           |
+
+#### 示例代码
+
+```javascript
+function ChangeRole(){
+    var resNo = engine.changeRole("ChangeRole",1);
+    if(resNo == 0){
+        console.log("OK");
+    }
+}
+```
+
+
+
+## changeRoleResponse
+
+切换角色游戏模式与观战模式请求接口回调
+
+```javascript
+response.changeRoleResponse = function(rsp){}
+```
+
+#### 参数
+
+| 参数 | 类型                | 描述             | 示例值 |
+| ---- | ------------------- | ---------------- | ------ |
+| rsp  | MVS.MsChangeRoleRsp | 角色切换回调信息 |        |
+
+#### MVS.MsChangeRoleRsp
+
+| 参数           | 类型   | 描述                                                         | 示例值 |
+| -------------- | ------ | ------------------------------------------------------------ | ------ |
+| status         | number | 200 成功，其他错误值请看 [错误码文档](http://www.matchvs.com/service?page=ErrCode) | 200    |
+| targetRoomType | number | 当前的模式 0-游戏模式 1-观战模式                             | 0      |
+
+#### 示例代码
+
+```javascript
+response.changeRoleResponse = function(rsp){
+    if(rsp.status == 200){
+        console.log("成功切换到");
+    }
+}
+```
+
+
+
+## leaveWatchRoom
+
+离开观战房间请求接口。
+
+```javascript
+engein.leaveWatchRoom = function(cpProto){}
+```
+
+#### 参数
+
+| 参数    | 类型   | 描述              | 示例值 |
+| ------- | ------ | ----------------- | ------ |
+| cpProto | string | 附加值默认填 空值 | “”     |
+
+#### 返回值
+
+| 返回码 | 说明                               |
+| ------ | ---------------------------------- |
+| 0      | 接口调用成功                       |
+| -2     | 未初始化                           |
+| -3     | 正在初始化                         |
+| -4     | 未登录                             |
+| -5     | 正在登录                           |
+| -7     | 正在创建房间，或者正在加入游戏房间 |
+| -10    | 正在离开房间                       |
+| -11    | 正在登出                           |
+| -12    | 正在加入观战房间                   |
+
+#### 示例代码
+
+```javascript
+function LeaveWatchRoom(){
+    var resNo = engine.leaveWatchRoom("leaveWatchRoom");
+    if(resNo == 0){
+        console.log("ok");
+	}
+}
+```
+
+## leaveWatchRoomResponse
+
+离开观战房间回调
+
+```javascript
+response.leaveWatchRoomResponse = function(status){}
+```
+
+#### 参数
+
+| 参数   | 类型   | 描述                                                         | 示例值 |
+| ------ | ------ | ------------------------------------------------------------ | ------ |
+| status | number | 200 成功，其他错误值请看 [错误码文档](http://www.matchvs.com/service?page=ErrCode) | 200    |
+
+#### 代码示例
+
+```javascript
+response.leaveWatchRoomResponse = function(status){
+    if(status == 0){
+        console.log("退出观战房间成功");
+	}
+}
+```
+
+## leaveWatchRoomNotify
+
+离开观战房间请求异步回调，其他观战者可收到这个回调。
+
+```javascript
+response.leaveWatchRoomNotify = function(user){}
+```
+
+#### 参数
+
+| 参数 | 类型                     | 描述               | 示例值 |
+| ---- | ------------------------ | ------------------ | ------ |
+| user | MVS.MsExitLiveRoomNotify | 离开房间的用户信息 |        |
+
+#### MVS.MsExitLiveRoomNotify
+
+| 属性        | 类型   | 描述     | 示例值 |
+| ----------- | ------ | -------- | ------ |
+| userID      | number | 用户ID   | 32322  |
+| userProfile | string | 玩家简介 | ""     |
+
+#### 代码示例
+
+```javascript
+response.leaveWatchRoomNotify = function(user){
+    console.log("用户离开观战：",user.userID)；
+    console.log("用户离开时附带的信息：",user.userProfile)
+}
+```
+
+
+
 ## 日志开关
 
 注意：如果要关闭SDK中的日志就调用 MatchvsLog.closeLog()。如果打开SDK中的日志就调用MatchvsLog.openLog();
@@ -1969,16 +2477,23 @@ response.errorResponse = function(error) {
 	console.log("错误信息：", error);
 }
 ```
-**注意** Matchvs相关的异常信息可通过该接口获取
+**注意** Matchvs相关的异常信息可通过该接口获取 更多[错误码说明](http://www.matchvs.com/service?page=ErrCode) 
 
-| 错误码 | 含义                           |
-| ------ | -------------------------------|
-| 1001   | 网络错误                       |
-| 500    | 服务器内部错误                 |
-| 其他   | 参考对应接口回调的错误码说明   |
 
 
 ## CHANGELOG
+
+时间：2018.07.13
+
+小版本：v1.7.000
+
+```
+1.添加观战功能，此功能添加了一些新接口.
+2.修复若干bug
+
+```
+
+
 
 时间：2018.07.13
 
