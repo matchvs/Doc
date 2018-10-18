@@ -175,4 +175,5 @@ $ dotnet run
 2018-09-10 18:13:13,105 [INFO] 1 MainServer:36 game service run...
 2018-09-10 18:13:13,107 [INFO] 1 GameServer:44 GameServer Run! listening hostIP:0.0.0.0, port:30381
 ```
-
+  
+gameServer 详细使用[参考此处](http://www.matchvs.com/service?page=GameServerCSharpBase)
