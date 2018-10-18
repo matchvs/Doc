@@ -1,12 +1,3 @@
-## 新建游戏  
-
-1.使用Matchvs游戏云需要AppKey、AppSecret，通过Matchvs官网创建游戏获取。[进入官网](http://www.matchvs.com/manage/gameContentList/)
-
-2.登陆官网，点击右上角控制台进入，若没有Matchvs官网账号。[立即注册](http://www.matchvs.com/vsRegister)   
-
-3.进入控制台，点击新建游戏，填写《游戏名称》即可，新建成功如下：![](http://imgs.matchvs.com/static/2_2.png)
-
-
 ## 导入SDK
 
 1.前往服务中心-应用中心--SDK下载页面，下载Matchvs SDK-Cocos。
@@ -52,7 +43,7 @@ MatchVSEngine::getInstance()->login(userid, token.c_str(), gameid, gameversion, 
 
 ## 游戏逻辑
 
-接下来就可以使用Matchvs提供的接口进行游戏逻辑的实现啦，详情请参考 [接入指南](http://www.matchvs.com/service?page=guideCocos)
+接下来就可以使用Matchvs提供的接口进行游戏逻辑的实现啦，详情请参考 [接入指南](http://www.matchvs.com/service?page=2dxCuide)
 
 
 ## 发布上线
