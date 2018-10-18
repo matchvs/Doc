@@ -250,5 +250,6 @@ response.logoutResponse = function(status) {
 ```javascript
 engine.uninit();
 ```
-[错误码说明](http://www.matchvs.com/service?page=ErrCode)
+[错误码说明](http://www.matchvs.com/service?page=ErrCode)  
+
 [更多完整API介绍请参考API手册](http://www.matchvs.com/service?page=JavaScript)
