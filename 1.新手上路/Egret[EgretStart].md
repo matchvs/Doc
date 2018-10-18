@@ -57,7 +57,7 @@
 
 ## Matchvs 使用
 
-在使用 Matchvs 服务之前请确认您已经在 Matchvs官网注册账号并新建好了一款游戏服务。如果还没有注册Matchvs 游戏服务请参考 [Matchvs 注册](http://www.matchvs.com/service?page=MatchvsStart) 文档。
+在使用 Matchvs 服务之前请确认您已经在 Matchvs官网注册账号并新建好了一款游戏服务。如果还没有注册Matchvs 游戏服务请参考 [Matchvs 快速入门](http://www.matchvs.com/service?page=MatchvsStart) 文档。
 
 Matchvs SDK 接口服务分为 **请求服务** 和 **回调服务** ， 使用是以简单的接口调用和接口返回的方式实现相关联网操作。比如随机加入房间只需要调用`joinRandRoom接口`，加入房间结果就以接口 `joinRoomResponse` 返回。在整个使用过程中，开发者只需要关心`MatchvsEngine`(接口请求调用对象)和 `MatchvsResponse`(接口调用返回对象)。接口请求使用 `MatchvsEngine`对象实例，接口返回使用 `MatchvsResponse` 对象实例。后面后介绍这两个对象的使用方法。此文档只是用于引导开发者接入SDK，需要接口详细的参数说明请看 [API手册](http://www.matchvs.com/service?page=TypeScript) 
 
@@ -192,7 +192,7 @@ response.loginResponse = function(rsp:MsLoginRsp){
 }
 ```
 
-- 其中，appKey，secret，gameID是你在Matchvs官网创建游戏后获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
+- 其中，`appKey，secret，gameID`是你在Matchvs官网创建游戏后获取的信息，可以[前往控制台](http://www.matchvs.com/manage/gameContentList)查看。appkey和secret是校验游戏合法性的关键信息，请妥善保管secret信息。  
 - userID 和 token 是调用 registerUser 接口 **注册成功** 的回调信息。
 - deviceID 用于检测是否存在多个设备同时登录同一个用户的情况，如果一个账号在两台设备上登录，则后登录的设备会连接失败。
 - Matchvs默认将相同游戏版本的用户匹配到一起。如果开发者对游戏进行了版本升级，不希望两个版本的用户匹配到一起，此时可以在登录的时候通过`gameVersion`区分游戏版本。 
@@ -221,7 +221,7 @@ private loginResponse(rsp:MsLoginRsp){
 
 Matchvs默认提供了随机加入房间的模式，调用加入房间逻辑后，Matchvs服务器会自动帮助用户寻找当前可用房间，只有在同一个房间里的用户才可以互相通信。
 
-随机加入房间的模式下，Matchvs服务器能够快速找到合适的房间，开发者只需要自定义房间人数上限，Matchvs服务端会根据当前房间人数判断是否可继续加入。  加入房间回调有 joinRoomResponse 和 joinRoomNotify 两个，前者是调用joinRoom者受到是否成功加入房间回调的信息，后者是在房间其他的玩家收到的回调信息。
+随机加入房间的模式下，Matchvs服务器能够快速找到合适的房间，开发者只需要自定义房间人数上限，Matchvs服务端会根据当前房间人数判断是否可继续加入。  加入房间回调有 `joinRoomResponse` 和 `joinRoomNotify` 两个，前者是**调用joinRoom者**收到是否成功加入房间回调的信息，后者是在**房间其他的玩家**收到的回调信息。
 
 请求示例：
 
