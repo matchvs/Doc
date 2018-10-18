@@ -4,7 +4,7 @@ Matchvs 使用Git管理开发者提交的 gameServer 代码，并通过 Git 自�
 
 Git支持在Linux、Windows等系统上使用，这里主要对这两种系统平台进行说明，使用其它系统需自行网上查找。  
 
-## 一、Git安装
+## Git安装
 ### Windows  
 
 * 下载  
