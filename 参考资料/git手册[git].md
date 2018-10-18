@@ -1,6 +1,6 @@
 Git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。
 
-Matchvs使用Git管理CP提交的CPS服务代码，并通过Git自动获取代码、进行编译发布，这里简单介绍下Git的安装和使用。
+Matchvs 使用Git管理开发者提交的 gameServer 代码，并通过 Git 自动获取代码、进行编译发布，这里简单介绍下Git的安装和使用。
 
 Git支持在Linux、Windows等系统上使用，这里主要对这两种系统平台进行说明，使用其它系统需自行网上查找。  
 
@@ -48,17 +48,15 @@ Git支持在Linux、Windows等系统上使用，这里主要对这两种系统�
 如果你使用的是Debian 或 Ubuntu Linux，通过命令 `apt-get install git `就可以完成Git的安装   
 （较老的系统，如果安装不成功，可以试试 `apt-get install git-core`）  
 
+  
 
-### 使用 
-Git作为版本控制工具，方便多人协作  
-
-#### clone远程仓库  
+## clone远程仓库  
 `git clone $remote.addr.git $local_project_name `  
 如下图所示，将远程仓库clone到本地目录 cpserver；  
 对于一个空的仓库，进入cpserver目录,其中会有个文件README.md表示clone成功  
 ![image](http://imgs.matchvs.com/static/gitClone.png)
 
-#### 连接远程仓库  
+## 连接远程仓库  
 初始化本地仓库目录：`git init`   
 连接远程仓库：`git remote add origin $remote`  
 拉取远程仓库：`git pull origin master`  
@@ -66,13 +64,13 @@ Git作为版本控制工具，方便多人协作
 
 ![image](http://imgs.matchvs.com/static/gitConn.png) 
 
-#### 查看本地仓库对应的远程仓库地址
+## 查看远程仓库地址
 `cd cpserver`
 `git remote -v`    
 
 ![image](http://imgs.matchvs.com/static/gitRemote.png)   
 
-#### 提交代码 
+## 提交代码 
 代码文件放到仓库目录下后，执行如下步骤，便可以将本地仓库的文件提交到远程仓库，让其它连接该仓库的人员可见。  
 
 添加文件：`git add 文件`  
@@ -81,7 +79,7 @@ Git作为版本控制工具，方便多人协作
 
 ![image](http://imgs.matchvs.com/static/gitAdd.png) 
 
-#### 创建&推送分支    
+## 创建&推送分支    
 
 ![image](http://imgs.matchvs.com/static/gitBranch.png)   
 
@@ -89,13 +87,13 @@ Git作为版本控制工具，方便多人协作
 
 ![image](http://imgs.matchvs.com/static/gitMerge.png)  
 
-#### 删除分支  
+## 删除分支  
 删除本地分支：`git branch -d $branch_name`  
 删除远程分支：`git push origin --delete $branch_name`    
 
 ![image](http://imgs.matchvs.com/static/gitDelete.png)   
 
-#### 创建标签（打Tag）   
+## 创建标签（打Tag）   
 
 查看commit log : `git log`    
 
