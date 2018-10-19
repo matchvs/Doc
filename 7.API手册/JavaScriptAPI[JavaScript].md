@@ -713,7 +713,7 @@ leaveRoomNotify : function (leaveRoomInfo) {
 ## createRoom
 
 ```javascript
-engine.createRoom(createRoomInfo, userProfile)
+engine.createRoom(createRoomInfo, userProfile,watchSet)
 ```
 
 #### 参数
@@ -722,6 +722,7 @@ engine.createRoom(createRoomInfo, userProfile)
 | -------------- | ----------------------- | -------------- | ------ |
 | createRoomInfo | object<MsCreateRoomRsp> | 创建房间的信息 |        |
 | userProfile    | string                  | 玩家简介       | ""     |
+| watchSet       | object<MVS.MsWatchSet>  | 观战服务参数   |        |
 
 #### createRoomInfo 的属性
 
@@ -733,6 +734,15 @@ engine.createRoom(createRoomInfo, userProfile)
 | canWatch     | number | 是否可以观战 1-可以 2-不可以 | 2              |
 | visibility   | number | 是否可见默认 0不可见 1可见   | 1              |
 | roomProperty | string | 房间属性                     | "roomProperty" |
+
+#### MVS.MsWatchSet
+
+| 属性       | 类型   | 描述                 | 示例值          |
+| ---------- | ------ | -------------------- | --------------- |
+| cacheMS    | number | 缓存多久的数据       | 6*1000（6分钟） |
+| maxWatch   | number | 最大人数             | 3               |
+| delayMS    | number | 观看延迟多久后的数据 | 2000            |
+| persistent | number | 是否持久缓存         | false           |
 
 #### 返回值
 

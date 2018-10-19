@@ -380,15 +380,16 @@ joinRoomWithProperties(matchinfo:MsMatchInfo, userProfile:string):number
 开发者可以在客户端主动创建房间，创建成功后玩家会被自动加入该房间，创建房间者即为房主，如果房主离开房间则Matchvs会自动转移房主并通知房间内所有成员，开发者通过设置CreateRoomInfo创建不同类型的房间
 
 ```typescript
-engine.createRoom(createRoomInfo:MsCreateRoomInfo, userProfile:string): number
+engine.createRoom(createRoomInfo:MsCreateRoomInfo, userProfile:string, watchSet?:MVS.MsWatchSet): number
 ```
 
 #### 参数
 
-| 参数           | 类型             | 描述           | 示例值 |
-| -------------- | ---------------- | -------------- | ------ |
-| createRoomInfo | MsCreateRoomInfo | 创建房间的信息 |        |
-| userProfile    | string           | 玩家简介       | ""     |
+| 参数           | 类型                   | 描述           | 示例值 |
+| -------------- | ---------------------- | -------------- | ------ |
+| createRoomInfo | MsCreateRoomInfo       | 创建房间的信息 |        |
+| userProfile    | string                 | 玩家简介       | ""     |
+| watchSet       | object<MVS.MsWatchSet> | 观战服务参数   |        |
 
 #### MsCreateRoomInfo 的属性
 
@@ -400,6 +401,15 @@ engine.createRoom(createRoomInfo:MsCreateRoomInfo, userProfile:string): number
 | canWatch     | number | 是否可以观战 1-可以 2-不可以 | 2              |
 | visibility   | number | 是否可见默认0不可见 1可见    | 1              |
 | roomProperty | string | 房间属性                     | “roomProperty” |
+
+#### MVS.MsWatchSet
+
+| 属性       | 类型   | 描述                 | 示例值          |
+| ---------- | ------ | -------------------- | --------------- |
+| cacheMS    | number | 缓存多久的数据       | 6*1000（6分钟） |
+| maxWatch   | number | 最大人数             | 3               |
+| delayMS    | number | 观看延迟多久后的数据 | 2000            |
+| persistent | number | 是否持久缓存         | false           |
 
 #### 返回值
 
