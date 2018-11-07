@@ -340,24 +340,36 @@ engine.joinRandomRoom(maxPlayer:number, userProfile:string):number
 #### joinRoomWithProperties
 
 ```typescript
-joinRoomWithProperties(matchinfo:MsMatchInfo, userProfile:string):number
+joinRoomWithProperties(matchinfo:MsMatchInfo, userProfile:string, watchSet?: MVS.MsWatchSet ):number
 ```
 
 #### 参数
 
-| 参数        | 类型        | 描述     | 示例值 |
-| ----------- | ----------- | -------- | ------ |
-| matchinfo   | MsMatchInfo | 配置信息 |        |
-| userProfile | string      | 玩家简介 | ""     |
+| 参数        | 类型           | 描述     | 示例值 |
+| ----------- | -------------- | -------- | ------ |
+| matchinfo   | MsMatchInfo    | 配置信息 |        |
+| userProfile | string         | 玩家简介 | ""     |
+| watchSet    | MVS.MsWatchSet | 观战信息 |        |
 
-#### MsMatchInfo的属性
+#### MsMatchInfo 的属性
 
-| 属性      | 类型   | 描述                         | 示例值                        |
-| --------- | ------ | ---------------------------- | ----------------------------- |
-| maxPlayer | number | 玩家最大人数                 | 3                             |
-| mode      | number | 模式可 默认填0               | 0                             |
-| canWatch  | number | 是否可以观战 1-可以 2-不可以 | 1                             |
-| tags      | object | 匹配属性值                   | {title:"Matchvs",name:"demo"} |
+| 属性         | 类型   | 描述                         | 示例值                        |
+| ------------ | ------ | ---------------------------- | ----------------------------- |
+| maxPlayer    | number | 玩家最大人数                 | 3                             |
+| mode         | number | 模式可 默认填0               | 0                             |
+| canWatch     | number | 是否可以观战 1-可以 2-不可以 | 1                             |
+| tags         | object | 匹配属性值                   | {title:"Matchvs",name:"demo"} |
+| visibility   | number | 是否可见 0-不可见 1-可见     | 1                             |
+| roomProperty | string | 自定义房间附加信息           | “roomProperty”                |
+
+#### MVS.MsWatchSet 的属性
+
+| 属性       | 类型   | 描述                 | 示例值          |
+| ---------- | ------ | -------------------- | --------------- |
+| cacheMS    | number | 缓存多久的数据       | 6*1000（6分钟） |
+| maxWatch   | number | 最大人数             | 3               |
+| delayMS    | number | 观看延迟多久后的数据 | 2000            |
+| persistent | number | 是否持久缓存         | false           |
 
 > ags为匹配标签，开发者通过设置不同的标签进行自定义属性匹配，相同MsMatchInfo的玩家将会被匹配到一起。
 
@@ -1695,8 +1707,8 @@ class MsEngine{
 
 用户断线后可以调用次接口进行重连，重连具体教程可以参考 [断线重连详细文档](http://www.matchvs.com/service?page=reconnect) 。
 
-- 请求重连接口：reconnect
-- 重连回调接口：reconnectResponse，networkStateNotify
+- 请求重连接口：reconnect, setReconnectTimeout
+- 重连回调接口：reconnectResponse, setReconnectTimeoutResponse
 
 ### reconnect
 
@@ -1750,6 +1762,53 @@ response.reconnectResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>
 | roomProperty | string | 房间属性           | ""     |
 | owner        | number | 房间创建者的用户ID | 0      |
 
+### setReconnectTimeout
+
+用户进入房间后默认断线20秒会被剔除，在用户加入房间之前调用这个接口，服务就会从新设置断线重连时间，设置范围为 `0-600 秒` 如果设置的值为0, 则在用户断开就马上被踢出。
+
+```typescript
+setReconnectTimeout(timeout:number):number
+```
+
+#### 参数
+
+| 参数    | 类型   | 描述             | 示例值 |
+| ------- | ------ | ---------------- | ------ |
+| timeout | number | 断线重连超时时间 | 60     |
+
+#### 返回值
+
+| 返回码 | 说明                                |
+| ------ | ----------------------------------- |
+| 0      | 接口调用成功                        |
+| -2     | 未初始化                            |
+| -3     | 正在初始化                          |
+| -4     | 未登录                              |
+| -5     | 正在登录                            |
+| -7     | 正在创建房间，或者正在加入游戏房间  |
+| -6     | 没有进入房间                        |
+| -10    | 正在离开房间                        |
+| -11    | 正在登出                            |
+| -12    | 正在加入观战房间                    |
+| -27    | timeout 超出范围  0=< timeout <=600 |
+| -30    | 设置的 rType 值与当前模式冲突。     |
+
+
+### setReconnectTimeoutResponse
+
+设置重连时间回调
+
+```typescript
+response.setReconnectTimeoutResponse(status:number):void
+```
+
+#### 参数
+
+| 参数   | 类型   | 描述                | 示例值 |
+| ------ | ------ | ------------------- | ------ |
+| status | number | 状态值 200 设置成功 | 200    |
+
+
 
 
 ## 重新打开房间
@@ -1761,7 +1820,7 @@ response.reconnectResponse(status:number, roomUserInfoList:Array<MsRoomUserInfo>
 
 设置房间重新打开,允许他人匹配加入当前房间, 注意 `在房间的情况才可以调用,否则函数直接返回错误码`
 
-```javascript
+```typescript
 	/**
      * 设置允许房间加人
      * @param {number} cpProto
