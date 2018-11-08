@@ -4,19 +4,18 @@
 
  
 
-![flow](JoinRoomWithNumber.assets/flow.png)
+![flow](https://raw.githubusercontent.com/matchvs/Doc/master/flow.png)
 
-示意图高清链接 (./JoinRoomWithNumber.assets/flow.png)
+高清示意图链接 (https://raw.githubusercontent.com/matchvs/Doc/master/flow.png)
 
-### 流程说明:
+##  流程说明:
 
-1. 以UserID作为房间短号,并以房间短号作为属性来创建房间 
+1. 1. 以UserID作为房间短号,并以房间短号作为属性来创建房间 
 
-2. 通过微信/短信分享房间短号 
+2. 2. 通过微信/短信分享房间短号 
 
-3. 输入短号来加入指定房间 
+3. 3. 输入短号来加入指定房间 
 
-   
 
 #### 1. 以UserID作为房间短号,并以房间短号作为属性来创建房间
 
@@ -36,7 +35,6 @@
 #### 3.输入短号来加入指定房间
 
 收到短号的玩家通过建议的输入交互,输入房间短号,开发者拿到短号调用`joinRoomWithProperties` 即可达到邀请加入制定房间的目的.
-
 示意代码:
 
 ```javascript
