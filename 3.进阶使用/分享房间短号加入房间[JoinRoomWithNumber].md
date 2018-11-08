@@ -6,7 +6,7 @@
 
 ![flow](JoinRoomWithNumber.assets/flow.png)
 
-示意图高清链接 [](JoinRoomWithNumber.assets/flow.png)
+示意图高清链接 (JoinRoomWithNumber.assets/flow.png)
 
 ### 流程说明:
 
@@ -31,7 +31,7 @@
 
 #### 2. 通过微信/短信分享房间短号
 
-微信如何分项数据, 可参考这篇文章[](./微信约战[wechatInvite].md)
+微信如何分项数据, 可参考这篇文章(./微信约战[wechatInvite].md)
 
 #### 3.输入短号来加入指定房间
 
