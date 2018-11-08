@@ -6,7 +6,7 @@
 
 ![flow](JoinRoomWithNumber.assets/flow.png)
 
-示意图高清链接 (JoinRoomWithNumber.assets/flow.png)
+示意图高清链接 (./JoinRoomWithNumber.assets/flow.png)
 
 ### 流程说明:
 
