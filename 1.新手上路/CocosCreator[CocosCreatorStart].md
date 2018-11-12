@@ -44,6 +44,12 @@ CreatorIDE安装成功后，双击打开CreatorIDE，选择新建项目选择一
 
 ![](http://imgs.matchvs.com/static/Doc-img/new-start/CocosCreatorImg/creatorInstallSuccess.png)
 
+**注意** 插件的卸载和替换
+
+ - 全局插件路径默认为 C:/user/admin/.CocosCreator/packages/plugin-matchvs。如需卸载，删除plugin-matchvs文件夹即可。如果手动更换过cocosCreator的配置地址，全局插件地址跟随 .CocosCreator进行变动。
+
+ - 项目插件路径为 project/packages/plugin-matchvs，如需卸载删除plugin-matchvs文件夹即可。 
+
 ## 第一行代码
 
  1：在assets文件夹下创建Script和Scene两个文件夹，在Script文件夹下创建HelloWorld.js文件，在Scene文件夹下创建一个名字叫做HelloWorld的场景文件.
