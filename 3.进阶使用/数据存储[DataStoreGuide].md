@@ -330,5 +330,322 @@ appKey&param1=value1&param2=value2&param3=value3&token
 
 
 
+## 接口代码示例
+
+ 这里以 [斗地主案例](https://github.com/matchvs/Poke/blob/dev/client/src/matchvs/MvsHttpApi.ts) 的代码为例 ，下面这些是公共用代码:
+
+```typescript
+class MvsHttpApi {
+	//这里定义接口要使用的连接
+	public static open_host:string = MatchvsData.pPlatform == "release"? "https://vsopen.matchvs.com":"https://alphavsopen.matchvs.com";
+
+	public static get_game_data:string = "/wc5/getGameData.do?";
+	public static set_game_data:string = "/wc5/setGameData.do?";
+	public static del_game_data:string = "/wc5/delGameData.do?";
+    
+    public static set_user_data:string = "/wc5/setUserData.do?";
+    public static get_user_data:string = "/wc5/getUserData.do?";
+    public static del_user_data:string = "/wc5/delUserData.do?";
+	
+	public constructor() {
+	}
+
+	/**
+     * 把参数中的 key, value  转为 key=value&key1=value2&key3=value3 形式
+     * @param {any} args {key:value[, ...]} 形式
+     */
+	public static paramsParse(args:any){
+        let str = "";
+        for(let k in args){
+            let val = "";
+			if ( 'object' == (typeof args[k]) ) { 
+                val = JSON.stringify(args[k]);
+            }else{
+                val = args[k];
+            }
+
+            if(str == ""){
+                
+                str = k + "=" + val;
+            }else{
+                str = str + "&" + k + "=" + val;
+            }
+        }
+        return str;
+    }
+
+	/**
+     * 组合 url 防止出现 host + path 出现两个 // 符号
+     * @param {string} host 
+     * @param  {...string} params 
+     */
+    public static url_Join(host, ...params) {
+        let p = "";
+        params.forEach(a => {
+            if (typeof a == "object") {
+                throw 'the parameter can only be string ';
+            }
+            if (a.substring(0,1) == '/'){
+                p = p + a;
+            }else{
+                p = p + '/' + a;
+            }
+        });
+        if (host.substring(host.length - 1, host.length) == '/') {
+            p = host.substring(0, host.length - 1) + p;
+        } else {
+            p = host + p;
+        }
+        return p;
+    }
+
+	 /**
+     * 签名 以 appkey 和 secret 
+     * @param {object|string} args object格式为{gameID:"xx",userID:0} string 格式为 gameID=xx&userID=0
+     * @return {string} MD5 string
+     */
+    public static SignParse(args){
+        let paramStr = "";
+        if(typeof args == "object"){
+            if (!("gameID" in args) || !("userID" in args)) {
+                console.log("参数中没有 gameID，或者 userID");
+                return;
+            }
+            paramStr = MvsHttpApi.paramsParse({ gameID: args.gameID, userID: args.userID });
+        }else if (typeof args == "string"){
+            paramStr = args;
+        }
+        // MD5 签名自己可以在网络上找 
+		let md5Encode = new MD5()
+        let sign = md5Encode.hex_md5(MatchvsData.appKey+"&"+paramStr+"&"+ MatchvsData.secret);
+        return sign;
+    }
+    
+	/**
+     * 签名 以 appkey 和 token 
+     * @param {object|string} args object格式为{gameID:"xx",userID:0} string 格式为 gameID=xx&userID=0
+     * @return {string} MD5 string
+     */
+    public static SignParse2(args, appkey, token){
+        let paramStr = "";
+        if(typeof args == "object"){
+            if (!("gameID" in args) || !("userID" in args)) {
+                console.log("参数中没有 gameID，或者 userID");
+                return;
+            }
+            paramStr = MvsHttpApi.paramsParse({ gameID: args.gameID, userID: args.userID });
+        }else if (typeof args == "string"){
+            paramStr = args;
+        }
+        // MD5 签名自己可以在网络上找 
+		let md5Encode = new MD5()
+        let sign = md5Encode.hex_md5(appkey+"&"+paramStr+"&"+token);
+        return sign;
+    }
+    
+    /**
+     * 签名 以 appkey 和 token ， 这个是适用 hashGet 和 hasSet 接口签名
+     * @param {object|string} args 
+     * @return {string} MD5 string
+     */
+    public static SignParse3(args, appkey, token){
+        let paramStr = "";
+        if(typeof args == "object"){
+            // 这里固定使用这几个参数作为签名
+            // 这里参数的位置必须是按照 a-z 的顺序排序然后再签名，不然会报错
+            if("value" in args){
+                paramStr = MvsHttpApi.paramsParse({gameID:args.gameID, key:args.key, userID:args.userID, value:args.value});
+            }else{
+                paramStr = MvsHttpApi.paramsParse({gameID:args.gameID, key:args.key, userID:args.userID});
+            }
+        }else if (typeof args == "string"){
+            paramStr = args;
+        }
+		let md5Encode = new MD5()
+        let sign = md5Encode.hex_md5(appkey+"&"+paramStr+"&"+token);
+        return sign;
+    }
+    
+	private dohttp( url:string, method:string, params:any, callback:Function){
+		var request = new egret.HttpRequest();
+        request.responseType = egret.HttpResponseType.TEXT;
+        request.open(url, method);
+        request.setRequestHeader("Content-Type", method == "GET" ? "text/plain" : "application/json" );
+		method == "GET" ? request.send() : request.send(params);
+        request.addEventListener(egret.Event.COMPLETE,(event:egret.Event)=>{
+            var request = <egret.HttpRequest>event.currentTarget;
+            callback(JSON.parse(request.response), null);
+        },this);
+        request.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.IOErrorEvent)=>{
+			 callback(null, " http request error");
+        },this);
+	}
+
+	public http_get(url, callback){
+		this.dohttp(url, "GET", {}, callback);
+	}
+
+	public http_post(url, params ,callback){
+		this.dohttp(url, "POST", params, callback);
+	}
+}
+```
+
+下面是通过上面的代码实现的接口示例：
+
+```typescript
+/**
+     * 获取全局接口数据
+     */
+    public getGameData(list:Array<any>,callback:Function){
+        let keyList = [];
+        list.forEach(k=>{
+            keyList.push({key:k});
+        });
+        let data = {
+            gameID   : "123456",
+            userID   : GlobalData.myUser.userID || 0,
+            keyList  : keyList,
+            sign : "",
+        }
+        data.sign = MvsHttpApi.SignParse(data);
+        let param = MvsHttpApi.paramsParse(data);
+		this.http_get(MvsHttpApi.url_Join(MvsHttpApi.open_host, MvsHttpApi.get_game_data)+param, callback);
+    }
+    /**
+     * 保存全局数据
+     */
+    public setGameData(userID:number, list:Array<any>, callback:Function){
+        let listInfo = [];
+        list.forEach(user=>{
+            listInfo.push({
+                key: user.userID,
+                value: ArrayTools.Base64Encode("要保存的数据"),
+            });
+        });
+        let params = {
+            gameID : "123456",
+            userID : userID,
+            dataList: listInfo,
+            sign : ""
+        }
+        //全局接口 签名使用 appkey + xxx + secret
+        params.sign = MvsHttpApi.SignParse(params);
+        // 使用 set_game_data  接口
+		this.http_post(MvsHttpApi.url_Join(MvsHttpApi.open_host,MvsHttpApi. set_game_data), params, callback);
+    }
+    
+    /**
+     * 删除全局接口数据
+     */
+    public delGameData(userID:number, list:Array<any>, callback){
+        let keyList = [];
+        list.forEach(k=>{
+            keyList.push({key:k});
+        });
+        let args = {
+            gameID:  "123456",
+            userID:  userID,
+            keyList: keyList,
+            sign: ""
+        }
+        args.sign = MvsHttpApi.SignParse(args);
+        let params = MvsHttpApi.paramsParse(args);
+		this.http_get(MvsHttpApi.url_Join(MvsHttpApi.open_host, MvsHttpApi.del_game_data) + params, callback);
+    }
+    
+    /**
+     * 保存用户接口数据
+     */
+    public setUserData(userID, List, callback){
+        let listInfo = [];
+        List.forEach(user=>{
+            listInfo.push({
+                key: user.userID,
+                value: ArrayTools.Base64Encode(JSON.stringify({ name: user.name, avatar: user.avatar })),
+            });
+        });
+        let params = {
+            gameID : "123456",
+            userID : userID,
+            dataList: listInfo,
+            sign : ""
+        }
+        // 用户接口签名使用 appkey + xxxx + token
+        params.sign = MvsHttpApi.SignParse2(params, "appkey", "token");
+		this.http_post(MvsHttpApi.url_Join(MvsHttpApi.open_host, MvsHttpApi. set_user_data ), params, callback);
+    }
+    
+    /**
+     * 获取用户接口数据
+     */
+    public getUserData(userID, List, callback){
+        let keyList = [];
+        List.forEach(k=>{
+            keyList.push({key:k});
+        });
+        let args = {
+            gameID:  "123456",
+            userID:  userID,
+            keyList: keyList,
+            sign: ""
+        }
+        args.sign = MvsHttpApi.SignParse2(args, "appkey", "token");
+        let params = MvsHttpApi.paramsParse(args);
+		this.http_get(MvsHttpApi.url_Join(MvsHttpApi.open_host,MvsHttpApi. get_user_data)+ params, callback);
+    }
+    
+    /**
+     * 删除用户接口数据
+     */
+    public delUserData(userID, List, callback){
+        let keyList = [];
+        List.forEach(k=>{
+            keyList.push({key:k});
+        });
+        let args = {
+            gameID:  "123456",
+            userID:  userID,
+            keyList: keyList,
+            sign: ""
+        }
+        args.sign = MvsHttpApi.SignParse2(args, "appkey", "token");
+        let params = MvsHttpApi.paramsParse(args);
+		this.http_get(MvsHttpApi.url_Join(MvsHttpApi.open_host,MvsHttpApi. del_user_data)+params, callback);
+    }
+    /**
+     * 存哈希
+     */
+    public hashSet(userID:number, k:string, v:string, callback:Function){
+        let params = {
+            gameID: "123456",
+            key: k,
+            userID: userID,
+            value: v,
+            sign:""
+        }
+        params.sign = MvsHttpApi.SignParse3(params, "appkey", "token")
+        this.http_post(MvsHttpApi.url_Join(MvsHttpApi.open_host,MvsHttpApi.hash_get), params, callback);
+    }
+
+    /**
+     * 取哈希
+     */
+    public hashGet(userID:number, k:string, callback:Function){
+        let params = {
+            gameID: "123456",
+            key: k,
+            userID: userID,
+            sign:""
+        }
+        params.sign = MvsHttpApi.SignParse3(params, "appkey", "token")
+        this.http_get(MvsHttpApi.url_Join(MvsHttpApi.open_host,MvsHttpApi.hash_get) + params, callback);
+    }
+```
+
+> **注意：** 以上为示例代码为演示接口的调用方法，可能不能直接运行，开发者根据自己需求适当的修改。
+
+
+
 
 
