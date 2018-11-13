@@ -346,6 +346,9 @@ class MvsHttpApi {
     public static set_user_data:string = "/wc5/setUserData.do?";
     public static get_user_data:string = "/wc5/getUserData.do?";
     public static del_user_data:string = "/wc5/delUserData.do?";
+    
+    public static hase_set:string = "/wc5/hashSet.do?";
+    public static hash_get:string = "/wc5/hashGet.do?";
 	
 	public constructor() {
 	}
