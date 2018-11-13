@@ -1,4 +1,30 @@
-## 创建房间   
+## gameServer 错误码
+
+| 错误码 | 含义                                            |
+| ------ | ----------------------------------------------- |
+| 200    | 成功                                            |
+| 400    | 请求格式错误                                    |
+| 401    | gameID错误                                      |
+| 402    | roomID错误                                      |
+| 403    | userID错误                                      |
+| 404    | 推送用户消息失败                                |
+| 405    | 房间已满                                        |
+| 406    | 房间已停止加人                                  |
+| 407    | 超过总人数（观战人数+玩家人数）的限制           |
+| 408    | 超过观战数据延迟时间限制                        |
+| 409    | 房间不存在                                      |
+| 410    | 用户不存在                                      |
+| 411    | 请求用户不在房间内                              |
+| 412    | 目标用户不在房间内                              |
+| 413    | TTL超过最大限制                                 |
+| 414    | 房间为空                                        |
+| 415    | 房间不为空                                      |
+| 416    | 不允许自己踢自己                                |
+| 50x    | 未找到运行中的 gameServer，请检查 roomConf 配置 |
+
+
+
+## 创建房间
 
 房间被创建时，gameServer 会触发`onCreateRoom()`消息，如有"房间创建“的相关逻辑应写在该方法里。 
 
@@ -38,18 +64,18 @@ public override IMessage OnCreateRoom(ByteString msg)
 
 通过`Request`.`CpProto`反序列化获取创建房间扩展信息`CreateExtInfo`，数据结构如下：
 
-| 字段         | 类型       | 含义                                         |
-| :----------- | :--------- | :--------------------------------------- |
-| UserID       | uint       | 创建者ID                                     |
-| UserProfile  | ByteString | 创建者profile                                |
-| RoomID       | ulong      | 房间ID                                       |
-| State        | uint       | 房间状态：1开放、2关闭                       |
-| MaxPlayer    | uint       | 最大人数                                     |
-| Mode         | int        | 游戏模式                                     |
-| CanWatch     | int        | 是否可观战                                   |
-| RoomProperty | ByteString | 房间属性                                     |
-| CreateFlag   | uint       | 房间创建途径：1 系统创建房间、2 玩家创建房间 |
-| CreateTime   | ulong      | 创建时间                                     |
+| 字段         | 类型       | 含义                                                         |
+| :----------- | :--------- | :----------------------------------------------------------- |
+| UserID       | uint       | 创建者ID                                                     |
+| UserProfile  | ByteString | 创建者profile                                                |
+| RoomID       | ulong      | 房间ID                                                       |
+| State        | uint       | 房间状态：1开放、2关闭                                       |
+| MaxPlayer    | uint       | 最大人数                                                     |
+| Mode         | int        | 游戏模式                                                     |
+| CanWatch     | int        | 是否可观战：1 可以、2 不可以                                 |
+| RoomProperty | ByteString | 房间属性                                                     |
+| CreateFlag   | uint       | 房间创建途径：1 系统创建房间、2 玩家创建房间、3 gameServer创建房间 |
+| CreateTime   | ulong      | 创建时间                                                     |
 
 Matchvs 提供了在 gameServer 里主动创建房间的接口`CreateRoom`。调用该接口向 Matchvs 请求创建一个空房间。
 
@@ -62,13 +88,14 @@ public CreateRoomAck CreateRoom(CreateRoom request)
 
 `CreateRoom`数据结构：
 
-| 字段     | 类型     | 含义                                                         |
-| -------- | -------- | ------------------------------------------------------------ |
-| SvcName  | string   | gameServer 服务名，该字段由内部自动设置，开发者无须设置      |
-| PodName  | string   | gameServer 实例名，该字段由内部自动设置，开发者无须设置      |
-| GameID   | uint     | 游戏ID                                                       |
-| RoomInfo | RoomInfo | 房间信息                                                     |
-| Ttl      | uint     | 空房间存活时长，单位秒。Mathcvs 从房间变成空时开始计时，超过 TTL 后销毁房间。在 TTL 内如有玩家加入房间则重置超时时长，而当房间再次变为空时重新开始计时。 |
+| 字段         | 类型         | 含义                                                         |
+| ------------ | ------------ | ------------------------------------------------------------ |
+| SvcName      | string       | gameServer 服务名，该字段由内部自动设置，开发者无须设置      |
+| PodName      | string       | gameServer 实例名，该字段由内部自动设置，开发者无须设置      |
+| GameID       | uint         | 游戏ID                                                       |
+| RoomInfo     | RoomInfo     | 房间信息                                                     |
+| Ttl          | uint         | 空房间存活时长，单位秒，最大取值86400秒（1天）。Mathcvs 从房间变成空时开始计时，超过 TTL 后销毁房间。在 TTL 内如有玩家加入房间则重置超时时长，而当房间再次变为空时重新开始计时。 |
+| WatchSetting | WatchSetting | 房间观战设置                                                 |
 
 `RoomInfo`数据结构：
 
@@ -92,6 +119,16 @@ public CreateRoomAck CreateRoom(CreateRoom request)
 | Open   | 开放，允许玩家加入   |
 | Closed | 关闭，不允许玩家加入 |
 
+`WatchSetting`数据结构：
+
+| 字段            | 类型 | 含义                                          |
+| --------------- | ---- | --------------------------------------------- |
+| MaxWatch        | uint | 最大观观战人数                                |
+| WatchPersistent | bool | 观战是否持久化                                |
+| WatchDelayMs    | uint | 观战延迟时间，单位为毫秒，最大取值3600000毫秒 |
+| CacheTime       | uint | 缓存时间                                      |
+
+**房间总人数(maxPlayer + maxWatch)须小于100**
 
 
 ## 设置空房间存活时长
@@ -111,7 +148,7 @@ public TouchRoomAck TouchRoom(TouchRoom request)
 | PodName | string | gameServer 实例名，该字段由内部自动设置，开发者无须设置      |
 | GameID  | uint   | 游戏ID                                                       |
 | RoomID  | ulong  | 房间ID                                                       |
-| Ttl     | uint   | 空房间存活时长，单位秒。Mathcvs 从房间变成空时开始计时，超过 TTL 后销毁房间。在 TTL 内如有玩家加入房间则重置超时时长，而当房间再次变为空时重新开始计时。 |
+| Ttl     | uint   | 空房间存活时长，单位秒，最大取值86400秒（1天）。Mathcvs 从房间变成空时开始计时，超过 TTL 后销毁房间。在 TTL 内如有玩家加入房间则重置超时时长，而当房间再次变为空时重新开始计时。 |
 
 
 
@@ -159,7 +196,7 @@ public DestroyRoomAck DestroyRoom(DestroyRoom request)
 
 
 
-## 加入房间 
+## 加入房间
 
 玩家进入房间时，gameServer 会触发`onJoinRoom()`，开发者可以将“玩家加入房间的逻辑”写到该方法里。
 
@@ -406,13 +443,13 @@ public void PushToHotel(UInt64 roomID, IMessage msg, UInt32 userId = 1, UInt32 v
 
 `PushToHotelMsg`数据结构：
 
-| 字段     | 类型        | 含义           |
-| :------- | :---------- | :------------- |
-| PushType | PushMsgType | 推送类型       |
-| GameID   | uint        | 游戏ID         |
-| RoomID   | ulong       | 房间ID         |
-| DstUids  | uint[]      | 推送目标用户   |
-| CpProto  | ByteString  | 自定义消息内容 |
+| 字段     | 类型        | 含义                           |
+| :------- | :---------- | :----------------------------- |
+| PushType | PushMsgType | 推送类型                       |
+| GameID   | uint        | 游戏ID                         |
+| RoomID   | ulong       | 房间ID                         |
+| DstUids  | uint[]      | 推送目标用户                   |
+| CpProto  | ByteString  | 自定义消息内容，不超过1024字节 |
 
 `PushMsgType`枚举值：
 
@@ -577,13 +614,14 @@ public override IMessage OnConnectStatus(ByteString msg)
 Matchvs提供了在gameServer里查询房间详情的接口，查询结果在`onRoomDetail()`中返回。
 
 ```c#
-public void PushGetRoomDetail(UInt64 roomId, UInt32 gameId, UInt32 userId = 0, UInt32 version = 2)
+public void PushGetRoomDetail(UInt64 roomId, UInt32 gameId, UInt32 latestWatcherNum, UInt32 userId = 0, UInt32 version = 2)
 {
     Logger.Info("PushGetRoomDetail, roomID:{0}, gameId:{1}", roomId, gameId);
     GetRoomDetailReq roomDetail = new GetRoomDetailReq()
     {
         RoomID = roomId,
         GameID = gameId
+        LatestWatcherNum = latestWatcherNum,
     };
     baseServer.PushToMvs(userId, version, (UInt32)MvsGsCmdID.MvsGetRoomDetailReq, roomDetail);
 }
@@ -607,10 +645,11 @@ public override void OnRoomDetail(ByteString msg)
 
 `GetRoomDetailReq`数据结构：
 
-| 字段   | 类型  | 含义   |
-| :----- | :---- | :----- |
-| GameID | uint  | 游戏ID |
-| RoomID | ulong | 房间ID |
+| 字段             | 类型  | 含义                          |
+| :--------------- | :---- | :---------------------------- |
+| GameID           | uint  | 游戏ID                        |
+| RoomID           | ulong | 房间ID                        |
+| LatestWatcherNum | uint  | 查询最新加入的n名观战人员信息 |
 
 `OnRoomDetail`.`Request`数据结构：
 
@@ -629,11 +668,12 @@ public override void OnRoomDetail(ByteString msg)
 | State        | uint         | 房间状态：1开放、2关闭                       |
 | MaxPlayer    | uint         | 最大人数                                     |
 | Mode         | int          | 游戏模式                                     |
-| CanWatch     | int          | 是否可观战                                   |
+| CanWatch     | int          | 是否可观战：1 可以、2 不可以                 |
 | RoomProperty | ByteString   | 房间属性                                     |
 | Owner        | uint         | 房主                                         |
 | CreateFlag   | uint         | 房间创建途径：1 系统创建房间、2 玩家创建房间 |
 | PlayerInfos  | PlayerInfo[] | 房间用户列表                                 |
+| WatchRoom    | WatchInfo    | 房间观战详情                                 |
 
 `PlayerInfo`数据结构：
 
@@ -641,6 +681,31 @@ public override void OnRoomDetail(ByteString msg)
 | ----------- | ---------- | ----------- |
 | UserID      | uint       | 用户ID      |
 | UserProfile | ByteString | 玩家profile |
+
+`WatchRoom`数据结构：
+
+| 字段         | 类型         | 含义                                                   |
+| ------------ | ------------ | ------------------------------------------------------ |
+| WatchInfo    | WatchInfo    | 房间详情                                               |
+| WatchPlayers | PlayerInfo[] | 最新加入的n名观战用户，n由请求参数LatestWatcherNum确定 |
+
+`WatchInfo`数据结构：
+
+| 字段         | 类型         | 含义                                     |
+| ------------ | ------------ | ---------------------------------------- |
+| RoomID       | ulong        | 房间ID                                   |
+| State        | uint         | 观战房间状态。1：回放房间；2：游戏中房间 |
+| WatchSetting | WatchSetting | 房间观战设置                             |
+| CurWatch     | uint         | 当前观战人数                             |
+
+`WatchSetting`数据结构：
+
+| 字段            | 类型 | 含义                     |
+| --------------- | ---- | ------------------------ |
+| MaxWatch        | uint | 最大观观战人数           |
+| WatchPersistent | bool | 观战是否持久化           |
+| WatchDelayMs    | uint | 观战延迟时间，单位为毫秒 |
+| CacheTime       | uint | 缓存时间                 |
 
 
 

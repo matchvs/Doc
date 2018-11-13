@@ -1,4 +1,4 @@
-## 创建游戏  
+## 创建游戏
 
 在开始使用 gameServer 之前，你需要创建自己的游戏。如何创建游戏详见 [Matchvs快速入门](http://www.matchvs.com/service?page=MatchvsStart) 。
 
@@ -131,7 +131,7 @@ gameServer 配置文件路径为`myGameServer/gameServer/conf/gs.json`，其中�
   - podName：gameServer 实例名，开启`matchvs debug`时在终端显示，与 svcName 组合作为该 gameServer 的唯一标识。
   - remoteHost：gameServer 房间管理服务地址，开启`matchvs debug`时在终端显示。
   - remotePort：gameServer  房间管理服务端口，开启`matchvs debug`时在终端显示。
-```
+ ```
 为了方便开发者在开发过程中快速调试和定位问题，[matchvs 命令行工具](http://www.matchvs.com/service?page=GameServerCMD)提供了本地调试命令`matchvs debug <GS_key>`。使用时只需把 <GS_key> 替换为需要开启本地调试的 gameServer 的 GS_key，然后执行命令即可开启本地调试。例如：
 
 ```shell
@@ -141,9 +141,18 @@ $ matchvs debug 1424769556baec5362f5b1513f7e1167
 	PodName:        deploy-201994-0-5f5d8785f8-9545j
 	RemoteHost:     directory10.matchvs.com
 	RemotePort:     9982
+	
+2018/11/13 15:38:01 [I] [proxy_manager.go:298] proxy removed: []
+2018/11/13 15:38:01 [I] [proxy_manager.go:308] proxy added: [matchvs]
+2018/11/13 15:38:01 [I] [proxy_manager.go:331] visitor removed: []
+2018/11/13 15:38:01 [I] [proxy_manager.go:340] visitor added: []
+2018/11/13 15:38:01 [I] [control.go:240] [37ff6c2d5cc54535] login to server success, get run id [37ff6c2d5cc54535], server udp port [0]
+2018/11/13 15:38:01 [I] [control.go:165] [37ff6c2d5cc54535] [matchvs] start proxy success
 ```
 
-开启本地调试模式后，启动本地 gameServer 服务：
+`matchvs debug`命令在启动时与 Matchvs 服务建立代理连接。启动完成后，客户端发送给 gameServer 的消息将通过代理服务转发到开发者本地运行的 gameServer。同样的，gameServer 发送的消息也通过代理服务转发给客户端。
+
+保留这个窗口，然后在另外一个窗口里启动 gameServer 服务：
 
 ```shell
 $ cd myGameServer/gameServer
@@ -175,5 +184,5 @@ $ dotnet run
 2018-09-10 18:13:13,105 [INFO] 1 MainServer:36 game service run...
 2018-09-10 18:13:13,107 [INFO] 1 GameServer:44 GameServer Run! listening hostIP:0.0.0.0, port:30381
 ```
-  
+
 gameServer 详细使用[参考此处](http://www.matchvs.com/service?page=GameServerCSharpBase)

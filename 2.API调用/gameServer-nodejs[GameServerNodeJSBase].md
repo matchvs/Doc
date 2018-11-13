@@ -1,3 +1,29 @@
+## gameServer 错误码
+
+| 错误码 | 含义                                            |
+| ------ | ----------------------------------------------- |
+| 200    | 成功                                            |
+| 400    | 请求格式错误                                    |
+| 401    | gameID错误                                      |
+| 402    | roomID错误                                      |
+| 403    | userID错误                                      |
+| 404    | 推送用户消息失败                                |
+| 405    | 房间已满                                        |
+| 406    | 房间已停止加人                                  |
+| 407    | 超过总人数（观战人数+玩家人数）的限制           |
+| 408    | 超过观战数据延迟时间限制                        |
+| 409    | 房间不存在                                      |
+| 410    | 用户不存在                                      |
+| 411    | 请求用户不在房间内                              |
+| 412    | 目标用户不在房间内                              |
+| 413    | TTL超过最大限制                                 |
+| 414    | 房间为空                                        |
+| 415    | 房间不为空                                      |
+| 416    | 不允许自己踢自己                                |
+| 50x    | 未找到运行中的 gameServer，请检查 roomConf 配置 |
+
+
+
 ## 创建房间
 
 房间被创建时，gameServer 会触发`onCreateRoom()`消息，如有"房间创建“的相关逻辑应写在该方法里。
@@ -16,9 +42,9 @@
  * @param {number} request.createExtInfo.state 房间状态：1开放、2关闭
  * @param {number} request.createExtInfo.maxPlayer 最大人数
  * @param {number} request.createExtInfo.mode 游戏模式
- * @param {number} request.createExtInfo.canWatch 是否可观战
+ * @param {number} request.createExtInfo.canWatch 是否可观战：1 可以、2 不可以
  * @param {Uint8Array} request.createExtInfo.roomProperty 房间属性
- * @param {number} request.createExtInfo.createFlag 房间创建途径：1系统创建房间、2玩家创建房间
+ * @param {number} request.createExtInfo.createFlag 房间创建途径：1系统创建房间、2玩家创建房间、3 gameServer创建房间
  * @param {string} request.createExtInfo.createTime 创建时间
  * @memberof App
  */
@@ -31,16 +57,22 @@ Matchvs 提供了在 gameServer 里主动创建房间的接口`createRoom()`。�
  /**
  * 创建房间
  * @param {Object} msg 创建房间消息结构
- * @param {number} msg.gameID 游戏ID 
- * @param {number} msg.ttl 空房间存活时长，单位秒 
- * @param {Object} msg.roomInfo 房间信息 
- * @param {string} msg.roomInfo.roomName 房间名称 
- * @param {number} msg.roomInfo.maxPlayer 房间最大人数 
+ * @param {number} msg.gameID 游戏ID
+ * @param {number} msg.ttl 空房间存活时长，单位秒，最大取值86400秒（1天）
+ * @param {Object} msg.roomInfo 房间信息
+ * @param {string} msg.roomInfo.roomName 房间名称
+ * @param {number} msg.roomInfo.maxPlayer 房间最大人数
  * @param {number} msg.roomInfo.mode 模式
- * @param {number} msg.roomInfo.canWatch 是否可观战
+ * @param {number} msg.roomInfo.canWatch 是否可观战：1 可以、2 不可以
  * @param {number} msg.roomInfo.visibility 房间是否可见：0不可见，1可见
  * @param {string|Uint8Array} msg.roomInfo.roomProperty 房间属性
+ * @param {Object} msg.watchSetting 观战设置
+ * @param {number} msg.watchSetting.maxWatch 最大观战人数 
+ * @param {boolean} msg.watchSetting.watchPersistent 观战是否持久化
+ * @param {number} msg.watchSetting.watchDelayMs 观战延迟时间，单位为毫秒，最大取值3600000毫秒
+ * @param {number} msg.watchSetting.cacheTime 缓存时间
  * @param {function} callback 房间创建结果回调
+ * @description 房间总人数(maxPlayer + maxWatch)须小于100
  * @memberof Push
  */
  createRoom(msg, callback)
@@ -58,7 +90,7 @@ gameServer 在创建一个房间之后，可以通过`touchRoom()`重新设置�
 * @param {Object} msg 修改房间存活时长消息结构
 * @param {number} msg.gameID 游戏ID
 * @param {string} msg.roomID 房间ID
-* @param {number} msg.ttl 空房间存活时长
+* @param {number} msg.ttl 空房间存活时长，单位秒，最大取值86400秒（1天）
 * @param {function} callback 结果回调
 * @memberof Push
 */
@@ -205,7 +237,7 @@ onReceiveEvent(request)
 * @param {number} msg.pushType 推送类型，配合destsList使用
 *      1：推送给列表中的指定用户，2：推送给除列表中指定用户外的其他用户，3：推送给房间内的所有用户
 * @param {number[]} msg.destsList userID列表
-* @param {string|Uint8Array} msg.content 消息内容
+* @param {string|Uint8Array} msg.content 消息内容，不超过1024字节
 * @memberof Push
 */
 pushEvent(msg)
@@ -283,6 +315,7 @@ Matchvs 提供了在gameServer 里查询房间详情的接口，查询结果在`
 * @param {Object} msg getRoomDetail消息结构
 * @param {string} msg.roomID 房间ID
 * @param {number} msg.gameID 游戏ID 
+* @param {number} msg.latestWatcherNum 查询最新加入的n个人的信息
 * @memberof Push
 */
 getRoomDetail(msg)
@@ -300,13 +333,26 @@ getRoomDetail(msg)
  * @param {number} request.roomDetail.state 房间状态：1开放、2关闭
  * @param {number} request.roomDetail.maxPlayer 房间最大人数
  * @param {number} request.roomDetail.mode 模式
- * @param {number} request.roomDetail.canWatch 是否可观战
+ * @param {number} request.roomDetail.canWatch 是否可观战：1 可以、2 不可以
  * @param {Uint8Array} request.roomDetail.roomProperty 房间属性
  * @param {number} request.roomDetail.owner 房主
- * @param {number} request.roomDetail.createFlag 房间创建途径：1系统创建房间、2玩家创建房间
+ * @param {number} request.roomDetail.createFlag 房间创建途径：1系统创建房间、2玩家创建房间、3 gameServer创建房间
  * @param {Object[]} request.roomDetail.playersList 房间用户列表
  * @param {number} request.roomDetail.playersList[].userID 用户ID
  * @param {Uint8Array} request.roomDetail.playersList[].userProfile 用户profile
+ * @param {Object} request.roomDetail.watchRoom 观战房间详情
+ * @param {Object} request.roomDetail.watchRoom.watchInfo 观战房间信息
+ * @param {string} request.roomDetail.watchRoom.watchInfo.roomID 房间ID
+ * @param {number} request.roomDetail.watchRoom.watchInfo.state 观战房间状态，1：回放房间；2：游戏中房间
+ * @param {Object} request.roomDetail.watchRoom.watchInfo.watchSetting 观战设置
+ * @param {number} request.roomDetail.watchRoom.watchInfo.watchSetting.maxWatch 最大观战人数
+ * @param {boolean} request.roomDetail.watchRoom.watchInfo.watchSetting.watchPersistent 观战是否持久化
+ * @param {number} request.roomDetail.watchRoom.watchInfo.watchSetting.watchDelayMs 观战延迟时间，单位为毫秒
+ * @param {number} request.roomDetail.watchRoom.watchInfo.watchSetting.cacheTime 缓存时间
+ * @param {number} request.roomDetail.watchRoom.watchInfo.curWatch 当前观战人数
+ * @param {Object[]} request.roomDetail.watchRoom.watchPlayersList 观战用户列表
+ * @param {number} request.roomDetail.watchRoom.watchPlayersList[].userID 用户ID
+ * @param {Uint8Array} request.roomDetail.watchRoom.watchPlayersList[].userProfile 用户profile
  * @memberof App
  */
 onRoomDetail(request)
