@@ -45,23 +45,29 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 
 ```shell
 F:\>matchvs login
-	Email or Mobile phone: 						# 输入你注册的邮箱或手机号
-	Password: 									# 输入密码
+	Email or Mobile phone: 						# 输入你注册的邮箱或手机号，Cocos 和 Egret 使用各自渠道的注册邮箱
+	Password: 									# 输入密码，Cocos 和 Egret 使用 Matchvs 生成的命令行工具密码
 	1 -- Matchvs
 	2 -- Cocos
 	3 -- Egret（白鹭）
+	4 -- 阿里云
 	channel（请在上面的渠道列表选择，输入序号）： 	   # 选择账号注册渠道
 ```
 
 输入账号和密码，然后命令行工具会提示选择账号注册渠道，这里根据自己的账号类型进行选择：
 
 * Matchvs：直接在Matchvs官网注册的用户
-
-* Cocos：在Cocos官网授权登录的用户
-
-* Egret：在Egret官网授权登录的用户
+* Cocos：Cocos授权登录的用户，登录账号为 Cocos 的注册邮箱
+* Egret：Egret授权登录的用户，登录账号为 Egret 的注册邮箱
+* 阿里云：购买阿里云市场 Matchvs 镜像版的用户
 
 **同一个邮箱可以在多个渠道注册，但是数据并不互通。**
+
+Cocos 和 Egret 渠道的密码获取方式：
+
+![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/命令行工具密码.png)
+
+进入“gameServer”列表，点击右上角显示命令行工具密码。
 
 
 
