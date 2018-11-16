@@ -42,6 +42,7 @@ engine.init(response, channel, platform, gameID)
 - response中设置一些回调方法，在执行注册、登录、发送事件等操作对应的方法之后，reponse中的回调函数会被SDK异步调用。
 - 在连接至 Matchvs前须对SDK进行初始化操作。此时选择连接测试环境（alpha）还是正式环境（release）。
 - 如果游戏属于调试阶段则连接至测试环境，游戏调试完成后即可发布到正式环境运行。
+- 如果 Matchvs 服务正在升级，init 接口会放回 510 错误码，开发者可以选择是否需要展示“服务升级”的提示。
 
 
 
