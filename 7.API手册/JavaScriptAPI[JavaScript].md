@@ -199,7 +199,7 @@ registerUserResponse :function (userInfo) {
 ## login
 
 ```javascript
-engine.login(userID, token, gameID, gameVersion, appKey, secretKey, deviceID, gatewayID)
+engine.login(userID, token, gameID, gameVersion, appKey, deviceID)
 ```
 
 #### 参数

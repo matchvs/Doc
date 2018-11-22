@@ -196,7 +196,7 @@ class MsEngine {
 ### login
 
 ```typescript
-engine.login(userID: number, token: string, gameID: number, gameVersion: number, appKey: string, secretKey: string, deviceID: string, gatewayID: number): number
+engine.login(userID: number, token: string, gameID: number, gameVersion: number, appKey: string, deviceID: string): number
 ```
 
 #### 参数
