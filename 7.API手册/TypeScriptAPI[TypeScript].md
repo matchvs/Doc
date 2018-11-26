@@ -208,9 +208,7 @@ engine.login(userID: number, token: string, gameID: number, gameVersion: number,
 | gameID      | number | 游戏ID，来自Matchvs控制台游戏信息        | 210329 |
 | gameVersion | number | 游戏版本，自定义，用于隔离匹配空间       | 1      |
 | appKey      | string | 游戏App key，来自Matchvs控制台游戏信息   | ""     |
-| secretKey   | string | secret key，来自Matchvs控制台游戏信息    | ""     |
 | deviceID    | string | 设备ID，用于多端登录检测，请保证是唯一ID | ""     |
-| gatewayID   | number | 服务器节点ID，默认为0                    | 0      |
 
 #### 返回值
 
