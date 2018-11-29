@@ -27,20 +27,20 @@ Git支持在Linux、Windows等系统上使用，这里主要对这两种系统�
   ![image](http://imgs.matchvs.com/static/gitSetup6.png)  
   ![image](http://imgs.matchvs.com/static/gitSetup7.png)   
   ![image](http://imgs.matchvs.com/static/gitSetup8.png)   
- 
-  
+
+
  点击"Finish"即完成安装。  
- 
+
   然后鼠标"右键"，如下图所示，点击 "Git Bash Here"便可打开Git命令行窗口  
  ![image](http://imgs.matchvs.com/static/gitBash.png)   
- 
- 
+
+
 ### Linux  
  很多新版的Linux系统都已经集成了git，先尝试执行 git；  
  如果出现如下的界面（不同系统可能稍有不同），表示已经安装，无需再重新安装。  
-  
+
  ![image](http://imgs.matchvs.com/static/gitLinux.png)   
- 
+
 如果提示"command not found"，表示未安装。 
 对于未安装的情况，CentOS系统可以通过`yum`命令安装，如下 ：  
 `yum -y install git`  
@@ -52,9 +52,14 @@ Git支持在Linux、Windows等系统上使用，这里主要对这两种系统�
 
 ## clone远程仓库  
 `git clone $remote.addr.git $local_project_name `  
-如下图所示，将远程仓库clone到本地目录 cpserver；  
-对于一个空的仓库，进入cpserver目录,其中会有个文件README.md表示clone成功  
-![image](http://imgs.matchvs.com/static/gitClone.png)
+如下图所示，将远程仓库clone到本地目录；  
+
+clone 时，账号密码来源于 **gameServer 列表页**：
+
+![image](http://imgs.matchvs.com//static/Doc-img/new-start/gameServerimg/gsCLI1.png)
+
+对于一个空的仓库，进入仓库目录,其中会有个文件README.md表示clone成功  
+![image](http://imgs.matchvs.com//static/Doc-img/new-start/gameServerimg/git.png)
 
 ## 连接远程仓库  
 初始化本地仓库目录：`git init`   
@@ -65,7 +70,6 @@ Git支持在Linux、Windows等系统上使用，这里主要对这两种系统�
 ![image](http://imgs.matchvs.com/static/gitConn.png) 
 
 ## 查看远程仓库地址
-`cd cpserver`
 `git remote -v`    
 
 ![image](http://imgs.matchvs.com/static/gitRemote.png)   
