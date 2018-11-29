@@ -39,7 +39,7 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 ## 开发者帐号登录
 `matchvs login`  
 
-使用在Matchvs官网 **gameServer 列表顶部账号和密码**进行登录，如果还没有官网账号，请前往[Matchvs官网](http://www.matchvs.com/vsRegister)进行注册。
+使用在Matchvs官网 **注册邮箱**和**gameServer 列表顶部密码**进行登录，如果还没有官网账号，请前往[Matchvs官网](http://www.matchvs.com/vsRegister)进行注册。
 
 系统生成的账号密码用于登录命令行工具和git仓库：
 
@@ -49,7 +49,7 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 
 ```shell
 F:\>matchvs login
-	Email or Mobile phone: 						# 输入gameServer列表页的账号
+	Email or Mobile phone: 						# 输入官网注册的账号邮箱
 	Password: 									# 输入gameServer列表页的密码
 	1 -- Matchvs
 	2 -- Cocos
