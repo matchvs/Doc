@@ -39,14 +39,18 @@ matchvs命令行工具是由Matchvs开发平台提供的命令行执行工具，
 ## 开发者帐号登录
 `matchvs login`  
 
-使用在Matchvs官网注册的账号和密码进行登录，如果还没有账号，请前往[Matchvs官网](http://www.matchvs.com/vsRegister)进行注册。
+使用在Matchvs官网 **gameServer 列表顶部账号和密码**进行登录，如果还没有官网账号，请前往[Matchvs官网](http://www.matchvs.com/vsRegister)进行注册。
 
-根据提示输入邮箱（手机号）和密码进行登录：
+系统生成的账号密码用于登录命令行工具和git仓库：
+
+![](http://imgs.matchvs.com//static/Doc-img/new-start/gameServerimg/gsCLI1.png)
+
+根据提示输入账号密码进行登录：
 
 ```shell
 F:\>matchvs login
-	Email or Mobile phone: 						# 输入你注册的邮箱或手机号，Cocos 和 Egret 使用各自渠道的注册邮箱
-	Password: 									# 输入密码，Cocos 和 Egret 使用 Matchvs 生成的命令行工具密码
+	Email or Mobile phone: 						# 输入gameServer列表页的账号
+	Password: 									# 输入gameServer列表页的密码
 	1 -- Matchvs
 	2 -- Cocos
 	3 -- Egret（白鹭）
@@ -62,12 +66,6 @@ F:\>matchvs login
 * 阿里云：购买阿里云市场 Matchvs 镜像版的用户
 
 **同一个邮箱可以在多个渠道注册，但是数据并不互通。**
-
-Cocos 和 Egret 渠道的密码获取方式：
-
-![](http://imgs.matchvs.com/static/Doc-img/gamePub/GameServerImg/命令行工具密码.png)
-
-进入“gameServer”列表，点击右上角显示命令行工具密码。
 
 
 
