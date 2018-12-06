@@ -1,6 +1,6 @@
 ## 创建房间
 
-房间被创建时，gameServer 会触发`onCreateRoom()`消息，如有"房间创建“的相关逻辑应写在该方法里。 
+房间被创建时，gameServer 会触发`onCreateRoom()`消息，如有"房间创建“的相关逻辑应写在该方法里。
 
 ```c#
 public override IMessage OnCreateRoom(ByteString msg)
@@ -375,7 +375,7 @@ public override IMessage OnHotelBroadCast(ByteString msg)
     Logger.Info("HotelBroadcast start, userID:{0} gameID:{1} roomID:{2} cpProto:{3}", broadcast.UserID, broadcast.GameID, broadcast.RoomID, broadcast.CpProto.ToStringUtf8());
 
     HotelBroadcastAck broadcastAck = new HotelBroadcastAck() { UserID = broadcast.UserID, Status = (UInt32)ErrorCode.Ok };
-    
+
  	Logger.Info("HotelBroadcast end, userID:{0} gameID:{1} roomID:{2} cpProto:{3}", broadcast.UserID, broadcast.GameID, broadcast.RoomID, broadcast.CpProto.ToStringUtf8());
 
     return broadcastAck;
@@ -648,6 +648,7 @@ public override void OnRoomDetail(ByteString msg)
 | CreateFlag   | uint         | 房间创建途径：1 系统创建房间、2 玩家创建房间 |
 | PlayerInfos  | PlayerInfo[] | 房间用户列表                                 |
 | WatchRoom    | WatchInfo    | 房间观战详情                                 |
+| Brigades     | BrigadeInfo[]| 大队列表                                     |
 
 `PlayerInfo`数据结构：
 
@@ -680,6 +681,31 @@ public override void OnRoomDetail(ByteString msg)
 | WatchPersistent | bool | 观战是否持久化           |
 | WatchDelayMs    | uint | 观战延迟时间，单位为毫秒 |
 | CacheTime       | uint | 缓存时间                 |
+
+`BrigadeInfo`数据结构：
+
+| 字段      | 类型          | 含义    |
+| --------- | ------------ | ------- |
+| BrigadeID | uint         | 大队ID   |
+| Teams     | TeamDetail[] | 小队列表 |
+
+`TeamDetail`数据结构：
+
+| 字段     | 类型          | 含义        |
+| -------- | ------------ | ----------- |
+| TeamInfo | TeamInfo     | 小队信息     |
+| Player   | PlayerInfo[] | 小队队员列表 |
+
+`TeamInfo`数据结构：
+
+| 字段        | 类型   | 含义                       |
+| ---------- | ------ | -------------------------- |
+| TeamID     | ulong  | 小队ID                     |
+| Password   | string | 小队密码                    |
+| Capacity   | uint   | 小队的容量                  |
+| Mode       | int    | 游戏模式                    |
+| Visibility | int    | 小队的可见性：0不可见，1可见 |
+| Owner      | uint   | 小队队长                    |
 
 
 
@@ -892,5 +918,3 @@ public void FrameBroadcast(UInt64 roomId, UInt32 gameId, ByteString cpProto, Int
 | 415    | 房间不为空                                      |
 | 416    | 不允许自己踢自己                                |
 | 50x    | 未找到运行中的 gameServer，请检查 roomConf 配置 |
-
-

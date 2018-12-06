@@ -6,7 +6,7 @@
 ```javascript
 /**
  * 创建房间
- * @param {Object} request 
+ * @param {Object} request
  * @param {number} request.gameID 游戏ID
  * @param {string} request.roomID 房间ID
  * @param {number} request.userID 用户ID
@@ -42,7 +42,7 @@ Matchvs 提供了在 gameServer 里主动创建房间的接口`createRoom()`。�
  * @param {number} msg.roomInfo.visibility 房间是否可见：0不可见，1可见
  * @param {string|Uint8Array} msg.roomInfo.roomProperty 房间属性
  * @param {Object} msg.watchSetting 观战设置
- * @param {number} msg.watchSetting.maxWatch 最大观战人数 
+ * @param {number} msg.watchSetting.maxWatch 最大观战人数
  * @param {boolean} msg.watchSetting.watchPersistent 观战是否持久化
  * @param {number} msg.watchSetting.watchDelayMs 观战延迟时间，单位为毫秒，最大取值3600000毫秒
  * @param {number} msg.watchSetting.cacheTime 缓存时间
@@ -80,7 +80,7 @@ touchRoom(msg, callback)
 /**
 * 删除房间
 * @param {Object} request
-* @param {number} request.gameID 游戏ID 
+* @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @memberof App
 */
@@ -108,7 +108,7 @@ destroyRoom(msg, callback)
 ```javascript
 /**
  * 玩家加入房间
- * @param {Object} request 
+ * @param {Object} request
  * @param {number} request.gameID 游戏ID
  * @param {string} request.roomID 房间ID
  * @param {number} request.userID 用户ID
@@ -129,8 +129,8 @@ onJoinRoom(request)
 ```javascript
 /**
 * 房间停止加人
-* @param {Object} request 
-* @param {number} request.gameID 游戏ID 
+* @param {Object} request
+* @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number} request.userID 用户ID
 * @memberof App
@@ -144,7 +144,7 @@ Matchvs提供了在 gameServer 里主动发起 JoinOver 的接口。调用该接
 /**
 * 推送joinOver
 * @param {Object} msg joinOver消息结构
-* @param {number} msg.gameID 游戏ID 
+* @param {number} msg.gameID 游戏ID
 * @param {string} msg.roomID 房间ID
 * @memberof Push
 */
@@ -158,7 +158,7 @@ joinOver(msg)
 ```javascript
 /**
 * 房间允许加人
-* @param {Object} request 
+* @param {Object} request
 * @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number} request.userID 用户ID
@@ -173,7 +173,7 @@ Matchvs 提供了在 gameServer 里主动发起JoinOpen的接口。调用该接�
 /**
 * 推送joinOpen
 * @param {Object} msg joinOpen消息结构
-* @param {number} msg.gameID 游戏ID 
+* @param {number} msg.gameID 游戏ID
 * @param {string} msg.roomID 房间ID
 * @memberof Push
 */
@@ -187,9 +187,9 @@ joinOpen(msg)
 ```javascript
 /**
 * 自定义消息
-* @param {Object} request 
+* @param {Object} request
 * @param {number} request.userID 用户ID
-* @param {number} request.gameID 游戏ID 
+* @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number[]} request.destsList 目标玩家列表
 * @param {Uint8Array} request.cpProto 自定义消息内容
@@ -208,7 +208,7 @@ onReceiveEvent(request)
 * 推送自定义消息
 * @param {Object} msg 自定义消息结构
 * @param {number} msg.gameID 游戏ID
-* @param {string} msg.roomID 房间ID 
+* @param {string} msg.roomID 房间ID
 * @param {number} msg.pushType 推送类型，配合destsList使用
 *      1：推送给列表中的指定用户，2：推送给除列表中指定用户外的其他用户，3：推送给房间内的所有用户
 * @param {number[]} msg.destsList userID列表
@@ -225,8 +225,8 @@ pushEvent(msg)
 ```javascript
 /**
 * 玩家离开房间
-* @param {Object} request 
-* @param {number} request.gameID 游戏ID 
+* @param {Object} request
+* @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number} request.userID 用户ID
 * @memberof App
@@ -241,7 +241,7 @@ onLeaveRoom(request)
 ```javascript
 /**
 * 踢人
-* @param {Object} request 
+* @param {Object} request
 * @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number} request.userID 用户ID
@@ -270,8 +270,8 @@ kickPlayer(msg)
 ```javascript
 /**
 * 同步玩家状态
-* @param {Object} request 
-* @param {number} request.gameID 游戏ID 
+* @param {Object} request
+* @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number} request.userID 用户ID
 * @param {number} request.state 1.网络异常、正在重连 2.重连成功 3.重连失败，退出房间
@@ -289,7 +289,7 @@ Matchvs 提供了在gameServer 里查询房间详情的接口，查询结果在`
 * 查询房间详情
 * @param {Object} msg getRoomDetail消息结构
 * @param {string} msg.roomID 房间ID
-* @param {number} msg.gameID 游戏ID 
+* @param {number} msg.gameID 游戏ID
 * @param {number} msg.latestWatcherNum 查询最新加入的n个人的信息
 * @memberof Push
 */
@@ -304,7 +304,7 @@ getRoomDetail(msg)
  * @param {string} request.roomID 房间ID
  * @param {number} request.userID 用户ID
  * @param {Object} request.roomDetail 房间详情
- * @param {string} request.roomDetail.roomID 房间ID 
+ * @param {string} request.roomDetail.roomID 房间ID
  * @param {number} request.roomDetail.state 房间状态：1开放、2关闭
  * @param {number} request.roomDetail.maxPlayer 房间最大人数
  * @param {number} request.roomDetail.mode 模式
@@ -328,6 +328,19 @@ getRoomDetail(msg)
  * @param {Object[]} request.roomDetail.watchRoom.watchPlayersList 观战用户列表
  * @param {number} request.roomDetail.watchRoom.watchPlayersList[].userID 用户ID
  * @param {Uint8Array} request.roomDetail.watchRoom.watchPlayersList[].userProfile 用户profile
+ * @param {Object[]} request.roomDetail.brigadesList 大队列表
+ * @param {number} request.roomDetail.brigadesList[].brigadeID 大队ID
+ * @param {Object[]} request.roomDetail.brigadesList[].teamsList 小队列表
+ * @param {Object} request.roomDetail.brigadesList[].teamsList.teamInfo 小队信息
+ * @param {string} request.roomDetail.brigadesList[].teamsList.teamInfo.teamID 小队ID
+ * @param {string} request.roomDetail.brigadesList[].teamsList.teamInfo.password 小队密码
+ * @param {number} request.roomDetail.brigadesList[].teamsList.teamInfo.capacity 小队的容量
+ * @param {number} request.roomDetail.brigadesList[].teamsList.teamInfo.mode 游戏模式
+ * @param {number} request.roomDetail.brigadesList[].teamsList.teamInfo.visibility 小队的可见性：0 不可见、1 可见
+ * @param {number} request.roomDetail.brigadesList[].teamsList.teamInfo.owner 小队的队长
+ * @param {Object[]} request.roomDetail.brigadesList[].teamsList.playerList 小队的队员列表
+ * @param {number} request.roomDetail.brigadesList[].teamsList.playerList[].userID 小队队员的用户ID
+ * @param {Uint8Array} request.roomDetail.brigadesList[].teamsList.playerList[].userProfile 小队队员的用户profile
  * @memberof App
  */
 onRoomDetail(request)
@@ -340,7 +353,7 @@ onRoomDetail(request)
 ```javascript
 /**
 * 修改房间自定义属性
-* @param {Object} request 
+* @param {Object} request
 * @param {number} request.gameID 游戏ID
 * @param {string} request.roomID 房间ID
 * @param {number} request.userID 用户ID
@@ -389,7 +402,7 @@ onSetFrameSyncRate(request)
 /**
 * 设置帧率
 * @param {Object} msg
-* @param {number} msg.gameID 游戏ID 
+* @param {number} msg.gameID 游戏ID
 * @param {string} msg.roomID 房间ID
 * @param {number} msg.frameRate 帧率（0到20，且能被1000整除）
 * @param {number} msg.enableGS gameServer 是否参与帧同步（0：不参与；1：参与）
@@ -416,7 +429,7 @@ setFrameSyncRate(msg)
 * @param {number} request.frameWaitCount 等待的帧数
 * @memberof App
 */
-onFrameUpdate(request) 
+onFrameUpdate(request)
 ```
 
 ## 发送帧同步消息
@@ -458,5 +471,3 @@ frameBroadcast(msg)
 | 415    | 房间不为空                                      |
 | 416    | 不允许自己踢自己                                |
 | 50x    | 未找到运行中的 gameServer，请检查 roomConf 配置 |
-
-
