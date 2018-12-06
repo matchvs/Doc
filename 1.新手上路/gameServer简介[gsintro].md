@@ -82,7 +82,7 @@ Matchvs 提供了数据存储功能，详情可以参考[数据存储教程](htt
 
 当您的 gameServer 出现异常时，Matchvs 将会发送告警通知。您需要提前在告警设置页面，添加告警联系人。
 
-![](./gswarn.png)
+![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/gswarn.png)
 
 勾选联系人列表并点击保存，则之后如果 gameServer 异常，该联系人将会收到告警邮件。
 
