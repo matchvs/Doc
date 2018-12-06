@@ -103,9 +103,10 @@ gameServer 本地开发调试完成后需要将代码推送到 Matchvs 远程仓
 
 **1. 游戏已经发布上线**；
 
-**2. 本地调试通过，并且已经将代码推送到 Matchvs 远程仓库。**
+**2. 本地调试通过，并且已经将代码推送到 Matchvs 远程仓库。**  
 
 
+**如果修改了 gameServer 代码，则在 git 更新代码后，须先发布，然后重启 gameServer，之后才会运行更新后的 gameServer。**
 
 前往 Matchvs 官网控制台：
 
