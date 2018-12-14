@@ -849,11 +849,11 @@ public void GetCacheData(UInt64 roomId, UInt32 gameId, Int32 cacheFrameMS, UInt3
 }
 ```
 `GSGetCacheData`数据结构：
-| 字段         | 类型  | 含义                                            |
-| ------------ | ----- | ----------------------------------------------- |
-| GameID       | uint  | 游戏ID                                          |
-| RoomID       | ulong | 房间ID                                          |
-| CacheFrameMS | int   | 缓存帧的毫秒数(-1表示获取所有，毫秒数的上限为1小时) |
+| 字段          | 类型  | 含义                                             |
+| ------------ | ----- | ------------------------------------------------ |
+| GameID       | uint  | 游戏ID                                           |
+| RoomID       | ulong | 房间ID                                           |
+| CacheFrameMS | int   | 缓存帧的毫秒数(-1表示获取所有，毫秒数的上限为1小时)  |
 
 该接口在 gameServer 中为“通知类型”的接口（不会有响应的ACK），而想要获取的帧缓存数据（历史帧数据）会直接从下面的函数“ **OnHotelFrameUpdate** ”中返回。
 
