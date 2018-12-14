@@ -377,9 +377,9 @@ onSetRoomProperty(request)
 setRoomProperty(msg)
 ```
 
-## 设置帧同步帧率
+## 设置帧同步帧率以及帧缓存
 
-当客户端修改房间帧同步帧率时，gameServer 触发`onSetFrameSyncRate()`，开发者可以将"设置房间帧同步帧率“的相关逻辑写到该方法里。
+当客户端修改房间帧同步帧率以及帧缓存时，gameServer 触发`onSetFrameSyncRate()`，开发者可以将“设置房间帧同步帧率以及帧缓存”的相关逻辑写到该方法里。
 
 ```javascript
 /**
@@ -391,12 +391,13 @@ setRoomProperty(msg)
 * @param {number} request.frameIndex 初始帧编号
 * @param {string} request.timestamp 时间戳
 * @param {number} request.enableGS gameServer 是否参与帧同步
+* @param {number} request.cacheFrameMS 缓存帧的毫秒数(0为不开启缓存功能,-1为缓存所有数据,该毫秒数的上限为1小时)
 * @memberof App
 */
 onSetFrameSyncRate(request)
 ```
 
-另外 Matchvs 提供了在 gameServer 里设置房间帧同步帧率的接口：
+另外 Matchvs 提供了在 gameServer 里设置房间帧同步帧率以及帧缓存的接口：
 
 ```javascript
 /**
@@ -406,10 +407,27 @@ onSetFrameSyncRate(request)
 * @param {string} msg.roomID 房间ID
 * @param {number} msg.frameRate 帧率（0到20，且能被1000整除）
 * @param {number} msg.enableGS gameServer 是否参与帧同步（0：不参与；1：参与）
+* @param {number} msg.cacheFrameMS 缓存帧的毫秒数(0为不开启缓存功能,-1为缓存所有数据,该毫秒数的上限为1小时)
 * @memberof Push
 */
 setFrameSyncRate(msg)
 ```
+
+## 获取帧缓存数据（补帧）
+
+gameServer 可以主动获取“已经设置了帧缓存”的房间的历史帧数据。该接口：
+```javascript
+/**
+ * 获取帧缓存数据
+ * @param {Object} msg
+ * @param {number} msg.gameID 游戏ID
+ * @param {string} msg.roomID 房间ID
+ * @param {number} msg.cacheFrameMS 缓存帧的毫秒数(-1表示获取所有缓存数据，该字段的赋值上限为1小时)
+ * @memberof Push
+ */
+getCacheData(msg)
+```
+该接口在 gameServer 中为“通知类型”的接口（不会有响应的ACK），而想要获取的帧缓存数据（历史帧数据）会直接从下面的“ **onFrameUpdate** ”中返回。
 
 ## 接收帧同步消息
 

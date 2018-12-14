@@ -776,9 +776,9 @@ public void PushSetRoomProperty(UInt64 roomId, UInt32 gameId, ByteString roomPro
 
 
 
-## 设置帧同步帧率
+## 设置帧同步帧率以及帧缓存
 
-当客户端修改房间帧同步帧率时，gameServer 触发`OnHotelSetFrameSyncRate()`，开发者可以将"设置房间帧同步帧率“的相关逻辑写到该方法里。
+当客户端修改房间帧同步帧率以及帧缓存时，gameServer 触发`OnHotelSetFrameSyncRate()`，开发者可以将“设置房间帧同步帧率以及帧缓存”的相关逻辑写到该方法里。
 
 ```c#
 public override void OnHotelSetFrameSyncRate(FrameSyncRate request)
@@ -790,19 +790,20 @@ public override void OnHotelSetFrameSyncRate(FrameSyncRate request)
 
 `FrameSyncRate`数据结构：
 
-| 字段       | 类型  | 含义                                           |
-| ---------- | ----- | ---------------------------------------------- |
-| GameID     | uint  | 游戏ID                                         |
-| RoomID     | ulong | 房间ID                                         |
-| FrameRate  | uint  | 同步帧率                                       |
-| FrameIndex | uint  | 初始帧编号                                     |
-| Timestamp  | ulong | 系统时间戳                                     |
-| EnableGS   | uint  | GameServer是否参与帧同步（0：不参与；1：参与） |
+| 字段         | 类型  | 含义                                                  |
+| ------------ | ----- | -----------------------------------------------------|
+| GameID       | uint  | 游戏ID                                               |
+| RoomID       | ulong | 房间ID                                               |
+| FrameRate    | uint  | 同步帧率                                             |
+| FrameIndex   | uint  | 初始帧编号                                            |
+| Timestamp    | ulong | 系统时间戳                                            |
+| EnableGS     | uint  | GameServer是否参与帧同步（0：不参与；1：参与）          |
+| CacheFrameMS | int   | 缓存帧的毫秒数(0为不开启缓存功能，-1为缓存所有数据，毫秒数的上限为1小时) |
 
-另外 Matchvs 提供了在 gameServer 里设置房间帧同步帧率的接口：
+另外 Matchvs 提供了在 gameServer 里设置房间帧同步帧率以及帧缓存的接口：
 
 ```c#
-public void SetFrameSyncRate(UInt64 roomId, UInt32 gameId, UInt32 rate, UInt32 enableGS, UInt32 userId = 1, UInt32 version = 2)
+public void SetFrameSyncRate(UInt64 roomId, UInt32 gameId, UInt32 rate, UInt32 enableGS, Int32 cacheFrameMS, UInt32 userId = 1, UInt32 version = 2)
 {
     GSSetFrameSyncRate setFrameSyncRateReq = new GSSetFrameSyncRate()
     {
@@ -812,6 +813,7 @@ public void SetFrameSyncRate(UInt64 roomId, UInt32 gameId, UInt32 rate, UInt32 e
         Priority = 0,
         FrameIdx = 1,
         EnableGS = enableGS,
+        CacheFrameMS = cacheFrameMS,
     };
     baseServer.PushToHotel(userId, version, roomId, (UInt32)HotelGsCmdID.GssetFrameSyncRateCmdid, setFrameSyncRateReq);
 }
@@ -819,14 +821,41 @@ public void SetFrameSyncRate(UInt64 roomId, UInt32 gameId, UInt32 rate, UInt32 e
 
 `GSSetFrameSyncRate`数据结构：
 
-| 字段       | 类型  | 含义                                                  |
-| ---------- | ----- | ----------------------------------------------------- |
-| GameID     | uint  | 游戏ID                                                |
-| RoomID     | ulong | 房间ID                                                |
-| Priority   | uint  | 保留字段，固定设置为0                                 |
-| FrameRate  | uint  | 同步帧率（0到20，且能被1000整除）                     |
-| FrameIndex | uint  | 初始帧编号（frameRate > 0 时有效），FrameIndex 需 > 0 |
-| EnableGS   | uint  | gameServer是否参与帧同步（0：不参与；1：参与）        |
+| 字段         | 类型  | 含义                                                  |
+| ------------ | ----- | ----------------------------------------------------- |
+| GameID       | uint  | 游戏ID                                                |
+| RoomID       | ulong | 房间ID                                                |
+| Priority     | uint  | 保留字段，固定设置为0                                 |
+| FrameRate    | uint  | 同步帧率（0到20，且能被1000整除）                     |
+| FrameIndex   | uint  | 初始帧编号（frameRate > 0 时有效），FrameIndex 需 > 0 |
+| EnableGS     | uint  | gameServer是否参与帧同步（0：不参与；1：参与）        |
+| CacheFrameMS | int   | 缓存帧的毫秒数(0为不开启缓存功能，-1为缓存所有数据，毫秒数的上限为1小时)|
+
+
+
+## 获取帧缓存数据（补帧）
+
+gameServer 可以主动获取“已经设置了帧缓存”的房间的历史帧数据。该接口：
+```c#
+public void GetCacheData(UInt64 roomId, UInt32 gameId, Int32 cacheFrameMS, UInt32 userId = 1, UInt32 version = 2)
+{
+    GSGetCacheData getCacheDataReq = new GSGetCacheData()
+    {
+        GameID = gameId,
+        RoomID = roomId,
+        CacheFrameMS = cacheFrameMS,
+    };
+    baseServer.PushToHotel(userId, version, roomId, (UInt32)HotelGsCmdID.GsgetCacheDataCmdid, getCacheDataReq);
+}
+```
+`GSGetCacheData`数据结构：
+| 字段         | 类型  | 含义                                            |
+| ------------ | ----- | ----------------------------------------------- |
+| GameID       | uint  | 游戏ID                                          |
+| RoomID       | ulong | 房间ID                                          |
+| CacheFrameMS | int   | 缓存帧的毫秒数(-1表示获取所有，毫秒数的上限为1小时) |
+
+该接口在 gameServer 中为“通知类型”的接口（不会有响应的ACK），而想要获取的帧缓存数据（历史帧数据）会直接从下面的函数“ **OnHotelFrameUpdate** ”中返回。
 
 
 
