@@ -849,6 +849,7 @@ public void GetCacheData(UInt64 roomId, UInt32 gameId, Int32 cacheFrameMS, UInt3
 }
 ```
 `GSGetCacheData`数据结构：
+
 | 字段          | 类型  | 含义                                             |
 | ------------ | ----- | ------------------------------------------------ |
 | GameID       | uint  | 游戏ID                                           |
