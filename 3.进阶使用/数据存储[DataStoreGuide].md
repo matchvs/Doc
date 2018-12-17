@@ -288,7 +288,7 @@ appKey&gameID=xxx&userID=xxx&token
 - `appKey`为您在官网配置游戏所得
 - `token`通过用户注册请求获取
 
-##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。
+##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。结果 值是32位小写。
 
 ## sign值获取方法-全局
 
@@ -300,7 +300,7 @@ appkey&gameID=xxx&userID=xxx&appSecret
 
 - `appKey和appSecret`为您在官网配置游戏所得
 
-##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。
+##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。结果 值是32位小写。
 
 ## sign值获取方法-哈希
 
@@ -318,7 +318,7 @@ appKey&param1=value1&param2=value2&param3=value3&token
 
 - `token`通过用户注册请求获取
 
-##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。
+##### 2. 计算第一步拼接好的字符串的`MD5`值，即为`sign`的值。结果 值是32位小写。
 
 
 
@@ -471,10 +471,15 @@ class MvsHttpApi {
     
 	private dohttp( url:string, method:string, params:any, callback:Function){
 		var request = new egret.HttpRequest();
+        var Contenttype = (method == "GET" ? "text/plain" : "application/json");
         request.responseType = egret.HttpResponseType.TEXT;
         request.open(url, method);
-        request.setRequestHeader("Content-Type", method == "GET" ? "text/plain" : "application/json" );
-		method == "GET" ? request.send() : request.send(params);
+        request.setRequestHeader("Content-Type", Contenttype);
+        if (method == "GET" ){
+            request.send()
+        } else{
+            request.send(params);
+        } 
         request.addEventListener(egret.Event.COMPLETE,(event:egret.Event)=>{
             var request = <egret.HttpRequest>event.currentTarget;
             callback(JSON.parse(request.response), null);
@@ -647,8 +652,5 @@ class MvsHttpApi {
 ```
 
 > **注意：** 以上为示例代码为演示接口的调用方法，可能不能直接运行，开发者根据自己需求适当的修改。
-
-
-
 
 

@@ -375,12 +375,12 @@ engine.joinRoomWithProperties(matchInfo, userProfile, watchSet)
 
 #### MVS.MsWatchSet 的属性
 
-| 属性       | 类型   | 描述                 | 示例值          |
-| ---------- | ------ | -------------------- | --------------- |
-| cacheMS    | number | 缓存多久的数据       | 6*1000（6分钟） |
-| maxWatch   | number | 最大人数             | 3               |
-| delayMS    | number | 观看延迟多久后的数据 | 2000            |
-| persistent | number | 是否持久缓存         | false           |
+| 属性       | 类型    | 描述                 | 示例值          |
+| ---------- | ------- | -------------------- | --------------- |
+| cacheMS    | number  | 缓存多久的数据       | 6*1000（6分钟） |
+| maxWatch   | number  | 最大人数             | 3               |
+| delayMS    | number  | 观看延迟多久后的数据 | 2000            |
+| persistent | boolean | 是否持久缓存         | false           |
 
 #### 返回值
 

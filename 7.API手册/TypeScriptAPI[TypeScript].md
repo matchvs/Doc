@@ -366,12 +366,12 @@ joinRoomWithProperties(matchinfo:MsMatchInfo, userProfile:string, watchSet?: MVS
 
 #### MVS.MsWatchSet 的属性
 
-| 属性       | 类型   | 描述                 | 示例值          |
-| ---------- | ------ | -------------------- | --------------- |
-| cacheMS    | number | 缓存多久的数据       | 6*1000（6分钟） |
-| maxWatch   | number | 最大人数             | 3               |
-| delayMS    | number | 观看延迟多久后的数据 | 2000            |
-| persistent | number | 是否持久缓存         | false           |
+| 属性       | 类型    | 描述                 | 示例值          |
+| ---------- | ------- | -------------------- | --------------- |
+| cacheMS    | number  | 缓存多久的数据       | 6*1000（6分钟） |
+| maxWatch   | number  | 最大人数             | 3               |
+| delayMS    | number  | 观看延迟多久后的数据 | 2000            |
+| persistent | boolean | 是否持久缓存         | false           |
 
 > ags为匹配标签，开发者通过设置不同的标签进行自定义属性匹配，相同MsMatchInfo的玩家将会被匹配到一起。
 
