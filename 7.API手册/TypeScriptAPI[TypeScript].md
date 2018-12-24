@@ -1585,7 +1585,7 @@ engine.setFrameSync(frameRate:number，enableGS?:number, other?:any ):number
 | --------- | ------ | ------------------------------------------------------------ | ------ |
 | frameRate | number | 帧率: 0关闭。其他值表示帧率                                  | 10     |
 | enableGS  | number | 是否启用gameServer帧同步 0-启用 1-不启用                     | 0      |
-| other     | object | 其他数，目前包含一个值：cacheMs 断线后缓存帧数据的时间，只有帧同步有效，单位毫秒，最多有效一个小时 | 10000  |
+| other     | object | 其他数，目前包含一个值：cacheFrameMs 断线后缓存帧数据的时间，只有帧同步有效，单位毫秒，最多有效一个小时 | 10000  |
 
 #### 返回值
 
@@ -1599,6 +1599,7 @@ engine.setFrameSync(frameRate:number，enableGS?:number, other?:any ):number
 | -7     | 正在创建或者进入房间             |
 | -6     | 未加入房间                       |
 | -20    | frameRate 不能超过 20，不能小于0 |
+| -25    | cacheFrameMs 超过最大值          |
 
 setFrameSync 设置帧率，参数值设置 0表示关闭，参数值大于0表示打开，不调用为关闭。帧率须能被1000整除
 
@@ -1740,8 +1741,8 @@ class MsEngine{
 
 用户断线后可以调用次接口进行重连，重连具体教程可以参考 [断线重连详细文档](http://www.matchvs.com/service?page=reconnect) 。
 
-- 请求重连接口：reconnect, setReconnectTimeout
-- 重连回调接口：reconnectResponse, setReconnectTimeoutResponse
+- 请求接口：reconnect, setReconnectTimeout，getOffLineData
+- 回调接口：reconnectResponse, setReconnectTimeoutResponse，getOffLineDataResponse
 
 ### reconnect
 
@@ -1840,6 +1841,39 @@ response.setReconnectTimeoutResponse(status:number):void
 | 参数   | 类型   | 描述                | 示例值 |
 | ------ | ------ | ------------------- | ------ |
 | status | number | 状态值 200 设置成功 | 200    |
+
+### getOffLineData
+
+获取断线期间的帧数据，只有在开启了帧同步的时候使用，调用这个接口后，在断线期间游戏的数据会通过 frameUpdate 接口返回指定时间内的数据。
+```typescript
+engine.getOffLineData(cacheFrameMS:number)
+```
+
+#### 参数
+
+| 参数         | 类型   | 描述                                      | 示例值 |
+| ------------ | ------ | ----------------------------------------- | ------ |
+| cacheFrameMS | number | 获取断线多久之内的缓存数据，上限为1个小时 | 10000  |
+
+#### 返回码
+
+- 略
+
+### getOffLineDataResponse
+
+调用 getOffLineData 接口获取断线期间的帧数据，这个接口会返回是否调用成功通知和，缓存的帧数据数量。
+
+```javascript
+response.getOffLineDataResponse(rsp)
+```
+
+#### 参数 rsp 属性
+
+| 属性       | 类型   | 描述     | 示例值 |
+| ---------- | ------ | -------- | ------ |
+| status     | number | 状态值   | 200    |
+| frameCount | number | 帧数量   | 10     |
+| msgCount   | number | 消息数量 | 20     |
 
 
 
@@ -2491,54 +2525,6 @@ TSSDK版本：v1.6.1+
 
 ```
 1、新增日志控制类型 MatchvsLog,用于打开或者关闭 sdk 的日志输出
-```
-
-时间：2018.05.29
-
-TSSDK版本：v1.6.202
-
-```
-1. 新增joinOpen 房间重新打开功能
-2. 修复微信小游戏真机断线问题
-3. 调整微信小游戏适配机制,只需引用matchvs.all.js,不再引用matchvs.all.weixin.js
-4. 修复Egret打包H5平台 `找不到 wx define` 的问题
-5. 修复uninit后不能后登录的问题
-6. 修复被kickPlayer后不能进入房间,返回-8或-10的问题.
-7. 代码优化,减少代码体积
-```
-
-时间：2018.04.17
-TSSDK版本：JSSDK_v1.6.x
-
-```
-1、新增断线重连接口 reconnect 和回调接口 reconnectResponse
-```
-
-时间：2018.04.13
-
-TSSDK版本：JSSDK_v1.5.X
-
-内容：
-
-```
-1、新增 功能接口 setRoomProperty 和回调 setRoomPropertyResponse、setRoomPropertyNotify 。
-```
-
-时间：2018.03.30
-
-TSSDK版本：JSSDK_v1.4.x
-
-内容：
-
-```
-1、新增 getRoomListEx 和 getRoomListExResponse接口
-2、新增 getRoomDetail 和 getRoomDetailResponse接口
-3、新增 joinOverNotify 接口
-4、优化 kickPlayerResponse 接口，添加参数 被踢者userID
-5、添加 netWorkStateNotify 异步回调接口说明
-6、添加 gameServerNotify 接收gameServer 推送消息接口
-7、优化 .d.ts 文件 中 sendEventGroupNotify 返回参数与 js文件不一致问题。
-8、新增接口调用错误码返回
 ```
 
 
