@@ -30,6 +30,12 @@ networkStateNotify 接口 state 结果值
 - 如果用户用户不能 再重连了彻底离开了房间 state为 3。
 - 如果用户重连成功了 networkStateNotify 接口没有通知，需要玩家自己使用 sendEvent 接口发送消息 告诉其他人。
 
+## 重连时间设置
+
+断线重连超时时间可以通过 setReconnectTimeout 接口设置，每次进入房间都要调用这个接口，设置才能生效，如果进入房间前没有设置，那么就会变成默认时间 20 秒。 超时时间不能设置 0。接口说明可查看这里  [API文档](http://www.matchvs.com/service?page=JavaScript)   
+
+
+
 ## 重连方法
 
 玩家断线后在超时时间内可调用reconnect接口重连到原来房间，无论房间处于哪一种状态都可以连上。重连回房间使用方式有两种。
