@@ -1061,6 +1061,8 @@ class MsEngine{
 
 在游戏中，玩家之间相互同步信息，把自己的位置，得分等情况发送给其他玩家，让其他玩家能够同步修改自己的信息。一个房间消息的总传递速率是每秒500次，500次是指房间 **所有人接收和发送的总次数** 。
 
+**注意** 给GameServer发送消息调用sendEventEx()。
+
 - 请求接口：sendEvent、sendEventEx
 - 回调接口：sendEventResponse、sendEventNotify、gameServerNotify (gameServer 推送的消息回调)
 

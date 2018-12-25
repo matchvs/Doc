@@ -1189,6 +1189,8 @@ setRoomPropertyNotify : function (notify) {
 engine.sendEvent(msg)
 ```
 
+**注意** 给GameServer发送消息调用sendEventEx()。
+
 #### 参数
 
 | 参数 | 类型   | 描述     | 示例值  |
@@ -1234,7 +1236,7 @@ console.log("发送信息 result"+ data.result);
 ## sendEventEx
 
 ```javascript
-engine.sendEventEx(type, cpProto, targetType, [targetUserID])
+engine.sendEventEx(type, cpProto, targetType, targetUserID)
 ```
 
 #### 参数
@@ -1299,7 +1301,7 @@ response.sendEventResponse(sendEventRsp)
 | sequence | number | 事件序号，作为事件的唯一标识，可以参考sendEvent，对这个字段的详细说明 | 231212 |
 
 #### 说明
-- 客户端调用engine.sendEvent发送消息之后，SDK异步调用reponse.sendEventResponse方法告诉客户端消息是否发送成功。
+- 客户端调用engine.sendEvent或engine.sendEventEx发送消息之后，SDK异步调用reponse.sendEventResponse方法告诉客户端消息是否发送成功。
 
 #### 示例
 
@@ -1329,7 +1331,7 @@ response.sendEventNotify(eventInfo)
 
 #### 说明
 
-- 在其他客户端调用engine.sendEvent方法之后，本客户端的response.sendEventNotify会被SDK调用，调用时传入其他玩家的用户ID和发送的消息。
+- 在其他客户端调用engine.sendEvent或engine.sendEventEx方法之后，本客户端的response.sendEventNotify会被SDK调用，调用时传入其他玩家的用户ID和发送的消息。
 
 #### 示例
 
@@ -1426,6 +1428,7 @@ engine.kickPlayer(userID, cpProto)
 #### 说明
 
 - kickPlayer 用于剔除玩家，房间任何人都可以调用这个接口，参数userID 可以是房间内任意一个，自己也可以剔除自己。主要剔除方式由开发者自己制定。
+- 如果是房主被踢出房间，服务器会在房间中剩下的玩家中重新指定一个房主通过`kickPlayerResponse`,`kickPlayerNotify`返回给房间中剩余的玩家。
 
 #### 示例
 
