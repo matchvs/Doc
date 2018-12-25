@@ -6,7 +6,7 @@
 
 下面举一个简单的例子,帮我们理解 gameServer 框架。
 
-有一个抢小饼干的游戏，两个玩家几乎“同时”抢到小饼干:
+有一个抢小饼干的游戏，两个玩家几乎“同时”抢到小饼干:  
 
 ![](http://imgs.matchvs.com/static/Doc-img/new-start/gameServerimg/gsex.png)
 

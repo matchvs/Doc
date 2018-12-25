@@ -375,12 +375,12 @@ engine.joinRoomWithProperties(matchInfo, userProfile, watchSet)
 
 #### MVS.MsWatchSet 的属性
 
-| 属性       | 类型   | 描述                 | 示例值          |
-| ---------- | ------ | -------------------- | --------------- |
-| cacheMS    | number | 缓存多久的数据       | 6*1000（6分钟） |
-| maxWatch   | number | 最大人数             | 3               |
-| delayMS    | number | 观看延迟多久后的数据 | 2000            |
-| persistent | number | 是否持久缓存         | false           |
+| 属性       | 类型    | 描述                 | 示例值          |
+| ---------- | ------- | -------------------- | --------------- |
+| cacheMS    | number  | 缓存多久的数据       | 6*1000（6分钟） |
+| maxWatch   | number  | 最大人数             | 3               |
+| delayMS    | number  | 观看延迟多久后的数据 | 2000            |
+| persistent | boolean | 是否持久缓存         | false           |
 
 #### 返回值
 
@@ -1045,17 +1045,19 @@ response.getRoomDetailResponse(rsp);
 
 #### 参数 rsp 的属性
 
-| 参数         | 类型                  | 描述                                  | 示例值 |
-| ------------ | --------------------- | ------------------------------------- | ------ |
-| status       | number                | 接口状态 200 成功 <br>404 房间不存在 <br>500 服务器内部错误                   |        |
-| state        | number                | 房间状态 1-开放 2-关闭                |        |
-| maxPlayer    | number                | 最大人数                              |        |
-| mode         | number                | 模式                                  |        |
-| canWatch     | number                | 是否可以观战 1-可以 2-不可以          |        |
-| roomProperty | string                | 房间属性                              |        |
-| owner        | number                | 房主                                  |        |
-| createFlag   | number                | 创建方式 0-未知 1-系统创建 2-玩家创建 |        |
-| userInfos    | Array<MsRoomUserInfo> | 用户列表信息                          |        |
+| 参数         | 类型                  | 描述                                                        | 示例值 |
+| ------------ | --------------------- | ----------------------------------------------------------- | ------ |
+| status       | number                | 接口状态 200 成功 <br>404 房间不存在 <br>500 服务器内部错误 |        |
+| state        | number                | 房间状态 1-开放 2-关闭                                      |        |
+| maxPlayer    | number                | 最大人数                                                    |        |
+| mode         | number                | 模式                                                        |        |
+| canWatch     | number                | 是否可以观战 1-可以 2-不可以                                |        |
+| roomProperty | string                | 房间属性                                                    |        |
+| owner        | number                | 房主                                                        |        |
+| createFlag   | number                | 创建方式 0-未知 1-系统创建 2-玩家创建                       |        |
+| userInfos    | Array<MsRoomUserInfo> | 用户列表信息                                                |        |
+| watchinfo    | object                | 观战信息                                                    |        |
+| brigades     | Array<object>         | 组队列表信息                                                |        |
 
 #### MsRoomUserInfo 的属性
 
@@ -1063,6 +1065,35 @@ response.getRoomDetailResponse(rsp);
 | ----------- | ------ | -------- | ------ |
 | userID      | number | 用户ID   | 32322  |
 | userProfile | string | 玩家简介 | ""     |
+
+#### watchinfo 属性
+
+| 属性       | 类型    | 描述                                         | 示例值 |
+| ---------- | ------- | -------------------------------------------- | ------ |
+| curWatch   | number  | 房间当前观战者人数                           | 3      |
+| persistent | boolean | 观战信息是否持久保存                         | false  |
+| maxWatch   | number  | 最大观战人数                                 | 6      |
+| delayMS    | number  | 延迟时间，可观看延迟多久的数据（单位毫秒）   | 6000   |
+| cacheTime  | number  | 缓存时间，游戏最大能缓存多久的数据(单位毫秒) | 60000  |
+
+#### brigades 属性
+
+| 属性      | 类型          | 描述           | 示例值 |
+| --------- | ------------- | -------------- | ------ |
+| brigadeID | number        | 大队伍的ID     | 1      |
+| teamList  | Array<object> | 小队伍信息列表 |        |
+
+#### teamList 数据项属性
+
+| 属性       | 类型          | 描述       | 示例值                |
+| ---------- | ------------- | ---------- | --------------------- |
+| teamID     | string        | 小队伍ID号 | 131113213211323121231 |
+| capacity   | number        | 小队伍人数 | 5                     |
+| mode       | number        | 自定义参数 | 0                     |
+| owner      | number        | 队长       | 123456                |
+| playerList | Array<object> | 队伍成员   |                       |
+
+
 
 #### 说明
 
@@ -1616,10 +1647,11 @@ engine.setFrameSync(frameRate, enableGS)
 
 #### 参数
 
-| 参数      | 类型   | 描述                                     | 示例值 |
-| --------- | ------ | ---------------------------------------- | ------ |
-| frameRate | number | 每秒钟同步的帧数 : 0关闭。               | 5      |
-| enableGS  | number | 是否启用gameServer帧同步 0-启用 1-不启用 | 0      |
+| 参数      | 类型   | 描述                                                         | 示例值 |
+| --------- | ------ | ------------------------------------------------------------ | ------ |
+| frameRate | number | 每秒钟同步的帧数 : 0关闭。                                   | 5      |
+| enableGS  | number | 是否启用gameServer帧同步 0-启用 1-不启用                     | 0      |
+| other     | object | 其他数，目前包含一个值：cacheMs 断线后缓存帧数据的时间，只有帧同步有效，单位毫秒，最多有效一个小时 | 10000  |
 
 #### 返回值
 
@@ -1688,12 +1720,13 @@ response.setFrameSyncNotify(rsp);
 
 #### 参数 rsp 属性
 
-| 参数       | 类型   | 描述                                     | 示例值 |
-| ---------- | ------ | ---------------------------------------- | ------ |
-| frameRate  | number | 帧率                                     | 10     |
-| startIndex | number | 序号                                     | 1      |
-| timestamp  | string | 时间戳                                   |        |
-| enableGS   | number | 是否启用gameServer帧同步 0-启用 1-不启用 | 0      |
+| 参数         | 类型   | 描述                                                         | 示例值 |
+| ------------ | ------ | ------------------------------------------------------------ | ------ |
+| frameRate    | number | 帧率                                                         | 10     |
+| startIndex   | number | 序号                                                         | 1      |
+| timestamp    | string | 时间戳                                                       |        |
+| enableGS     | number | 是否启用gameServer帧同步 0-启用 1-不启用                     | 0      |
+| cacheFrameMS | number | 断线后缓存帧数据的时间，只有帧同步有效，单位毫秒，最多有效一个小时 | 10000  |
 
 
 

@@ -35,9 +35,10 @@ Matchvs SDK 一些附带 status 参数的回调接口中具体的参数值可参
 | 508    | 当前用户不在房间                               |
 | 509    | 目标用户不在房间了                               |
 | 510    | 服务正在升级                               |
-| 520    | gameServer 代理打开失败（尝试重启）                            |
+| 520    | 未检测到 gameServer ，请检查是否成功启动 gameServer                            |
 | 521    | gameServer 不存在。                                          |
 | 523    | gameServer 内部请求错误。                                |
 | 522    | 没有打开帧同步，请调用setFrameSync接口设置帧率               |
+| 527    | gameServer 通信错误，请退出所有用户，重启gameServer |
 | 527    | 消息发送太频繁，请不要超过每个房间 500次/秒(总人数 (总接收+总发送)) |
 
