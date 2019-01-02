@@ -1251,7 +1251,7 @@ engine.sendEvent(msg)
 
 #### 说明
 
-- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里除自己外其他所有成员。
+- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里除自己外其他所有成员。回调函数是   sendEventResponse
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
 - 可以发送二进制数据，开发者可以将数据用json、pb等工具先进行序列化，然后将序列化后的数据通过SendEvent的一系列接口发送。
 
@@ -1267,17 +1267,17 @@ console.log("发送信息 result"+ data.result);
 ## sendEventEx
 
 ```javascript
-engine.sendEventEx(type, cpProto, targetType, targetUserID)
+engine.sendEventEx(msgType, data, destType, userIDs)
 ```
 
 #### 参数
 
-| 参数         | 类型   | 描述                                     | 示例值      |
-| ------------ | ------ | ---------------------------------------- | ----------- |
-| type         | number | 消息类型。0表示转发给房间成员；1表示转发给game server；2表示转发给房间成员及game server | 0           |
-| cpProto      | string | 消息内容                                 | "hello"     |
-| targetType   | number | 目标类型。0表示发送目标为目标列表成员；1表示发送目标为除目标列表成员以外的房间成员 | 0           |
-| targetUserID | array  | 目标列表                                 | [1001,1002] |
+| 参数     | 类型   | 描述                                                         | 示例值      |
+| -------- | ------ | ------------------------------------------------------------ | ----------- |
+| msgType  | number | 消息类型。0表示转发给房间成员；1表示转发给game server；2表示转发给房间成员及game server | 0           |
+| data     | string | 消息内容                                                     | "hello"     |
+| destType | number | 目标类型。0表示发送目标为目标列表成员；1表示发送目标为除目标列表成员以外的房间成员 | 0           |
+| userIDs  | array  | 目标列表                                                     | [1001,1002] |
 
 #### 返回值
 
@@ -1305,14 +1305,22 @@ engine.sendEventEx(type, cpProto, targetType, targetUserID)
 
 #### 说明
 
-- 在进入房间后即可调用该接口进行消息发送，消息会发给房间里所有成员。
+- 在进入房间后即可调用该接口进行消息发送，msgType 参数控制消息发送到哪了， destType 和 userIDs 参数控制消息发送给谁。消息回调接口 sendEventResponse
 - 同一客户端多次调用engine.sendEvent方法时，每次返回的sequence都是唯一的。但同一房间的不同客户端调用sendEvent时生成的sequence之间会出现重复。
 
 #### 示例
 
 ```javascript
-//发送给房间中的全部玩家
+//发送给房间中的全部玩家，destType = 1, userIDs = []
 var data = mvs.engine.sendEventEx(0,msg,1,[]);
+console.log("发送信息 result"+ data.result);
+}
+//发送指定玩家 123456，destType = 0, userIDs = [123456]
+var data = mvs.engine.sendEventEx(0,msg,0,[123456]);
+console.log("发送信息 result"+ data.result);
+}
+//发送 排除 123456 玩家，destType = 1, userIDs = []
+var data = mvs.engine.sendEventEx(0,msg, 1,[123456]);
 console.log("发送信息 result"+ data.result);
 }
 ```

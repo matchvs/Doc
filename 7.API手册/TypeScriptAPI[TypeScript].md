@@ -1133,10 +1133,10 @@ engine.sendEvent(data:string):any
 
 ### sendEventEx
 
- `sendEvent` 是 `sendEventEx` 接口的二次封装，只是 `sendEvent` 接口默认把消息发送给了房间其他人。如果需要把消息发送房间指定人员，或者只想把消息发送给 `gameServer` 那么就需要使用 `sendEventEx` 这个接口。想了解 `gameServer` 查看 [gameServer 文挡](http://www.matchvs.com/service?page=guideJSgameServer)
+ `sendEvent` 是 `sendEventEx` 接口的二次封装，只是 `sendEvent` 接口默认把消息发送给了房间其他人。如果需要把消息发送房间指定人员，或者只想把消息发送给 `gameServer` 那么就需要使用 `sendEventEx` 这个接口。想了解 `gameServer` 查看 [gameServer 文挡](http://www.matchvs.com/service?page=guideJSgameServer) 
 
 ```typescript
-engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array <number> ):any
+engine.sendEventEx(msgType:number, data:string, destType:number, userIDs:Array <number> ):any
 ```
 
 #### 参数
@@ -1145,8 +1145,23 @@ engine.sendEventEx(msgType:number, data:string, desttype:number, userids:Array <
 | -------- | ------------- | ------------------------------------------------------------ | ----------- |
 | msgType  | number        | 消息发送的地方：0-发客户端不发gameServer  1-不发客户端+发gameServer   2-发客户端 发gameServer | 0           |
 | data     | string        | 要发送的数据                                                 | “hello”     |
-| desttype | number        | 0-包含destUids用户  1-排除destUids的用户                     | 2           |
-| userids  | Array<number> | 玩家ID集合                                                   | [1234,4567] |
+| destType | number        | 0-包含destUids用户  1-排除destUids的用户                     | 2           |
+| userIDs  | Array<number> | 玩家ID集合                                                   | [1234,4567] |
+
+> 提示：senEventEx 参数示例说明
+>
+> //发送给房间中的全部玩家，destType = 1, userIDs = []
+> var data = mvs.engine.sendEventEx(0,msg,1,[]);
+> ​	console.log("发送信息 result"+ data.result);
+> }
+> //发送指定玩家 123456，destType = 0, userIDs = [123456]
+> var data = mvs.engine.sendEventEx(0,msg,0,[123456]);
+> ​	console.log("发送信息 result"+ data.result);
+> }
+> //发送 排除 123456 玩家，destType = 1, userIDs = []
+> var data = mvs.engine.sendEventEx(0,msg, 1,[123456]);
+> ​	console.log("发送信息 result"+ data.result);
+> }
 
 #### 返回值
 
