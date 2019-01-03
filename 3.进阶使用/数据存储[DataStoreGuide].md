@@ -338,24 +338,13 @@ appKey&param1=value1&param2=value2&param3=value3&token
 class MvsHttpApi {
 	//这里定义接口要使用的连接
 	public  open_host:string = MatchvsData.pPlatform == "release"? "https://vsopen.matchvs.com":"https://alphavsopen.matchvs.com";
-	public  rank_list:string = "/rank/ranking_list?";
-    public  rank_user:string = "/rank/grades?";
-
+	
 	public  get_game_data:string = "/wc5/getGameData.do?";
 	public  set_game_data:string = "/wc5/setGameData.do?";
-    public  del_game_data:string = "/wc5/delGameData.do?";
-
-    public  set_user_data:string = "/wc5/setUserData.do?";
-    public  get_user_data:string = "/wc5/getUserData.do?";
-    public  del_user_data:string = "/wc5/delUserData.do?";
-
-    public  hase_set:string = "/wc5/hashSet.do?";
-    public  hash_get:string = "/wc5/hashGet.do?";
+	
+    ......
 
     private counter:number = Math.floor(Math.random()*1000);
-
-    // 第三方绑定
-    private third_bind:string = "/wc6/thirdBind.do?";
 
     public token = GlobalData.myUser.token;
     public gameID = MatchvsData.gameID;
@@ -532,131 +521,11 @@ class MvsHttpApi {
 		this.http_post(MvsHttpApi.url_Join(this.open_host, this.set_game_data), params, callback);
     }
     
-    /**
-     * 删除全局接口数据
-     */
-    public delGameData(userID:number, list:Array<any>, callback){
-        let keyList = [];
-        list.forEach(k=>{
-            keyList.push({key:k});
-        });
-        let args = {
-            gameID:  this.gameID,
-            userID:  userID,
-            keyList: keyList,
-            sign: "",
-            mode:2,
-            seq: this.getCounter(),
-            ts:this.getTimeStamp(),
-        }
-        args.sign = this.SignPoint(args,["gameID","userID"]);
-        let params = MvsHttpApi.paramsParse(args);
-		this.http_get(MvsHttpApi.url_Join(this.open_host, this.del_game_data) + params, callback);
-    }
     
-    /**
-     * 保存用户接口数据
-     */
-    public setUserData(userID, List, callback){
-        let listInfo = [];
-        list.forEach(user=>{
-            listInfo.push({
-                key: user.userID,
-                value: ArrayTools.Base64Encode(JSON.stringify({ name: user.name, avatar: user.avatar })),
-            });
-        });
-        let params = {
-            gameID : this.gameID,
-            userID : userID,
-            dataList: listInfo,
-            sign : "",
-            mode : 1,
-            seq: this.getCounter(),
-            ts:this.getTimeStamp(),
-        }
-        params.sign = this.SignPoint(params, ["gameID", "userID"]);
-		this.http_post(MvsHttpApi.url_Join(this.open_host, this.set_user_data), params, callback);
-    }
-    
-    /**
-     * 获取用户接口数据
-     */
-    public getUserData(userID, List, callback){
-        let keyList = [];
-        list.forEach(k=>{
-            keyList.push({key:k});
-        });
-        let args = {
-            gameID:  this.gameID,
-            userID:  userID,
-            keyList: keyList,
-            sign: "",
-            mode:1,
-            seq: this.getCounter(),
-            ts:this.getTimeStamp(),
-        }
-        args.sign = this.SignPoint(args, ["gameID","userID"]);
-        let params = MvsHttpApi.paramsParse(args);
-		this.http_get(MvsHttpApi.url_Join(this.open_host, this.get_user_data)+params, callback);
-    }
-    
-    /**
-     * 删除用户接口数据
-     */
-    public delUserData(userID, List, callback){
-        let keyList = [];
-        list.forEach(k=>{
-            keyList.push({key:k});
-        });
-        let args = {
-            gameID:  this.gameID,
-            userID:  userID,
-            keyList: keyList,
-            sign: "",
-            mode:1,
-            seq: this.getCounter(),
-            ts:this.getTimeStamp(),
-        }
-        args.sign = this.SignPoint(args, ["gameID","userID"]);
-        let params = MvsHttpApi.paramsParse(args);
-		this.http_get(MvsHttpApi.url_Join(this.open_host, this.del_user_data)+params, callback);
-    }
-    /**
-     * 存哈希
-     */
-    public hashSet(userID:number, k:string, v:string, callback:Function){
-        let params = {
-            gameID: this.gameID,
-            key: k,
-            userID: userID,
-            value: v,
-            sign:"",
-            mode : 1,
-            seq: this.getCounter(),
-            ts:this.getTimeStamp(),
-        }
-        params.sign = this.SignPoint(params, ["gameID","userID","value","key"]);
-        this.http_post(MvsHttpApi.url_Join(this.open_host, this.hash_get), params, callback);
-    }
-
-    /**
-     * 取哈希
-     */
-    public hashGet(userID:number, k:string, callback:Function){
-        let params = {
-            gameID: this.gameID,
-            key: k,
-            userID: userID,
-            sign:"",
-            mode : 1,
-            seq: this.getCounter(),
-            ts:this.getTimeStamp(),
-        }
-        params.sign = this.SignPoint(params, ["gameID", "userID", "key"]);
-        this.http_get(MvsHttpApi.url_Join(this.open_host, this.hash_get) + params, callback);
-    }
 ```
 
-> **注意：** 以上为示例代码为演示接口的调用方法，可能不能直接运行，开发者根据自己需求适当的修改。
+> 示例代码是斗地主案例，完整代码 [可以看这里](https://github.com/matchvs/Poke/blob/dev/client/src/matchvs/MvsHttpApi.ts) 
+>
+> 注意：** 以上为示例代码为演示接口的调用方法，可能不能直接运行，开发者根据自己需求适当的修改。
 
 
