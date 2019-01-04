@@ -55,8 +55,6 @@ response.createTeamResponse(rsp)
 
 #### 参数 rsp 属性
 
-eaminfo 是 MVS.MsCreateTeamInfo 的对象
-
 | 属性   | 类型   | 描述            | 示例值                |
 | ------ | ------ | --------------- | --------------------- |
 | status | number | 状态值 200 成功 | 200                   |
@@ -95,8 +93,6 @@ engine.joinTeam(teaminfo)
 ```
 
 #### 参数 teaminfo 属性
-
-teaminfo 是MVS.MsJoinTeamInfo 类型
 
 | 属性        | 类型   | 描述           | 示例值                |
 | ----------- | ------ | -------------- | --------------------- |
